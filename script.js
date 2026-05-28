@@ -1119,6 +1119,7 @@ function startGame(){
   gameRunning = true;
   paused = false;
   loop();
+  initCity();
 
 }
 
