@@ -6,6 +6,7 @@ if(!canvas){
 
 const ctx = canvas.getContext("2d");
 
+
 /* =========================================
    TAMANHO
 ========================================= */
@@ -393,7 +394,7 @@ glow.addColorStop( .4, "rgba(255,255,255,.05)");
 glow.addColorStop( 1, "rgba(255,255,255,0)");
 ctx.fillStyle = glow;
 ctx.beginPath();
-ctx.rect( -4, -9, 3, 16,);
+ctx.rect( -4, -9, 3, 16);
 ctx.fill();
 
   /* =========================================
@@ -458,7 +459,7 @@ function drawF1(car,isEnemy = false){
   ctx.fillStyle =
   isEnemy ? "#111" : "#050505";
   ctx.beginPath();
-  ctx.rect( -32, -42, 64, 10,);
+  ctx.rect( -32, -42, 64, 10);
   ctx.fill();
 
   /* =========================================
@@ -479,7 +480,7 @@ function drawF1(car,isEnemy = false){
   ========================================= */
 
   ctx.beginPath();
-  ctx.rect( -7, -48, 14, 28,);
+  ctx.rect( -7, -48, 14, 28);
   ctx.fill();
 
   /* =========================================
@@ -487,12 +488,7 @@ function drawF1(car,isEnemy = false){
   ========================================= */
 
   const bodyGrad =
-  ctx.createLinearGradient(
-    0,
-    -35,
-    0,
-    45
-  );
+  ctx.createLinearGradient( 0,-35, 0, 45);
 
   bodyGrad.addColorStop(
     0,
@@ -521,7 +517,7 @@ function drawF1(car,isEnemy = false){
   ctx.fillStyle =
   "rgba(255,255,255,.35)";
   ctx.beginPath();
-  ctx.rect( -3, -24, 6, 58,);
+  ctx.rect( -3, -24, 6, 58);
   ctx.fill();
 
   /* =========================================
@@ -533,7 +529,7 @@ function drawF1(car,isEnemy = false){
   ? "#222"
   : "#050505";
   ctx.beginPath();
-  ctx.rect( -10, -4, 20, 30,);
+  ctx.rect( -10, -4, 20, 30);
   ctx.fill();
 
   /* VIDRO */
@@ -541,7 +537,7 @@ function drawF1(car,isEnemy = false){
   ctx.fillStyle =
   "rgba(120,220,255,.35)";
   ctx.beginPath();
-  ctx.rect( -6, 1, 12, 14,);
+  ctx.rect( -6, 1, 12, 14);
   ctx.fill();
 
   /* =========================================
@@ -552,11 +548,11 @@ function drawF1(car,isEnemy = false){
   "rgba(0,0,0,.45)";
 
   ctx.beginPath();
-  ctx.rect(-24,-2,8,20,);
+  ctx.rect(-24,-2,8,20);
   ctx.fill();
 
   ctx.beginPath();
-  ctx.rect(16,-2,8,20,);
+  ctx.rect(16,-2,8,20);
   ctx.fill();
 
   /* =========================================
@@ -566,7 +562,7 @@ function drawF1(car,isEnemy = false){
   ctx.fillStyle =
   isEnemy ? "#111" : "#000";
   ctx.beginPath();
-  ctx.rect( -28, 42, 56, 10,);
+  ctx.rect( -28, 42, 56, 10);
   ctx.fill();
 
   /* SUPORTE ASA */
