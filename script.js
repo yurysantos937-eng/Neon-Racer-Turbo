@@ -1,4 +1,9 @@
 const canvas = document.getElementById("game");
+
+if(!canvas){
+  console.error("Canvas não encontrado");
+}
+
 const ctx = canvas.getContext("2d");
 
 /* =========================================
@@ -1065,7 +1070,10 @@ function renderGame(){
   }
 
   drawRoad();
-  if(toggleParticles.checked){
+  if(
+    toggleParticles &&
+    toggleParticles.checked
+  ){
     createNitroParticles();
   }
   drawParticles();
@@ -1076,7 +1084,10 @@ function renderGame(){
   }
 
   drawF1(player,false);
-  if(toggleWeather.checked){
+  if(
+    toggleWeather &&
+    toggleWeather.checked
+  ){
     updateWeather();
   }
   updateHUD();
