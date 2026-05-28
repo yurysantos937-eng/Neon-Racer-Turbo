@@ -294,25 +294,13 @@ sideGrad.addColorStop(0,"rgba(0,0,0,.10)");
 sideGrad.addColorStop(1,"rgba(0,0,0,.35)");
 
 ctx.fillStyle = sideGrad;
-
 ctx.fillRect(0,0,roadX,H);
-
-ctx.fillRect(
-  roadX + roadW,
-  0,
-  roadX,
-  H
-);
+ctx.fillRect( roadX + roadW, 0, roadX, H);
 
   /* ASFALTO */
 
   ctx.fillStyle = "#161b24";
-  ctx.fillRect(
-    roadX,
-    0,
-    roadW,
-    H
-  );
+  ctx.fillRect( roadX, 0, roadW, H);
 
   /* REFLEXO */
 
@@ -335,20 +323,9 @@ ctx.fillRect(
   ctx.shadowBlur = 15;
   ctx.shadowColor = "#00d0ff";
   ctx.fillStyle = "#00d0ff";
-  ctx.fillRect(
-    roadX - 2,
-    0,
-    2,
-    H
-  );
+  ctx.fillRect(roadX - 2, 0, 2, H);
 
-  ctx.fillRect(
-    roadX + roadW,
-    0,
-    2,
-    H
-  );
-
+  ctx.fillRect( roadX + roadW, 0, 2, H);
   ctx.shadowBlur = 0;
 
   /* LINHAS */
@@ -358,12 +335,7 @@ ctx.fillRect(
     roadX + laneW * i;
     for(let y = -80; y < H + 80; y += 80){
       ctx.fillStyle = "#fff";
-      ctx.fillRect(
-        x - 2,
-        y + (roadOffset % 80),
-        4,
-        40
-      );
+      ctx.fillRect( x - 2, y + (roadOffset % 80), 4, 40);
 
     }
 
@@ -397,7 +369,7 @@ function drawWheel(x, y){
   tireGrad.addColorStop(1, "#1a1a1a");
   ctx.fillStyle = tireGrad;
   ctx.beginPath();
-  ctx.roundRect( -7, -13, 14, 26, 6);
+  ctx.rect( -7, -13, 14, 26);
   ctx.fill();
 
 
@@ -421,7 +393,7 @@ glow.addColorStop( .4, "rgba(255,255,255,.05)");
 glow.addColorStop( 1, "rgba(255,255,255,0)");
 ctx.fillStyle = glow;
 ctx.beginPath();
-ctx.roundRect( -4, -9, 3, 16, 2);
+ctx.rect( -4, -9, 3, 16, 2);
 ctx.fill();
 
   /* =========================================
@@ -429,18 +401,9 @@ ctx.fill();
   ========================================= */
 
   if(speed > 8){
-
     ctx.globalAlpha = .10;
-
     ctx.fillStyle = "#ffffff";
-
-    ctx.fillRect(
-      -2,
-      -18,
-      4,
-      36
-    );
-
+    ctx.fillRect(-2, -18, 4, 36);
     ctx.globalAlpha = 1;
 
   }
@@ -494,17 +457,8 @@ function drawF1(car,isEnemy = false){
 
   ctx.fillStyle =
   isEnemy ? "#111" : "#050505";
-
   ctx.beginPath();
-
-  ctx.roundRect(
-    -32,
-    -42,
-    64,
-    10,
-    5
-  );
-
+  ctx.rect( -32, -42, 64, 10, 5);
   ctx.fill();
 
   /* =========================================
@@ -525,7 +479,7 @@ function drawF1(car,isEnemy = false){
   ========================================= */
 
   ctx.beginPath();
-  ctx.roundRect( -7, -48, 14, 28, 8 );
+  ctx.rect( -7, -48, 14, 28, 8);
   ctx.fill();
 
   /* =========================================
@@ -556,17 +510,8 @@ function drawF1(car,isEnemy = false){
   );
 
   ctx.fillStyle = bodyGrad;
-
   ctx.beginPath();
-
-  ctx.roundRect(
-    -18,
-    -34,
-    36,
-    84,
-    16
-  );
-
+  ctx.rect( -18, -34, 36, 84);
   ctx.fill();
 
   /* =========================================
@@ -575,17 +520,8 @@ function drawF1(car,isEnemy = false){
 
   ctx.fillStyle =
   "rgba(255,255,255,.35)";
-
   ctx.beginPath();
-
-  ctx.roundRect(
-    -3,
-    -24,
-    6,
-    58,
-    4
-  );
-
+  ctx.rect( -3, -24, 6, 58, 4);
   ctx.fill();
 
   /* =========================================
@@ -596,34 +532,16 @@ function drawF1(car,isEnemy = false){
   isEnemy
   ? "#222"
   : "#050505";
-
   ctx.beginPath();
-
-  ctx.roundRect(
-    -10,
-    -4,
-    20,
-    30,
-    10
-  );
-
+  ctx.rect( -10, -4, 20, 30, 10);
   ctx.fill();
 
   /* VIDRO */
 
   ctx.fillStyle =
   "rgba(120,220,255,.35)";
-
   ctx.beginPath();
-
-  ctx.roundRect(
-    -6,
-    1,
-    12,
-    14,
-    5
-  );
-
+  ctx.rect( -6, 1, 12, 14, 5);
   ctx.fill();
 
   /* =========================================
@@ -634,11 +552,11 @@ function drawF1(car,isEnemy = false){
   "rgba(0,0,0,.45)";
 
   ctx.beginPath();
-  ctx.roundRect(-24,-2,8,20,5);
+  ctx.rect(-24,-2,8,20, 5);
   ctx.fill();
 
   ctx.beginPath();
-  ctx.roundRect(16,-2,8,20,5);
+  ctx.rect(16,-2,8,20, 5);
   ctx.fill();
 
   /* =========================================
@@ -647,24 +565,14 @@ function drawF1(car,isEnemy = false){
 
   ctx.fillStyle =
   isEnemy ? "#111" : "#000";
-
   ctx.beginPath();
-
-  ctx.roundRect(
-    -28,
-    42,
-    56,
-    10,
-    5
-  );
-
+  ctx.rect( -28, 42, 56, 10, 5 );
   ctx.fill();
 
   /* SUPORTE ASA */
 
   ctx.fillStyle =
   "rgba(255,255,255,.2)";
-
   ctx.fillRect(-3,32,6,12);
 
   /* =========================================
