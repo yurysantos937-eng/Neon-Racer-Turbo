@@ -1169,197 +1169,363 @@ function activateNitro(){
 }
 
 /* =========================================
-   EVENTOS
+   EVENTOS + TECLADO + CONFIG
 ========================================= */
 
-tapPlay.addEventListener(
-  "click",
-  startGame
-);
+/* PLAY */
 
-againBtn.addEventListener(
-  "click",
-  startGame
-);
+if(tapPlay){
+  tapPlay.addEventListener(
+    "click",
+    startGame
+  );
+}
 
-btnRestart.addEventListener(
-  "click",
-  startGame
-);
+/* AGAIN */
 
-backMenuBtn.addEventListener(
-  "click",
-  () => {
+if(againBtn){
+  againBtn.addEventListener(
+    "click",
+    startGame
+  );
+}
 
-    gameRunning = false;
-    cancelAnimationFrame(animationId);
-    gameOverScreen.style.display = "none";
-    subwayStart.style.display = "flex";
+/* RESTART */
 
-  }
-);
+if(btnRestart){
+  btnRestart.addEventListener(
+    "click",
+    startGame
+  );
+}
 
-btnHome.addEventListener(
-  "click",
-  () => {
+/* BACK MENU */
 
-    gameRunning = false;
-    cancelAnimationFrame(animationId);
-    paused = false;
-    menuOpen = false;
-    menuOptions.style.display = "none";
-    garageScreen.style.display = "none";
-    settingsScreen.style.display = "none";
-    subwayStart.style.display = "flex";
+if(backMenuBtn){
+  backMenuBtn.addEventListener(
+    "click",
+    () => {
 
-  }
-);
-btnLeft.addEventListener(
-  "click",
-  moveLeft
-);
+      gameRunning = false;
 
-btnRight.addEventListener(
-  "click",
-  moveRight
-);
+      cancelAnimationFrame(animationId);
 
-btnNitro.addEventListener(
-  "click",
-  activateNitro
-);
+      if(gameOverScreen){
+        gameOverScreen.style.display = "none";
+      }
 
-document.addEventListener(
-  "keydown",
-  e => {
-
-    if(e.key === "ArrowLeft"){
-      moveLeft();
+      if(subwayStart){
+        subwayStart.style.display = "flex";
+      }
 
     }
+  );
+}
 
-    if(e.key === "ArrowRight"){
-      moveRight();
+/* HOME */
+
+if(btnHome){
+  btnHome.addEventListener(
+    "click",
+    () => {
+
+      gameRunning = false;
+
+      cancelAnimationFrame(animationId);
+
+      paused = false;
+
+      menuOpen = false;
+
+      if(menuOptions){
+        menuOptions.style.display = "none";
+      }
+
+      if(garageScreen){
+        garageScreen.style.display = "none";
+      }
+
+      if(settingsScreen){
+        settingsScreen.style.display = "none";
+      }
+
+      if(subwayStart){
+        subwayStart.style.display = "flex";
+      }
 
     }
+  );
+}
 
-    if(e.key === "Shift"){
-      activateNitro();
+/* BOTÕES MOBILE */
 
-    }
+if(btnLeft){
+  btnLeft.addEventListener(
+    "click",
+    moveLeft
+  );
+}
 
-  }
-);
+if(btnRight){
+  btnRight.addEventListener(
+    "click",
+    moveRight
+  );
+}
+
+if(btnNitro){
+  btnNitro.addEventListener(
+    "click",
+    activateNitro
+  );
+}
 
 /* =========================================
-   MENU / PAUSA
+   MENU PAUSE
 ========================================= */
 
-  let menuOpen = false;
+let menuOpen = false;
+
+if(menuBtn){
 
   menuBtn.addEventListener(
     "click",
     () => {
-  
+
       if(!gameRunning){
         return;
       }
-  
+
       menuOpen = !menuOpen;
+
       paused = menuOpen;
-      menuOptions.style.display =
-      menuOpen
-      ? "flex"
-      : "none";
-  
+
+      if(menuOptions){
+
+        menuOptions.style.display =
+        menuOpen
+        ? "flex"
+        : "none";
+
+      }
+
     }
   );
+
+}
 
 /* =========================================
    GARAGEM
 ========================================= */
 
-openGarage.addEventListener(
-  "click",
-  () => {
+if(openGarage){
 
-    /* fecha settings */
-    settingsScreen.style.display = "none";
+  openGarage.addEventListener(
+    "click",
+    () => {
 
-    /* fecha menu dropdown */
-    menuOptions.style.display = "none";
+      if(settingsScreen){
+        settingsScreen.style.display = "none";
+      }
 
-    /* abre garagem */
-    garageScreen.style.display = "flex";
+      if(menuOptions){
+        menuOptions.style.display = "none";
+      }
 
-    /* esconde menu inicial */
-    subwayStart.style.display = "none";
+      if(garageScreen){
+        garageScreen.style.display = "flex";
+      }
 
-  }
-);
+      if(subwayStart){
+        subwayStart.style.display = "none";
+      }
 
-garageBack.addEventListener(
-  "click",
-  () => {
+    }
+  );
 
-    garageScreen.style.display = "none";
+}
 
-    /* volta menu inicial */
-    subwayStart.style.display = "flex";
+/* VOLTAR GARAGEM */
 
-  }
-);
+if(garageBack){
+
+  garageBack.addEventListener(
+    "click",
+    () => {
+
+      if(garageScreen){
+        garageScreen.style.display = "none";
+      }
+
+      if(subwayStart){
+        subwayStart.style.display = "flex";
+      }
+
+    }
+  );
+
+}
 
 /* =========================================
-   SETTINGS
+   CONFIGURAÇÕES
 ========================================= */
 
 function closeAllScreens(){
 
-  subwayStart.style.display = "none";
-  garageScreen.style.display = "none";
-  settingsScreen.style.display = "none";
-  menuOptions.style.display = "none";
+  if(subwayStart){
+    subwayStart.style.display = "none";
+  }
+
+  if(garageScreen){
+    garageScreen.style.display = "none";
+  }
+
+  if(settingsScreen){
+    settingsScreen.style.display = "none";
+  }
+
+  if(menuOptions){
+    menuOptions.style.display = "none";
+  }
 
 }
 
-openSettings.addEventListener(
-  "click",
-  () => {
+/* ABRIR CONFIG */
 
-    closeAllScreens();
-    garagePalettes.style.display = "none";
-    settingsScreen.style.display = "flex";
+if(openSettings){
 
-  }
-);
+  openSettings.addEventListener(
+    "click",
+    () => {
 
-settingsBack.addEventListener(
-  "click",
-  () => {
+      closeAllScreens();
 
-    settingsScreen.style.display = "none";
-    subwayStart.style.display = "flex";
+      if(garagePalettes){
+        garagePalettes.style.display = "none";
+      }
 
-  }
-);
+      if(settingsScreen){
+        settingsScreen.style.display = "flex";
+      }
 
-paletteToggle.addEventListener(
-  "click",
-  () => {
+    }
+  );
 
-    const isOpen =
-    garagePalettes.classList.contains("active");
+}
 
-    if(isOpen){
+/* FECHAR CONFIG */
 
-      garagePalettes.classList.remove("active");
-      garagePalettes.style.display = "none";
+if(settingsBack){
 
-    }else{
+  settingsBack.addEventListener(
+    "click",
+    () => {
 
-      garagePalettes.classList.add("active");
-      garagePalettes.style.display = "grid";
+      if(settingsScreen){
+        settingsScreen.style.display = "none";
+      }
+
+      if(subwayStart){
+        subwayStart.style.display = "flex";
+      }
+
+    }
+  );
+
+}
+
+/* =========================================
+   PALETA DE CORES
+========================================= */
+
+if(paletteToggle){
+
+  paletteToggle.addEventListener(
+    "click",
+    () => {
+
+      if(!garagePalettes){
+        return;
+      }
+
+      const isOpen =
+      garagePalettes.classList.contains("active");
+
+      if(isOpen){
+
+        garagePalettes.classList.remove("active");
+
+        garagePalettes.style.display = "none";
+
+      }else{
+
+        garagePalettes.classList.add("active");
+
+        garagePalettes.style.display = "grid";
+
+      }
+
+    }
+  );
+
+}
+
+/* =========================================
+   TECLADO PC
+========================================= */
+
+document.addEventListener(
+  "keydown",
+  e => {
+
+    const key =
+    e.key.toLowerCase();
+
+    /* ESQUERDA */
+
+    if(
+      key === "arrowleft" ||
+      key === "a"
+    ){
+      moveLeft();
+    }
+
+    /* DIREITA */
+
+    if(
+      key === "arrowright" ||
+      key === "d"
+    ){
+      moveRight();
+    }
+
+    /* NITRO */
+
+    if(
+      key === "shift" ||
+      key === "w"
+    ){
+      activateNitro();
+    }
+
+    /* MENU */
+
+    if(
+      key === "escape"
+    ){
+
+      menuOpen = !menuOpen;
+
+      paused = menuOpen;
+
+      if(menuOptions){
+
+        menuOptions.style.display =
+        menuOpen
+        ? "flex"
+        : "none";
+
+      }
 
     }
 
