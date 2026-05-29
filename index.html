@@ -1,188 +1,485 @@
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
   <title>Neon Racer Turbo</title>
-  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="style.css"/>
+
 </head>
+
 <body>
-  <div class="game-wrap" id="game-wrap">
 
-    <div class="subway-start" id="subway-start">
+<div class="game-wrap">
 
-      <div class="garage-screen" id="garage-screen">
+  <!-- =========================================
+       TELA INICIAL
+  ========================================== -->
 
-        <div class="garage-top">
-          <button class="garage-back" id="garage-back">←</button>
-          <h2>GARAGEM</h2>
-        </div>
+  <div class="subway-start" id="subway-start">
 
-        <div class="garage-preview">
-          <div class="garage-car-glow"></div>
+    <div class="subway-bg"></div>
 
-          <div class="garage-car" id="garage-car">
-            <div class="f1-body"></div>
-            <div class="f1-wing front"></div>
-            <div class="f1-wing rear"></div>
-            <div class="wheel w1"></div>
-            <div class="wheel w2"></div>
-            <div class="wheel w3"></div>
-            <div class="wheel w4"></div>
-            <div class="cockpit"></div>
-          </div>
-        </div>
+    <div class="city-lights"></div>
 
-        <div class="palette-wrapper">
-          <button class="palette-toggle" id="palette-toggle">🎨 CORES</button>
+    <div class="subway-logo">
 
-          <div class="garage-palettes" id="garage-palettes">
-            <button class="garage-color active" data-color="#2ee6a6" style="--c:#2ee6a6;"></button>
-            <button class="garage-color" data-color="#00d0ff" style="--c:#00d0ff;"></button>
-            <button class="garage-color" data-color="#ff5577" style="--c:#ff5577;"></button>
-            <button class="garage-color" data-color="#ffd54a" style="--c:#ffd54a;"></button>
-            <button class="garage-color" data-color="#b26cff" style="--c:#b26cff;"></button>
-            <button class="garage-color" data-color="#ffffff" style="--c:#ffffff;"></button>
-            <button class="garage-color" data-color="#ff8800" style="--c:#ff8800;"></button>
-            <button class="garage-color" data-color="#00ff99" style="--c:#00ff99;"></button>
-          </div>
-        </div>
-      </div>
+      <h1>NEON RACER</h1>
 
-      <div class="subway-bg"></div>
+      <span>ULTIMATE F1 EDITION</span>
 
-      <div class="subway-logo">
-        <h1>NEON RACER</h1>
-        <span>ULTIMATE</span>
-      </div>
-
-      <div class="subway-center">
-        <div class="tap-play" id="tap-play">TOQUE PARA JOGAR</div>
-
-        <div class="subway-buttons">
-          <button class="sub-btn">🏆 MISSÕES</button>
-          <button class="sub-btn" id="open-garage">🚗 GARAGEM</button>
-          <button class="sub-btn">⚙️ CONFIG</button>
-        </div>
-      </div>
     </div>
 
-    <canvas id="game"></canvas>
+    <div class="subway-center">
 
-    <audio id="bgm" loop preload="none">
-      <source src="https://cdn.pixabay.com/download/audio/2021/11/09/audio_3a71e0d6b7.mp3?filename=cyberpunk-moonlight-20854.mp3" type="audio/mpeg">
-    </audio>
-
-    <div class="hud">
-      <div class="hud-top">
-
-        <div class="pill hud-card score-pill">
-          <div class="hud-icon">🏁</div>
-          <div class="hud-info">
-            <span class="muted">PONTOS</span>
-            <span id="score" class="hud-value">0</span>
-          </div>
-        </div>
-
-        <div class="pill hud-card speed-pill">
-          <div class="hud-icon">⚡</div>
-          <div class="hud-info">
-            <span class="muted">VELOCIDADE</span>
-            <span id="speed" class="hud-value">0</span>
-          </div>
-        </div>
-
-        <div class="pill hud-card best-pill">
-          <div class="hud-icon">⭐</div>
-          <div class="hud-info">
-            <span class="muted">RECORDE</span>
-            <span id="best" class="hud-value">0</span>
-          </div>
-        </div>
-
-        <div class="pill hud-card money-pill">
-          <div class="hud-icon money-icon">🪙</div>
-          <div class="hud-info">
-            <span class="muted">COINS</span>
-            <span id="money" class="hud-value">0</span>
-          </div>
-        </div>
-
-        <div class="badge power-card" id="nitro-badge" style="opacity:.5;">
-          <span class="dot nitro"></span>
-          <div class="hud-info">
-            <span>Nitro</span>
-            <span id="nitro-time" class="muted">0.0s</span>
-          </div>
-        </div>
-
-        <div class="badge power-card" id="shield-badge" style="opacity:.5;">
-          <span class="dot shield"></span>
-          <div class="hud-info">
-            <span>Escudo</span>
-            <span id="shield-time" class="muted">—</span>
-          </div>
-        </div>
-
-        <div class="pill hud-card">
-          <div class="hud-icon">🌤️</div>
-          <div class="hud-info">
-            <span class="muted">CLIMA</span>
-            <span id="weather" class="hud-value">limpo</span>
-          </div>
-        </div>
-
-        <div class="pill hud-card">
-          <div class="hud-icon">🕑</div>
-          <div class="hud-info">
-            <span class="muted">HORÁRIO</span>
-            <span id="tod" class="hud-value">dia</span>
-          </div>
-        </div>
-
-        <button id="btn-sound">🔊 Som</button>
+      <div class="tap-play" id="tap-play">
+        ▶ TOQUE PARA JOGAR
       </div>
-    </div>
 
-    <div class="controls">
-      <div class="control-btn" id="btn-left">◀</div>
-      <div class="control-btn" id="btn-right">▶</div>
-    </div>
+      <div class="subway-buttons">
 
-    <div class="game-menu">
-      <button class="menu-btn" id="menu-btn">☰</button>
+        <button class="sub-btn">
+          🏆 MISSÕES
+        </button>
 
-      <div class="menu-options" id="menu-options">
-        <button class="menu-item" id="btn-pause">⏸ Pausar</button>
-        <button class="menu-item" id="btn-home">🏠 Início</button>
-        <button class="menu-item danger" id="btn-restart">↻ Reiniciar</button>
+        <button class="sub-btn" id="open-garage">
+          🚗 GARAGEM
+        </button>
+
+        <button class="sub-btn" id="open-settings">
+            ⚙️ CONFIG
+          </button>
+
       </div>
+
     </div>
 
-    <div class="overlay" id="start-overlay">
-      <div class="card">
-        <h1>🏎️ Neon Racer — Turbo</h1>
-        <p>Desvie dos carros, colete power-ups e marque pontos.</p>
-
-        <div class="row">
-          <button class="btn primary" id="start-play">Começar</button>
-          <button class="btn" id="start-muted">Silenciar</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="overlay" id="gameover-overlay" style="display:none;">
-      <div class="card">
-        <h1>💥 Fim de Jogo</h1>
-        <p>Pontuação: <strong id="final-score">0</strong> • Recorde: <strong id="final-best">0</strong></p>
-
-        <div class="row">
-          <button class="btn primary" id="again">Jogar de novo</button>
-          <button class="btn" id="share">Compartilhar</button>
-        </div>
-      </div>
-    </div>
   </div>
 
-  <script src="script.js"></script>
+  <!-- =========================================
+     GARAGEM
+========================================== -->
+
+<div class="garage-screen" id="garage-screen">
+
+  <div class="garage-top">
+
+    <button class="garage-back" id="garage-back">
+      ←
+    </button>
+
+    <h2>GARAGEM F1</h2>
+
+  </div>
+
+  <div class="garage-preview">
+
+    <div class="garage-car-glow"></div>
+
+    <!-- CARRO -->
+    <div class="garage-car">
+
+      <div class="f1-wing front-wing"></div>
+
+      <div class="f1-nose"></div>
+
+      <div class="f1-body"></div>
+
+      <div class="f1-detail d1"></div>
+
+      <div class="f1-detail d2"></div>
+
+      <div class="cockpit"></div>
+
+      <div class="f1-wing rear-wing"></div>
+
+      <div class="wheel wheel-1">
+        <div class="wheel-line"></div>
+      </div>
+
+      <div class="wheel wheel-2">
+        <div class="wheel-line"></div>
+      </div>
+
+      <div class="wheel wheel-3">
+        <div class="wheel-line"></div>
+      </div>
+
+      <div class="wheel wheel-4">
+        <div class="wheel-line"></div>
+      </div>
+
+      <div class="garage-nitro"></div>
+
+    </div>
+
+  </div>
+
+  <!-- PALETAS -->
+
+  <div class="palette-wrapper">
+
+    <button class="palette-toggle" id="palette-toggle">
+      🎨 CORES
+    </button>
+
+    <div class="garage-palettes" id="garage-palettes">
+
+      <!-- suas cores aqui -->
+
+      <button
+  class="garage-color active"
+  data-color="#00d0ff"
+  style="--c:#00d0ff">
+</button>
+
+<button
+  class="garage-color"
+  data-color="#ff3355"
+  style="--c:#ff3355">
+</button>
+
+<button
+  class="garage-color"
+  data-color="#ffd54a"
+  style="--c:#ffd54a">
+</button>
+
+<button
+  class="garage-color"
+  data-color="#2ee6a6"
+  style="--c:#2ee6a6">
+</button>
+
+<button
+  class="garage-color"
+  data-color="#b26cff"
+  style="--c:#b26cff">
+</button>
+
+<button
+  class="garage-color"
+  data-color="#ffffff"
+  style="--c:#ffffff">
+</button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- =========================================
+     SETTINGS
+========================================== -->
+
+<div class="settings-screen" id="settings-screen">
+
+  <div class="garage-top">
+
+    <button class="garage-back" id="settings-back">
+      ←
+    </button>
+
+    <h2>CONFIGURAÇÕES</h2>
+
+  </div>
+
+  <div class="settings-list">
+
+    <label class="setting-item">
+      <span>HUD</span>
+      <input type="checkbox" id="toggle-hud" checked>
+    </label>
+
+    <label class="setting-item">
+      <span>Clima</span>
+      <input type="checkbox" id="toggle-weather" checked>
+    </label>
+
+    <label class="setting-item">
+      <span>Partículas</span>
+      <input type="checkbox" id="toggle-particles" checked>
+    </label>
+
+    <label class="setting-item">
+      <span>Power Ups</span>
+      <input type="checkbox" id="toggle-powerups" checked>
+    </label>
+
+    <label class="setting-item">
+      <span>Nitro FX</span>
+      <input type="checkbox" id="toggle-nitrofx" checked>
+    </label>
+
+    <label class="setting-item">
+      <span>Sombras</span>
+      <input type="checkbox" id="toggle-shadows" checked>
+    </label>
+
+  </div>
+</div>
+
+
+  <!-- =========================================
+       CANVAS GAME
+  ========================================== -->
+
+  <canvas id="game"></canvas>
+
+  <!-- =========================================
+       HUD
+  ========================================== -->
+
+  <div class="hud">
+
+    <div class="hud-top">
+
+      <!-- PONTOS -->
+      <div class="pill">
+
+        <div class="hud-icon">
+          🏁
+        </div>
+
+        <div class="hud-info">
+
+          <span class="muted">
+            PONTOS
+          </span>
+
+          <span id="score" class="hud-value">
+            0
+          </span>
+
+        </div>
+
+      </div>
+
+      <!-- VELOCIDADE -->
+      <div class="pill">
+
+        <div class="hud-icon">
+          ⚡
+        </div>
+
+        <div class="hud-info">
+
+          <span class="muted">
+            VELOCIDADE
+          </span>
+
+          <span id="speed" class="hud-value">
+            0
+          </span>
+
+        </div>
+
+      </div>
+
+      <!-- COINS -->
+      <div class="pill">
+
+        <div class="hud-icon">
+          🪙
+        </div>
+
+        <div class="hud-info">
+
+          <span class="muted">
+            COINS
+          </span>
+
+          <span id="money" class="hud-value">
+            0
+          </span>
+
+        </div>
+
+      </div>
+
+      <!-- CLIMA -->
+      <div class="pill">
+
+        <div class="hud-icon">
+          🌦️
+        </div>
+
+        <div class="hud-info">
+
+          <span class="muted">
+            CLIMA
+          </span>
+
+          <span id="weather" class="hud-value">
+            LIMPO
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- =========================================
+         POWER UPS
+    ========================================== -->
+
+    <div class="power-row">
+
+      <!-- ESCUDO -->
+      <div class="power-card">
+
+        <div class="badge">
+
+          <div class="dot shield"></div>
+
+          <span>
+            ESCUDO
+          </span>
+
+        </div>
+
+        <div id="shield-time">
+          0
+        </div>
+
+      </div>
+
+      <!-- NITRO -->
+      <div class="power-card">
+
+        <div class="badge">
+
+          <div class="dot nitro"></div>
+
+          <span>
+            NITRO
+          </span>
+
+        </div>
+
+        <div id="nitro-time">
+          0
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- =========================================
+       CONTROLES
+  ========================================== -->
+
+  <div class="controls">
+
+    <div class="control-btn" id="btn-left">
+      ◀
+    </div>
+
+    <div class="control-btn nitro-btn" id="btn-nitro">
+      ⚡
+    </div>
+
+    <div class="control-btn" id="btn-right">
+      ▶
+    </div>
+
+  </div>
+
+  <!-- =========================================
+       MENU
+  ========================================== -->
+
+  <div class="game-menu">
+
+    <button class="menu-btn" id="menu-btn">
+      ☰
+    </button>
+
+    <div class="menu-options" id="menu-options">
+
+      <button class="menu-item" id="btn-home">
+        🏠 Início
+      </button>
+
+      <button class="menu-item danger" id="btn-restart">
+        ↻ Reiniciar
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- =========================================
+       GAME OVER
+  ========================================== -->
+
+  <div
+    class="overlay"
+    id="gameover-overlay"
+    style="display:none">
+
+    <div class="card">
+
+      <h1>
+        💥 FIM DE JOGO
+      </h1>
+
+      <p>
+
+        Pontuação:
+        <strong id="final-score">
+          0
+        </strong>
+
+      </p>
+
+      <div class="row">
+
+        <button
+          class="btn primary"
+          id="again">
+
+          ▶ Jogar Novamente
+
+        </button>
+
+        <button
+          class="btn"
+          id="back-menu">
+
+          🏠 Menu Inicial
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script defer src="script.js"></script>
+
+<script>
+window.onerror = function(msg, url, line){
+  console.log(
+    "ERRO:",
+    msg,
+    "LINHA:",
+    line
+  );
+};
+</script>
+
+</body>
+</html>
+
 </body>
 </html>
