@@ -845,11 +845,15 @@
     );
   
     color:white;
+  
     font-size:24px;
     font-weight:bold;
     line-height:1;
+  
     cursor:pointer;
+  
     transition:.2s;
+  
     box-shadow:
     0 0 14px rgba(0,208,255,.18);
   
