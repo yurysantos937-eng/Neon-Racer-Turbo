@@ -1,10 +1,20 @@
 const canvas = document.getElementById("game");
 
 if(!canvas){
-  console.error("Canvas não encontrado");
+  throw new Error("Canvas #game não encontrado");
 }
 
 const ctx = canvas.getContext("2d");
+
+if(!ctx){
+  throw new Error("Contexto 2D não suportado");
+}
+
+window.addEventListener("focus", () => {
+  if(gameRunning){
+    paused = false;
+  }
+});
 
 
 /* =========================================
@@ -16,6 +26,7 @@ const H = 640;
 
 canvas.width = W;
 canvas.height = H;
+ctx.imageSmoothingEnabled = false;
 
 /* =========================================
    ELEMENTOS
@@ -76,7 +87,7 @@ const settingsBack = document.getElementById("settings-back");
 ========================================= */
 
 let gameRunning = false;
-let paused = false;
+let paused = true;
 let score = 0;
 let coins = 0;
 let speed = 6;
@@ -130,8 +141,10 @@ const particles = [];
 
 function updateHUD(){
 
-  scoreEl.textContent =
-  Math.floor(score);
+  if(scoreEl){
+    scoreEl.textContent =
+    Math.floor(score);
+  }
 
   speedEl.textContent =
   Math.floor(speed * 12);
@@ -184,6 +197,7 @@ function resetGame(){
 ========================================= */
 
 function laneBusy(lane){
+
   for(const o of obstacles){
 
     if(
@@ -197,7 +211,7 @@ function laneBusy(lane){
 
   return false;
 
-}
+} 
 
 function spawnObstacle(){
   const freeLanes = [];
@@ -259,6 +273,10 @@ function spawnCoin(){
 
   });
 
+}
+
+if(obstacles.length < 6){
+  spawnObstacle();
 }
 
 /* =========================================
@@ -670,9 +688,10 @@ function drawCoins(){
 
 function createNitroParticles(){
 
+  if(!nitro) return;
   for(let i = 0; i < 2; i++){
-
-    particles.push({
+    if(particles.length < 120){
+      particles.push({
       x:
       player.x +
       (Math.random() - .5) * 16,
@@ -682,15 +701,10 @@ function createNitroParticles(){
       Math.random() * 5 + 2,
       speed:
       Math.random() * 6 + 2,
-      color:
-      nitro
-      ? "#ff6600"
-      : player.color,
-
+      color:"#ff6600",
       life:1
-
-    });
-
+     });
+   }
   }
 
 }
@@ -809,8 +823,13 @@ function updateGame(){
   score += .12;
   if(speed < 14){
     speed += .0015;
-
+  
   }
+
+  if(roadOffset > 100000){
+    roadOffset = 0;
+   }
+
 
 
   /* MOVIMENTO SUAVE */
@@ -828,7 +847,7 @@ function updateGame(){
     nitroTimer--;
     if(nitroTimer <= 0){
       nitro = false;
-      speed -= 4;
+      speed = Math.max(6, speed - 4);
 
     }
 
@@ -905,13 +924,9 @@ function updateGame(){
 
     }
 
-    /* COLISÃO */
-
     if(
-
-      Math.abs(player.x - o.x) < 28 &&
-      Math.abs(player.y - o.y) < 54
-
+      Math.abs(player.x - o.x) < 22 &&
+      Math.abs(player.y - o.y) < 42
     ){
 
       gameOver();
@@ -966,7 +981,7 @@ function renderGame(){
 
   ctx.setTransform(1,0,0,1,0,0);
 
-  if(speed > 10){
+  if(speed > 11 && nitro){
     const camShake =
     (Math.random() - .5) * .8;
     ctx.translate(camShake,0);
@@ -980,7 +995,12 @@ function renderGame(){
   ){
     createNitroParticles();
   }
-  drawParticles();
+  if(
+    toggleParticles &&
+    toggleParticles.checked
+  ){
+    drawParticles();
+  }
   drawCoins();
   for(const o of obstacles){
     drawF1(o,true);
@@ -995,6 +1015,35 @@ function renderGame(){
     updateWeather();
   }
   updateHUD();
+
+}
+
+/* =========================================
+   HUD VISIBILITY
+========================================= */
+
+function updateHUDVisibility(){
+
+  const hud =
+  document.querySelector(".hud");
+
+  if(!hud) return;
+
+  hud.style.display =
+  toggleHUD && toggleHUD.checked
+  ? "flex"
+  : "none";
+
+}
+
+updateHUDVisibility();
+
+if(toggleHUD){
+
+  toggleHUD.addEventListener(
+    "change",
+    updateHUDVisibility
+  );
 
 }
 
@@ -1028,9 +1077,14 @@ function loop(){
 
 function startGame(){
   cancelAnimationFrame(animationId);
+  resetGame();
   subwayStart.style.display = "none";
   gameOverScreen.style.display = "none";
-  resetGame();
+  menuOpen = false;
+
+  if(menuOptions){
+    menuOptions.style.display = "none";
+}
   gameRunning = true;
   paused = false;
   loop();
@@ -1153,8 +1207,9 @@ if(btnHome){
       menuOpen = false;
 
       if(menuOptions){
-        menuOptions.style.display = "none";
-      }
+        menuOptions.style.display =
+        menuOpen ? "flex" : "none";
+      };
 
       if(garageScreen){
         garageScreen.style.display = "none";
@@ -1201,30 +1256,47 @@ if(btnNitro){
 
 let menuOpen = false;
 
+function togglePauseMenu(){
+
+  if(!gameRunning){
+    return;
+  }
+
+  menuOpen = !menuOpen;
+
+  paused = menuOpen;
+
+  if(menuOptions){
+
+    if(menuOpen){
+
+      menuOptions.style.display = "flex";
+
+      setTimeout(() => {
+        menuOptions.classList.add("active");
+      },10);
+
+    }else{
+
+      menuOptions.classList.remove("active");
+
+      setTimeout(() => {
+        menuOptions.style.display = "none";
+      },250);
+
+    }
+
+  }
+
+}
+
+/* BOTÃO MENU */
+
 if(menuBtn){
 
   menuBtn.addEventListener(
     "click",
-    () => {
-
-      if(!gameRunning){
-        return;
-      }
-
-      menuOpen = !menuOpen;
-
-      paused = menuOpen;
-
-      if(menuOptions){
-
-        menuOptions.style.display =
-        menuOpen
-        ? "flex"
-        : "none";
-
-      }
-
-    }
+    togglePauseMenu
   );
 
 }
@@ -1314,6 +1386,9 @@ if(openSettings){
     () => {
 
       closeAllScreens();
+      paused = false;
+
+      paused = true;
 
       if(garagePalettes){
         garagePalettes.style.display = "none";
@@ -1426,25 +1501,12 @@ document.addEventListener(
     /* MENU */
 
     if(
-      key === "escape"
+      key === "escape" &&
+      gameRunning
     ){
-
-      menuOpen = !menuOpen;
-
-      paused = menuOpen;
-
-      if(menuOptions){
-
-        menuOptions.style.display =
-        menuOpen
-        ? "flex"
-        : "none";
-
-      }
-
+      togglePauseMenu();
     }
-
-  }
+    }
 );
 
 /* =========================================
@@ -1488,8 +1550,10 @@ colorButtons.forEach(btn => {
       const glow =
       document.querySelector(".garage-car-glow");
 
+      if(glow){
       glow.style.background =
       `radial-gradient(circle, ${color}, transparent 70%)`;
+      }
 
       /* muda corpo do carro da garagem */
 
