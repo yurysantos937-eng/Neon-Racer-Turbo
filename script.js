@@ -146,14 +146,20 @@ function updateHUD(){
     Math.floor(score);
   }
 
-  speedEl.textContent =
-  Math.floor(speed * 12);
-
-  moneyEl.textContent =
-  coins;
-
-  weatherEl.textContent =
-  weather;
+  if(speedEl){
+    speedEl.textContent =
+    Math.floor(speed * 12);
+  }
+  
+  if(moneyEl){
+    moneyEl.textContent =
+    coins;
+  }
+  
+  if(weatherEl){
+    weatherEl.textContent =
+    weather;
+  };
 
   shieldTimeEl.textContent =
   shield
