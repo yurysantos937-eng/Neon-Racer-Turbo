@@ -1610,47 +1610,6 @@ if(speed > 10){
 drawF1(player,false);
 
 /* =========================================
-   TECLADO PC
-========================================= */
-
-document.addEventListener(
-  "keydown",
-  e => {
-
-    const key =
-    e.key.toLowerCase();
-
-    if(
-      key === "arrowleft" ||
-      key === "a"
-    ){
-      moveLeft();
-    }
-
-    if(
-      key === "arrowright" ||
-      key === "d"
-    ){
-      moveRight();
-    }
-
-    if(
-      key === "shift" ||
-      key === "w"
-    ){
-      activateNitro();
-    }
-
-    if(
-      key === "escape" &&
-      gameRunning
-    ){
-      togglePauseMenu();
-    }
-  }
-);
-
-/* =========================================
    TOUCH MOBILE / SWIPE
 ========================================= */
 
@@ -1709,7 +1668,3 @@ canvas.addEventListener(
   },
   { passive:true }
 );
-
-/* =========================================
-   MUDAR COR DO CARRO
-========================================= */
