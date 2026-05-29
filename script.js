@@ -86,6 +86,9 @@ document.getElementById("toggle-nitrofx");
 const toggleShadows =
 document.getElementById("toggle-shadows");
 
+const toggleArrows =
+document.getElementById("toggle-arrows");
+
 const openSettings = document.getElementById("open-settings");
 const settingsScreen = document.getElementById("settings-screen");
 const settingsBack = document.getElementById("settings-back");
@@ -1030,6 +1033,43 @@ function renderGame(){
     updateWeather();
   }
   updateHUD();
+
+}
+
+/* REMOVER / MOSTRAR SETAS */
+
+const removeArrowsBtn =
+document.getElementById(
+  "remove-arrows-btn"
+);
+
+let arrowsVisible = true;
+
+if(removeArrowsBtn){
+
+  removeArrowsBtn.addEventListener(
+    "click",
+    () => {
+
+      arrowsVisible = !arrowsVisible;
+
+      if(btnLeft){
+        btnLeft.style.display =
+        arrowsVisible ? "flex" : "none";
+      }
+
+      if(btnRight){
+        btnRight.style.display =
+        arrowsVisible ? "flex" : "none";
+      }
+
+      removeArrowsBtn.textContent =
+      arrowsVisible
+      ? "🎮 Remover Setas"
+      : "🎮 Mostrar Setas";
+
+    }
+  );
 
 }
 
