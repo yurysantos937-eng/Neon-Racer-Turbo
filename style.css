@@ -826,17 +826,32 @@
   }
   
   .garage-back{
+
+    width:42px;
+    height:42px;
   
-    width:48px;
-    height:48px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  
     border:none;
-    border-radius:16px;
+    border-radius:14px;
+  
     background:
-    rgba(255,255,255,.08);
+    linear-gradient(
+      180deg,
+      rgba(0,208,255,.20),
+      rgba(123,44,255,.18)
+    );
+  
     color:white;
-    font-size:22px;
+    font-size:24px;
     font-weight:bold;
+    line-height:1;
     cursor:pointer;
+    transition:.2s;
+    box-shadow:
+    0 0 14px rgba(0,208,255,.18);
   
   }
   
