@@ -89,6 +89,12 @@
     1px solid rgba(255,255,255,.08);
   
   }
+
+  .game-wrap{
+  width:100vw;
+  height:100vh;
+  overflow:hidden;
+}
   
   /* =========================================
      CANVAS
@@ -103,76 +109,237 @@
     display:block;
   
   }
+
+  canvas{
+    width:100%;
+    height:100%;
+    display:block;
+  }
   
   /* =========================================
-     HUD
-  ========================================= */
-  
-  .hud{
-  
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    padding:12px;
-    z-index:100;
-    pointer-events:none;
-  
+   HUD CLEAN V2
+   SCORE GRANDE + POWER UPS PEQUENOS
+========================================= */
+
+.hud{
+
+  position:absolute;
+
+  top:8px;
+  left:8px;
+  right:8px;
+
+  z-index:100;
+
+  pointer-events:none;
+
+}
+
+/* TOPO */
+
+.hud-top{
+
+  display:flex;
+  align-items:center;
+
+  gap:6px;
+
+}
+
+/* SCORE E MONEY */
+
+.pill{
+
+  display:flex;
+  align-items:center;
+
+  gap:6px;
+
+  padding:6px 10px;
+
+  height:30px;
+
+  border-radius:999px;
+
+  background:
+  rgba(0,0,0,.30);
+
+  backdrop-filter:blur(10px);
+
+  border:
+  1px solid rgba(255,255,255,.06);
+
+  box-shadow:
+  0 0 10px rgba(0,0,0,.18);
+
+}
+
+/* ÍCONES GRANDES */
+
+.pill .hud-icon{
+
+  font-size:13px;
+
+}
+
+/* TEXTO GRANDE */
+
+.pill .hud-value{
+
+  font-size:12px;
+
+  font-weight:900;
+
+  color:white;
+
+  letter-spacing:.3px;
+
+}
+
+/* REMOVE TEXTO PEQUENO */
+
+.muted{
+
+  display:none;
+
+}
+
+/* POWER UPS */
+
+.power-row{
+
+  position:absolute;
+
+  top:38px;
+  left:0;
+
+  display:flex;
+
+  gap:4px;
+
+}
+
+/* ESCUDO E NITRO */
+
+.power-card{
+
+  display:flex;
+  align-items:center;
+
+  gap:3px;
+
+  padding:2px 6px;
+
+  height:18px;
+
+  border-radius:999px;
+
+  background:
+  rgba(0,0,0,.24);
+
+  backdrop-filter:blur(10px);
+
+  border:
+  1px solid rgba(255,255,255,.04);
+
+}
+
+/* TEXTO MENOR */
+
+.power-card .hud-value{
+
+  font-size:7px;
+
+  font-weight:800;
+
+}
+
+/* ÍCONES MENORES */
+
+.power-card .hud-icon{
+
+  font-size:8px;
+
+}
+
+/* BOLINHAS */
+
+.dot{
+
+  width:4px;
+  height:4px;
+
+  border-radius:50%;
+
+}
+
+/* ESCUDO */
+
+.dot.shield{
+
+  background:#00ffff;
+
+  box-shadow:
+  0 0 6px #00ffff;
+
+}
+
+/* NITRO */
+
+.dot.nitro{
+
+  background:#ff8800;
+
+  box-shadow:
+  0 0 6px #ff8800;
+
+}
+
+/* MOBILE */
+
+@media(max-width:480px){
+
+  .pill{
+
+    height:28px;
+
+    padding:5px 9px;
+
   }
-  
-  .hud-top{
-  
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-  
-  }
-  
-  .pill,
-  .power-card{
-  
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:10px 12px;
-    border-radius:18px;
-    background:
-    rgba(0,0,0,.45);
-    backdrop-filter:blur(8px);
-    border:
-    1px solid rgba(255,255,255,.08);
-    box-shadow:
-    0 0 18px rgba(0,0,0,.25);
-  
-  }
-  
-  .hud-icon{
-  
-    font-size:18px;
-  
-  }
-  
-  .hud-info{
-  
-    display:flex;
-    flex-direction:column;
-    line-height:1.1;
-  
-  }
-  
-  .hud-value{
+
+  .pill .hud-value{
 
     font-size:11px;
-    font-weight:900;
-  
-  }
-  
-  .muted{
 
-    font-size:8px;
-    color:var(--muted);
-  
   }
+
+  .pill .hud-icon{
+
+    font-size:12px;
+
+  }
+
+  .power-card{
+
+    height:16px;
+
+    padding:1px 5px;
+
+  }
+
+  .power-card .hud-value{
+
+    font-size:6px;
+
+  }
+
+  .power-card .hud-icon{
+
+    font-size:7px;
+
+  }
+
+}
   
   /* =========================================
      POWER UPS
@@ -187,10 +354,10 @@
   }
   
   .badge{
-  
+
     display:flex;
     align-items:center;
-    gap:8px;
+    gap:3px;
   
   }
   
@@ -360,13 +527,18 @@
   }
   
   .menu-options{
-  
-    display:none;
+
+    display:flex;
     flex-direction:column;
     gap:8px;
     margin-top:10px;
+    opacity:0;
+    pointer-events:none;
+    transform:translateY(-10px);
+    transition:.25s;
   
   }
+
   
   .menu-item{
   
@@ -396,6 +568,13 @@
     background:
     rgba(255,50,80,.25);
   
+  }
+
+  
+  .menu-options.active{
+    opacity:1;
+    pointer-events:auto;
+    transform:translateY(0);
   }
   
   /* =========================================
@@ -971,15 +1150,11 @@
   .garage-nitro{
   
     position:absolute;
-  
     left:50%;
     bottom:-40px;
-  
     transform:translateX(-50%);
-  
     width:80px;
     height:100px;
-  
     background:
     linear-gradient(
       180deg,
@@ -1243,26 +1418,6 @@
       padding:12px 14px;
       font-size:12px;
       border-radius:14px;
-    }
-  
-    /* HUD */
-  
-    .pill,
-    .power-card{
-      padding:8px 10px;
-      border-radius:14px;
-    }
-  
-    .hud-icon{
-      font-size:14px;
-    }
-  
-    .hud-value{
-      font-size:11px;
-    }
-  
-    .muted{
-      font-size:9px;
     }
   
     /* CONTROLES */
@@ -1658,7 +1813,6 @@
 
   width:48px;
   height:48px;
-
   font-size:20px;
 
 }
@@ -1667,7 +1821,6 @@
 
   width:52px;
   height:52px;
-
   font-size:22px;
 
 }
@@ -1714,3 +1867,4 @@
     }
   
   }
+  
