@@ -1,4 +1,5 @@
 const canvas = document.getElementById("game");
+canvas.style.touchAction = "none";
 
 if(!canvas){
   throw new Error("Canvas #game não encontrado");
@@ -14,6 +15,14 @@ window.addEventListener("focus", () => {
   if(gameRunning){
     paused = false;
   }
+});
+
+window.addEventListener("blur", () => {
+
+  if(gameRunning){
+    paused = true;
+  }
+
 });
 
 
@@ -1599,3 +1608,108 @@ if(speed > 10){
 }
 
 drawF1(player,false);
+
+/* =========================================
+   TECLADO PC
+========================================= */
+
+document.addEventListener(
+  "keydown",
+  e => {
+
+    const key =
+    e.key.toLowerCase();
+
+    if(
+      key === "arrowleft" ||
+      key === "a"
+    ){
+      moveLeft();
+    }
+
+    if(
+      key === "arrowright" ||
+      key === "d"
+    ){
+      moveRight();
+    }
+
+    if(
+      key === "shift" ||
+      key === "w"
+    ){
+      activateNitro();
+    }
+
+    if(
+      key === "escape" &&
+      gameRunning
+    ){
+      togglePauseMenu();
+    }
+  }
+);
+
+/* =========================================
+   TOUCH MOBILE / SWIPE
+========================================= */
+
+let touchStartX = 0;
+let touchStartY = 0;
+
+canvas.addEventListener(
+  "touchstart",
+  e => {
+
+    const touch = e.touches[0];
+
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+
+  },
+  { passive:true }
+);
+
+canvas.addEventListener(
+  "touchend",
+  e => {
+
+    const touch = e.changedTouches[0];
+
+    const dx =
+    touch.clientX - touchStartX;
+
+    const dy =
+    touch.clientY - touchStartY;
+
+    /* SWIPE HORIZONTAL */
+
+    if(Math.abs(dx) > Math.abs(dy)){
+
+      if(dx > 30){
+
+        moveRight();
+
+      }else if(dx < -30){
+
+        moveLeft();
+
+      }
+
+    }
+
+    /* TOQUE PARA NITRO */
+
+    else if(Math.abs(dy) < 20){
+
+      activateNitro();
+
+    }
+
+  },
+  { passive:true }
+);
+
+/* =========================================
+   MUDAR COR DO CARRO
+========================================= */
