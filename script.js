@@ -1620,18 +1620,30 @@ canvas.addEventListener(
   "touchstart",
   e => {
 
+    e.preventDefault();
+
     const touch = e.touches[0];
 
     touchStartX = touch.clientX;
     touchStartY = touch.clientY;
 
   },
-  { passive:true }
+  { passive:false }
+);
+
+canvas.addEventListener(
+  "touchmove",
+  e => {
+    e.preventDefault();
+  },
+  { passive:false }
 );
 
 canvas.addEventListener(
   "touchend",
   e => {
+
+    e.preventDefault();
 
     const touch = e.changedTouches[0];
 
@@ -1649,7 +1661,9 @@ canvas.addEventListener(
 
         moveRight();
 
-      }else if(dx < -30){
+      }
+
+      else if(dx < -30){
 
         moveLeft();
 
@@ -1659,12 +1673,15 @@ canvas.addEventListener(
 
     /* TOQUE PARA NITRO */
 
-    else if(Math.abs(dy) < 20){
+    else if(
+      Math.abs(dx) < 15 &&
+      Math.abs(dy) < 15
+    ){
 
       activateNitro();
 
     }
 
   },
-  { passive:true }
+  { passive:false }
 );
