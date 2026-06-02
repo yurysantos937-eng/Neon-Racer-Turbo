@@ -1430,6 +1430,350 @@
   }
 
   /* =========================================
+   LOADING SCREEN PREMIUM V3
+========================================= */
+
+#loadingScreen{
+
+  position:fixed;
+  inset:0;
+
+  z-index:999999;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  overflow:hidden;
+
+  background:
+  linear-gradient(
+    180deg,
+    #020617 0%,
+    #070d1d 50%,
+    #000 100%
+  );
+
+}
+
+/* FUNDO ANIMADO */
+
+.loading-bg{
+
+  position:absolute;
+  inset:0;
+
+  background:
+
+  radial-gradient(
+    circle at 20% 20%,
+    rgba(0,208,255,.18),
+    transparent 35%
+  ),
+
+  radial-gradient(
+    circle at 80% 70%,
+    rgba(123,44,255,.18),
+    transparent 35%
+  ),
+
+  radial-gradient(
+    circle at center,
+    rgba(255,46,166,.10),
+    transparent 50%
+  );
+
+  animation:bgPulse 8s ease-in-out infinite;
+
+}
+
+/* CONTEÚDO */
+
+.loading-content{
+
+  position:relative;
+  z-index:2;
+
+  width:min(90%,500px);
+
+  text-align:center;
+
+  padding:30px;
+
+}
+
+/* LOGO */
+
+.logo{
+
+  font-size:52px;
+  font-weight:900;
+
+  letter-spacing:4px;
+
+  color:white;
+
+  margin-bottom:10px;
+
+  text-shadow:
+  0 0 15px #00d0ff,
+  0 0 30px #00d0ff,
+  0 0 60px #00d0ff;
+
+}
+
+/* SUBTÍTULO */
+
+.loading-sub{
+
+  display:block;
+
+  color:#9aa6bf;
+
+  font-size:14px;
+
+  letter-spacing:3px;
+
+  margin-bottom:35px;
+
+}
+
+/* STATUS */
+
+#loadingStatus{
+
+  color:white;
+
+  font-size:15px;
+
+  font-weight:700;
+
+  margin-bottom:15px;
+
+}
+
+/* BARRA */
+
+.bar{
+
+  width:100%;
+
+  height:16px;
+
+  overflow:hidden;
+
+  border-radius:999px;
+
+  background:
+  rgba(255,255,255,.08);
+
+  border:
+  1px solid rgba(255,255,255,.08);
+
+}
+
+/* PROGRESSO */
+
+.bar-fill{
+
+  width:0%;
+
+  height:100%;
+
+  border-radius:999px;
+
+  background:
+  linear-gradient(
+    90deg,
+    #00d0ff,
+    #7b2cff,
+    #ff2ea6
+  );
+
+  box-shadow:
+  0 0 25px rgba(0,208,255,.7);
+
+  transition:.2s;
+
+}
+
+/* PORCENTAGEM */
+
+#loadingPercent{
+
+  display:block;
+
+  margin-top:12px;
+
+  font-size:20px;
+
+  font-weight:900;
+
+  color:white;
+
+}
+
+/* DICA */
+
+.loading-tip{
+
+  margin-top:20px;
+
+  color:#9aa6bf;
+
+  font-size:13px;
+
+  line-height:1.6;
+
+}
+
+/* DISPOSITIVO */
+
+.device-info{
+
+  margin-top:18px;
+
+  color:#00d0ff;
+
+  font-size:14px;
+
+  font-weight:800;
+
+}
+
+/* PARTÍCULAS DECORATIVAS */
+
+.loading-bg::before,
+.loading-bg::after{
+
+  content:"";
+
+  position:absolute;
+
+  width:300px;
+  height:300px;
+
+  border-radius:50%;
+
+  filter:blur(80px);
+
+}
+
+.loading-bg::before{
+
+  top:-100px;
+  left:-100px;
+
+  background:
+  rgba(0,208,255,.18);
+
+}
+
+.loading-bg::after{
+
+  bottom:-100px;
+  right:-100px;
+
+  background:
+  rgba(123,44,255,.18);
+
+}
+
+/* PC */
+
+@media(min-width:1025px){
+
+  .loading-content{
+
+    max-width:600px;
+
+  }
+
+  .logo{
+
+    font-size:62px;
+
+  }
+
+}
+
+/* TABLET */
+
+@media(min-width:601px) and (max-width:1024px){
+
+  .logo{
+
+    font-size:54px;
+
+  }
+
+}
+
+/* CELULAR */
+
+@media(max-width:600px){
+
+  .loading-content{
+
+    width:92%;
+
+    padding:20px;
+
+  }
+
+  .logo{
+
+    font-size:34px;
+
+    letter-spacing:2px;
+
+  }
+
+  .loading-sub{
+
+    font-size:11px;
+
+  }
+
+  #loadingPercent{
+
+    font-size:16px;
+
+  }
+
+  #loadingStatus{
+
+    font-size:13px;
+
+  }
+
+}
+
+/* ANIMAÇÕES */
+
+@keyframes bgPulse{
+
+  0%{
+
+    transform:scale(1);
+
+  }
+
+  50%{
+
+    transform:scale(1.08);
+
+  }
+
+  100%{
+
+    transform:scale(1);
+
+  }
+
+}
+
+/* =========================================
    SETTINGS PREMIUM MOBILE
 ========================================= */
 
@@ -1792,4 +2136,3 @@
     }
   
   }
-  
