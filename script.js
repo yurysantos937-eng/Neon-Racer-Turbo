@@ -1,4 +1,128 @@
+/* =========================================
+   DETECÇÃO DE DISPOSITIVO
+========================================= */
+
+const deviceInfo =
+document.getElementById("deviceInfo");
+
+function detectDevice(){
+
+  if(!deviceInfo) return;
+
+  const width = window.innerWidth;
+
+  if(width <= 600){
+    deviceInfo.textContent =
+    "📱 Dispositivo: Celular";
+  }
+  else if(width <= 1024){
+    deviceInfo.textContent =
+    "📟 Dispositivo: Tablet";
+  }
+  else{
+    deviceInfo.textContent =
+    "🖥️ Dispositivo: PC";
+  }
+
+}
+
+detectDevice();
+
+window.addEventListener(
+  "resize",
+  detectDevice
+);
+
+/* =========================================
+   LOADING SCREEN
+========================================= */
+
+const loadingScreen =
+document.getElementById("loadingScreen");
+
+const barFill =
+document.getElementById("barFill");
+
+const loadingPercent =
+document.getElementById("loadingPercent");
+
+const loadingStatus =
+document.getElementById("loadingStatus");
+
+const messages = [
+
+  "Inicializando motor...",
+  "Carregando física...",
+  "Montando pista...",
+  "Preparando veículos...",
+  "Ativando efeitos neon...",
+  "Sincronizando sistema...",
+  "Quase pronto..."
+
+];
+
+/* duração total */
+
+const TOTAL_TIME = 7000; // 7 segundos
+
+let progress = 0;
+
+const loadingInterval =
+setInterval(()=>{
+
+  progress++;
+
+  barFill.style.width =
+  progress + "%";
+
+  loadingPercent.textContent =
+  progress + "%";
+
+  const msgIndex =
+  Math.min(
+    Math.floor(progress / 15),
+    messages.length - 1
+  );
+
+  loadingStatus.textContent =
+  messages[msgIndex];
+
+  if(progress >= 100){
+
+    clearInterval(
+      loadingInterval
+    );
+
+    loadingStatus.textContent =
+    "Concluído ✓";
+
+    setTimeout(()=>{
+
+      loadingScreen.style.transition =
+      "opacity .8s ease";
+
+      loadingScreen.style.opacity =
+      "0";
+
+      setTimeout(()=>{
+      showScreen(subwayStart);
+
+      },800);
+
+    },500);
+
+  }
+
+}, TOTAL_TIME / 100);
+
 const canvas = document.getElementById("game");
+console.log("Script carregado");
+
+window.onerror = function(msg, url, line){
+  console.error("ERRO:", msg);
+  console.error("LINHA:", line);
+  alert("ERRO: " + msg + "\nLINHA: " + line);
+};
 canvas.style.touchAction = "none";
 
 if(!canvas){
@@ -92,7 +216,6 @@ document.getElementById("toggle-arrows");
 const openSettings = document.getElementById("open-settings");
 const settingsScreen = document.getElementById("settings-screen");
 const settingsBack = document.getElementById("settings-back");
-
 
 /* =========================================
    ESTADO
@@ -1140,9 +1263,10 @@ function startGame(){
   if(menuOptions){
     menuOptions.style.display = "none";
 }
-  gameRunning = true;
-  paused = false;
-  loop();
+gameRunning = true;
+paused = false;
+
+loop();
 
 }
 
@@ -1226,10 +1350,7 @@ if(btnRestart){
 /* BACK MENU */
 
 if(backMenuBtn){
-  backMenuBtn.addEventListener(
-    "click",
-    () => {
-
+  backMenuBtn.addEventListener("click", () => {
       gameRunning = false;
 
       cancelAnimationFrame(animationId);
@@ -1249,10 +1370,7 @@ if(backMenuBtn){
 /* HOME */
 
 if(btnHome){
-  btnHome.addEventListener(
-    "click",
-    () => {
-
+  btnHome.addEventListener("click", () => {
       gameRunning = false;
 
       cancelAnimationFrame(animationId);
@@ -1318,7 +1436,6 @@ function togglePauseMenu(){
   }
 
   menuOpen = !menuOpen;
-
   paused = menuOpen;
 
   if(menuOptions){
@@ -1366,21 +1483,7 @@ if(openGarage){
     "click",
     () => {
 
-      if(settingsScreen){
-        settingsScreen.style.display = "none";
-      }
-
-      if(menuOptions){
-        menuOptions.style.display = "none";
-      }
-
-      if(garageScreen){
-        garageScreen.style.display = "flex";
-      }
-
-      if(subwayStart){
-        subwayStart.style.display = "none";
-      }
+      showScreen(garageScreen);
 
     }
   );
@@ -1395,13 +1498,7 @@ if(garageBack){
     "click",
     () => {
 
-      if(garageScreen){
-        garageScreen.style.display = "none";
-      }
-
-      if(subwayStart){
-        subwayStart.style.display = "flex";
-      }
+      showScreen(subwayStart);
 
     }
   );
@@ -1432,6 +1529,27 @@ function closeAllScreens(){
 
 }
 
+function showScreen(screen){
+
+  if(subwayStart){
+    subwayStart.style.display = "none";
+  }
+
+  if(garageScreen){
+    garageScreen.style.display = "none";
+  }
+
+  if(settingsScreen){
+    settingsScreen.style.display = "none";
+  }
+
+  if(loadingScreen){
+    loadingScreen.style.display = "none";
+  }
+
+  screen.style.display = "flex";
+}
+
 /* ABRIR CONFIG */
 
 if(openSettings){
@@ -1440,18 +1558,7 @@ if(openSettings){
     "click",
     () => {
 
-      closeAllScreens();
-      paused = false;
-
-      paused = true;
-
-      if(garagePalettes){
-        garagePalettes.style.display = "none";
-      }
-
-      if(settingsScreen){
-        settingsScreen.style.display = "flex";
-      }
+      showScreen(settingsScreen);
 
     }
   );
@@ -1466,13 +1573,7 @@ if(settingsBack){
     "click",
     () => {
 
-      if(settingsScreen){
-        settingsScreen.style.display = "none";
-      }
-
-      if(subwayStart){
-        subwayStart.style.display = "flex";
-      }
+      showScreen(subwayStart);
 
     }
   );
@@ -1650,11 +1751,8 @@ if(speed > 10){
 drawF1(player,false);
 
 /* =========================================
-   TOUCH MOBILE / SWIPE
+   TOUCH POR TOQUE (SEM ARRASTAR)
 ========================================= */
-
-let touchStartX = 0;
-let touchStartY = 0;
 
 canvas.addEventListener(
   "touchstart",
@@ -1664,61 +1762,33 @@ canvas.addEventListener(
 
     const touch = e.touches[0];
 
-    touchStartX = touch.clientX;
-    touchStartY = touch.clientY;
+    const rect = canvas.getBoundingClientRect();
 
-  },
-  { passive:false }
-);
+    const x = touch.clientX - rect.left;
+    const y = touch.clientY - rect.top;
 
-canvas.addEventListener(
-  "touchmove",
-  e => {
-    e.preventDefault();
-  },
-  { passive:false }
-);
+    /* NITRO = PARTE DE BAIXO */
 
-canvas.addEventListener(
-  "touchend",
-  e => {
+    if(y > H * 0.75){
 
-    e.preventDefault();
-
-    const touch = e.changedTouches[0];
-
-    const dx =
-    touch.clientX - touchStartX;
-
-    const dy =
-    touch.clientY - touchStartY;
-
-    /* SWIPE HORIZONTAL */
-
-    if(Math.abs(dx) > Math.abs(dy)){
-
-      if(dx > 30){
-
-        moveRight();
-
-      }
-
-      else if(dx < -30){
-
-        moveLeft();
-
-      }
+      activateNitro();
+      return;
 
     }
 
-    /* TOQUE PARA NITRO */
+    /* ESQUERDA */
 
-    else if(
-      Math.abs(dx) < 15 &&
-      Math.abs(dy) < 15
-    ){
+    if(x < W / 2){
 
-      activateNitro();
+      moveLeft();
+
+    }
+
+    /* DIREITA */
+
+    else{
+
+      moveRight();
 
     }
 
