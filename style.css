@@ -70,6 +70,14 @@
     color:white;
   
   }
+
+  body{
+    padding:
+      env(safe-area-inset-top)
+      env(safe-area-inset-right)
+      env(safe-area-inset-bottom)
+      env(safe-area-inset-left);
+  }
   
   /* =========================================
      GAME WRAP
@@ -685,7 +693,7 @@
   
   .subway-logo h1{
   
-    font-size:54px;
+    font-size:clamp(28px,6vw,54px);
     font-weight:900;
     letter-spacing:4px;
     color:#00d0ff;
@@ -1506,7 +1514,7 @@
 
 .logo{
 
-  font-size:52px;
+  font-size:clamp(32px,7vw,52px);
   font-weight:900;
 
   letter-spacing:4px;
@@ -2136,3 +2144,81 @@
     }
   
   }
+
+  /* =========================================
+   RESPONSIVIDADE AUTOMÁTICA
+========================================= */
+
+html{
+  font-size: clamp(12px, 1vw + 10px, 18px);
+}
+
+.game-wrap{
+  width: min(100vw, 520px);
+  height: min(100vh, 1000px);
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Celulares pequenos */
+@media (max-width: 360px){
+
+  .subway-logo h1{
+    font-size: 1.8rem;
+  }
+
+  .control-btn{
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+  }
+
+  .nitro-btn{
+    width: 48px;
+    height: 48px;
+  }
+
+  .pill{
+    padding: 4px 6px;
+  }
+}
+
+/* Tablets */
+@media (min-width: 768px){
+
+  .control-btn{
+    width: 64px;
+    height: 64px;
+    font-size: 28px;
+  }
+
+  .hud{
+    transform: scale(1.1);
+    transform-origin: top left;
+  }
+
+  .subway-logo h1{
+    font-size: 4rem;
+  }
+}
+
+/* Telas muito largas */
+@media (min-width: 1200px){
+
+  .game-wrap{
+    width: 520px;
+    height: 950px;
+  }
+}
+
+/* Notch Android/iPhone */
+.controls{
+  padding-bottom: max(
+    10px,
+    env(safe-area-inset-bottom)
+  );
+}
+
+.hud{
+  padding-top: env(safe-area-inset-top);
+}
