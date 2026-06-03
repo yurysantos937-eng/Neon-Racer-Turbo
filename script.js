@@ -138,7 +138,7 @@ window.onerror = function(msg, url, line){
   console.error("LINHA:", line);
   alert("ERRO: " + msg + "\nLINHA: " + line);
 };
-canvas.style.touchAction = "none";
+canvas.style.touchAction = "manipulation";
 
 if(!canvas){
   throw new Error("Canvas #game não encontrado");
@@ -1883,22 +1883,38 @@ if(speed > 10){
 drawF1(player,false);
 
 /* =========================================
-   TOQUE NA TELA ESTILO SUBWAY SURFERS
+   TOQUE NA TELA 
 ========================================= */
 
-canvas.addEventListener("pointerdown", e => {
+canvas.addEventListener("touchstart", e => {
 
   if(!gameRunning || paused){
     return;
   }
 
-  const rect =
-  canvas.getBoundingClientRect();
+  const touch = e.touches[0];
+  const rect = canvas.getBoundingClientRect();
 
-  const x =
-  e.clientX - rect.left;
+  const touchX = touch.clientX - rect.left;
 
-  if(x < rect.width / 2){
+  if(touchX < rect.width / 2){
+    moveLeft();
+  }else{
+    moveRight();
+  }
+
+}, { passive:true });
+
+canvas.addEventListener("mousedown", e => {
+
+  if(!gameRunning || paused){
+    return;
+  }
+
+  const rect = canvas.getBoundingClientRect();
+  const clickX = e.clientX - rect.left;
+
+  if(clickX < rect.width / 2){
     moveLeft();
   }else{
     moveRight();
