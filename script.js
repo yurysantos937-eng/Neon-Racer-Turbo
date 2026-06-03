@@ -132,13 +132,15 @@ setInterval(()=>{
 
 const canvas = document.getElementById("game");
 console.log("Script carregado");
+document.body.style.overflow = "hidden";
+document.body.style.touchAction = "none";
 
 window.onerror = function(msg, url, line){
   console.error("ERRO:", msg);
   console.error("LINHA:", line);
   alert("ERRO: " + msg + "\nLINHA: " + line);
 };
-canvas.style.touchAction = "manipulation";
+canvas.style.touchAction = "none";
 
 if(!canvas){
   throw new Error("Canvas #game não encontrado");
@@ -1886,7 +1888,17 @@ drawF1(player,false);
    TOQUE NA TELA - 3 FAIXAS
 ========================================= */
 
+let touchCooldown = false;
+
 function handleScreenTouch(posX, width){
+
+  if(touchCooldown) return;
+
+  touchCooldown = true;
+
+  setTimeout(() => {
+    touchCooldown = false;
+  }, 120);
 
   const center = width / 2;
 
@@ -1897,27 +1909,15 @@ function handleScreenTouch(posX, width){
   }
 
 }
-canvas.addEventListener("touchstart", e => {
+
+canvas.addEventListener("pointerdown", e => {
 
   if(!gameRunning || paused) return;
 
-  const touch = e.touches[0];
   const rect = canvas.getBoundingClientRect();
 
-  const touchX = touch.clientX - rect.left;
+  const touchX = e.clientX - rect.left;
 
   handleScreenTouch(touchX, rect.width);
-
-}, { passive:true });
-
-canvas.addEventListener("mousedown", e => {
-
-  if(!gameRunning || paused) return;
-
-  const rect = canvas.getBoundingClientRect();
-
-  const clickX = e.clientX - rect.left;
-
-  handleScreenTouch(clickX, rect.width);
 
 });
