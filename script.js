@@ -284,9 +284,20 @@ const MAX_NITRO_COOLDOWN = 600; // 10 segundos (60 FPS)
    PISTA
 ========================================= */
 
-const roadX = 55;
-const roadW = 250;
-const laneW = roadW / 3;
+let roadX;
+let roadW;
+let laneW;
+
+function updateRoadSize(){
+
+  roadW = W * 0.72;
+  roadX = (W - roadW) / 2;
+  laneW = roadW / 3;
+
+}
+
+updateRoadSize();
+window.addEventListener("resize", updateRoadSize);
 
 /* =========================================
    PLAYER
