@@ -1,23 +1,4 @@
 :root{
-
-  --bg:#0a0b10;
-
-  --road:#1a1e29;
-  --accent:#00d0ff;
-  --accent-2:#7b2cff;
-  --accent-3:#ff2ea6;
-  --accent-4:#00ff99;
-  --accent-5:#ffcc00;
-
-  --neon-blue:#00d0ff;
-  --neon-purple:#9d4dff;
-  --neon-pink:#ff2ea6;
-  --neon-green:#00ff99;
-  --neon-orange:#ff7b00;
-
-  --garage-color:#00d0ff;
-
-  --text:#e8eef9;
   --muted:#9aa6bf;
 
   --radius:22px;
@@ -68,34 +49,12 @@
   );
   
     color:white;
-  
-  }
 
-  body{
     padding:
       env(safe-area-inset-top)
       env(safe-area-inset-right)
       env(safe-area-inset-bottom)
       env(safe-area-inset-left);
-  }
-  
-  /* =========================================
-     GAME WRAP
-  ========================================= */
-  
-  .game-wrap{
-
-    position:relative;
-    width:min(100vw,520px);
-    height:min(100vh,1000px);
-    aspect-ratio:9/16;
-    overflow:hidden;
-    border-radius:var(--radius);
-    background:#000;
-    box-shadow:var(--shadow);
-    border:
-    1px solid rgba(255,255,255,.08);
-  
   }
   
   /* =========================================
@@ -109,9 +68,9 @@
     height:100%;
     z-index:1;
     display:block;
-  
+    image-rendering:auto;
+    will-change:transform;
   }
-
   
   /* =========================================
    HUD CLEAN V2
@@ -291,52 +250,6 @@
   0 0 6px #ff8800;
 
 }
-
-/* MOBILE */
-
-@media(max-width:480px){
-
-  .pill{
-
-    height:28px;
-
-    padding:5px 9px;
-
-  }
-
-  .pill .hud-value{
-
-    font-size:11px;
-
-  }
-
-  .pill .hud-icon{
-
-    font-size:12px;
-
-  }
-
-  .power-card{
-
-    height:16px;
-
-    padding:1px 5px;
-
-  }
-
-  .power-card .hud-value{
-
-    font-size:6px;
-
-  }
-
-  .power-card .hud-icon{
-
-    font-size:7px;
-
-  }
-
-}
   
   /* =========================================
      CONTROLES
@@ -392,8 +305,11 @@
 
     width:58px;
     height:48px;
+  
     border-radius:18px;
+  
     font-size:24px;
+  
     background:
     linear-gradient(
       180deg,
@@ -403,8 +319,11 @@
     );
   
     box-shadow:
-    0 0 18px rgba(255,120,0,.45),
-    0 0 30px rgba(255,0,80,.25);
+    0 0 20px #ff8800,
+    0 0 40px #ff5500,
+    0 0 60px #ff0033;
+  
+    animation:nitroGlow 1s infinite alternate;
   
   }
   
@@ -692,13 +611,14 @@
   }
   
   .subway-logo h1{
-  
+
     font-size:clamp(28px,6vw,54px);
     font-weight:900;
     letter-spacing:4px;
     color:#00d0ff;
     animation:
-    neonText 2s infinite alternate;
+    neonText 2s infinite alternate,
+    logoFloat 3s ease-in-out infinite;
     text-shadow:
     0 0 12px #00d0ff,
     0 0 30px rgba(0,208,255,.8);
@@ -1194,31 +1114,6 @@
     0 0 25px white;
   
   }
-
-  @media(max-width:360px){
-
-    .subway-logo h1{
-      font-size:28px;
-    }
-  
-    .tap-play{
-      font-size:14px;
-      padding:12px 20px;
-    }
-  
-    .control-btn{
-      width:48px;
-      height:48px;
-      font-size:20px;
-    }
-  
-    .sub-btn{
-      min-width:90px;
-      font-size:11px;
-    }
-  
-  }
-  
   /* =========================================
      ANIMAÇÕES
   ========================================= */
@@ -1322,6 +1217,18 @@
     }
   
   }
+
+  @keyframes nitroGlow{
+
+    from{
+      transform:scale(1);
+    }
+  
+    to{
+      transform:scale(1.08);
+    }
+  
+  }
   
   @media(max-width:480px){
 
@@ -1335,13 +1242,6 @@
     .subway-logo span{
       font-size:13px;
       letter-spacing:2px;
-    }
-  
-    /* BOTÃO JOGAR */
-  
-    .tap-play{
-      font-size:16px;
-      padding:14px 24px;
     }
   
     /* BOTÕES MENU */
@@ -1859,43 +1759,6 @@
 
 }
 
-/* BOTÃO VOLTAR */
-
-.garage-back{
-
-  width:42px;
-  height:42px;
-
-  border:none;
-  border-radius:14px;
-
-  background:
-  linear-gradient(
-    180deg,
-    rgba(0,208,255,.20),
-    rgba(123,44,255,.18)
-  );
-
-  color:white;
-
-  font-size:20px;
-  font-weight:bold;
-
-  cursor:pointer;
-
-  transition:.2s;
-
-  box-shadow:
-  0 0 14px rgba(0,208,255,.18);
-
-}
-
-.garage-back:active{
-
-  transform:scale(.92);
-
-}
-
 /* LISTA */
 
 .settings-list{
@@ -2086,14 +1949,6 @@
 
 }
 
-.control-btn{
-
-  width:48px;
-  height:48px;
-  font-size:20px;
-
-}
-
 .nitro-btn{
 
   width:52px;
@@ -2107,13 +1962,6 @@
   /* =========================
      RESPONSIVO REAL
   ========================= */
-  
-  
-  canvas{
-    width:100%;
-    height:100%;
-  }
-
   
   @media (orientation:landscape){
   
@@ -2145,19 +1993,28 @@
   
   }
 
+  @keyframes logoFloat{
+
+    0%{
+      transform:translateY(0);
+    }
+  
+    50%{
+      transform:translateY(-6px);
+    }
+  
+    100%{
+      transform:translateY(0);
+    }
+  
+  }
+
   /* =========================================
    RESPONSIVIDADE AUTOMÁTICA
 ========================================= */
 
 html{
   font-size: clamp(12px, 1vw + 10px, 18px);
-}
-
-.game-wrap{
-  width: min(100vw, 520px);
-  height: min(100vh, 1000px);
-  max-width: 100%;
-  max-height: 100%;
 }
 
 /* Celulares pequenos */
@@ -2202,13 +2059,20 @@ html{
   }
 }
 
-/* Telas muito largas */
-@media (min-width: 1200px){
+.game-wrap{
+  position:relative;
+  contain:layout paint;
+    width:100vw;
+    height:100vh;
+    max-width:none;
+    max-height:none;
+  aspect-ratio:9/16;
+  overflow:hidden;
+  border-radius:0;
+  background:#000;
+  box-shadow:var(--shadow);
 
-  .game-wrap{
-    width: 520px;
-    height: 950px;
-  }
+  border:1px solid rgba(255,255,255,.08);
 }
 
 /* Notch Android/iPhone */
