@@ -174,7 +174,7 @@ let H = 640;
 
 function resizeGame(){
 
-  const ratio = 360 / 640;
+  const ratio = W / H;
 
   let width = window.innerWidth;
   let height = window.innerHeight;
@@ -185,20 +185,20 @@ function resizeGame(){
     height = width / ratio;
   }
 
-  canvas.width = 360;
-  canvas.height = 640;
+  canvas.width = W;
+  canvas.height = H;
 
   canvas.style.width = width + "px";
   canvas.style.height = height + "px";
 
+  canvas.style.position = "absolute";
+  canvas.style.left = "50%";
+  canvas.style.top = "50%";
+  canvas.style.transform = "translate(-50%, -50%)";
 }
 
 resizeGame();
-
-window.addEventListener(
-  "resize",
-  resizeGame
-);
+window.addEventListener("resize", resizeGame);
 
 /* =========================================
    ELEMENTOS
@@ -1883,41 +1883,41 @@ if(speed > 10){
 drawF1(player,false);
 
 /* =========================================
-   TOQUE NA TELA 
+   TOQUE NA TELA - 3 FAIXAS
 ========================================= */
 
+function handleScreenTouch(posX, width){
+
+  const center = width / 2;
+
+  if(posX < center){
+    moveLeft();
+  }else{
+    moveRight();
+  }
+
+}
 canvas.addEventListener("touchstart", e => {
 
-  if(!gameRunning || paused){
-    return;
-  }
+  if(!gameRunning || paused) return;
 
   const touch = e.touches[0];
   const rect = canvas.getBoundingClientRect();
 
   const touchX = touch.clientX - rect.left;
 
-  if(touchX < rect.width / 2){
-    moveLeft();
-  }else{
-    moveRight();
-  }
+  handleScreenTouch(touchX, rect.width);
 
 }, { passive:true });
 
 canvas.addEventListener("mousedown", e => {
 
-  if(!gameRunning || paused){
-    return;
-  }
+  if(!gameRunning || paused) return;
 
   const rect = canvas.getBoundingClientRect();
+
   const clickX = e.clientX - rect.left;
 
-  if(clickX < rect.width / 2){
-    moveLeft();
-  }else{
-    moveRight();
-  }
+  handleScreenTouch(clickX, rect.width);
 
 });
