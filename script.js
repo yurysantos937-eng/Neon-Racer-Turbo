@@ -1885,39 +1885,58 @@ if(speed > 10){
 drawF1(player,false);
 
 /* =========================================
-   TOQUE NA TELA - 3 FAIXAS
+   TOQUE NA TELA - MOBILE E PC
 ========================================= */
 
-let touchCooldown = false;
+let lastTouchTime = 0;
+const TOUCH_DELAY = 180;
 
 function handleScreenTouch(posX, width){
 
-  if(touchCooldown) return;
+  const now = Date.now();
 
-  touchCooldown = true;
+  if(now - lastTouchTime < TOUCH_DELAY){
+    return;
+  }
 
-  setTimeout(() => {
-    touchCooldown = false;
-  }, 120);
+  lastTouchTime = now;
 
   const center = width / 2;
 
   if(posX < center){
-    moveLeft();
+
+    if(player.lane > 0){
+      moveLeft();
+    }
+
   }else{
-    moveRight();
+
+    if(player.lane < 2){
+      moveRight();
+    }
+
   }
 
 }
 
+/* TOUCH + MOUSE + CANETA */
+
 canvas.addEventListener("pointerdown", e => {
 
-  if(!gameRunning || paused) return;
+  if(!gameRunning || paused){
+    return;
+  }
+
+  e.preventDefault();
 
   const rect = canvas.getBoundingClientRect();
 
-  const touchX = e.clientX - rect.left;
+  const touchX =
+  e.clientX - rect.left;
 
-  handleScreenTouch(touchX, rect.width);
+  handleScreenTouch(
+    touchX,
+    rect.width
+  );
 
-});
+}, { passive:false });
