@@ -33,6 +33,21 @@ window.addEventListener(
   detectDevice
 );
 
+let graphicsQuality = "HIGH";
+
+if(window.innerWidth < 500){
+  graphicsQuality = "LOW";
+}
+
+if(window.innerWidth > 1000){
+  graphicsQuality = "ULTRA";
+}
+
+console.log(
+  "Qualidade:",
+  graphicsQuality
+);
+
 /* =========================================
    LOADING SCREEN
 ========================================= */
@@ -154,12 +169,36 @@ window.addEventListener("blur", () => {
    TAMANHO
 ========================================= */
 
-const W = 360;
-const H = 640;
+let W = 360;
+let H = 640;
 
-canvas.width = W;
-canvas.height = H;
-ctx.imageSmoothingEnabled = false;
+function resizeGame(){
+
+  const ratio = 360 / 640;
+
+  let width = window.innerWidth;
+  let height = window.innerHeight;
+
+  if(width / height > ratio){
+    width = height * ratio;
+  }else{
+    height = width / ratio;
+  }
+
+  canvas.width = 360;
+  canvas.height = 640;
+
+  canvas.style.width = width + "px";
+  canvas.style.height = height + "px";
+
+}
+
+resizeGame();
+
+window.addEventListener(
+  "resize",
+  resizeGame
+);
 
 /* =========================================
    ELEMENTOS
@@ -172,6 +211,7 @@ const weatherEl = document.getElementById("weather");
 
 const shieldTimeEl = document.getElementById("shield-time");
 const nitroTimeEl = document.getElementById("nitro-time");
+const nitroCooldownEl =document.getElementById("nitro-cooldown");
 const tapPlay = document.getElementById("tap-play");
 const subwayStart = document.getElementById("subway-start");
 const gameOverScreen = document.getElementById("gameover-overlay");
@@ -235,6 +275,9 @@ let nitro = false;
 let nitroTimer = 0;
 let spawnTimer = 0;
 
+let nitroCooldown = 0; // tempo de recarga
+const MAX_NITRO_COOLDOWN = 600; // 10 segundos (60 FPS)
+
 /* =========================================
    PISTA
 ========================================= */
@@ -269,6 +312,11 @@ player.targetX = player.x;
 const obstacles = [];
 const coinsList = [];
 const particles = [];
+let MAX_PARTICLES = 50;
+
+if(window.innerWidth < 400){
+  MAX_PARTICLES = 20;
+}
 
 /* =========================================
    HUD
@@ -305,6 +353,20 @@ function updateHUD(){
   nitro
   ? Math.floor(nitroTimer / 60)
   : "0";
+
+  if(nitroCooldownEl){
+
+    nitroCooldownEl.textContent =
+    Math.ceil(nitroCooldown / 60);
+  
+  }
+
+  if(btnNitro){
+
+    btnNitro.disabled =
+    nitroCooldown > 0 || nitro;
+  
+  }
 
 }
 
@@ -371,7 +433,7 @@ function spawnObstacle(){
 
   const lane =
   freeLanes[
-    Math.floor(Math.random() * freeLanes.length)
+  Math.floor(Math.random() * freeLanes.length)
   ];
 
   const npcColors = [
@@ -388,7 +450,7 @@ function spawnObstacle(){
     roadX +
     laneW * lane +
     laneW / 2,
-    y:-120,
+    y:-300,
     speed:
     speed * (.82 + Math.random() * .18),
     color:
@@ -768,28 +830,29 @@ function drawF1(car,isEnemy = false){
 
   if(shield && !isEnemy){
 
-    ctx.strokeStyle =
-    "rgba(0,255,255,.8)";
-
-    ctx.lineWidth = 4;
-
-    ctx.shadowBlur = 20;
-
+    ctx.save();
+  
+    ctx.shadowBlur = 35;
     ctx.shadowColor = "#00ffff";
-
+  
+    const pulse =
+    48 + Math.sin(performance.now()*0.01)*6;
+  
+    ctx.strokeStyle = "#00ffff";
+    ctx.lineWidth = 6;
+  
     ctx.beginPath();
-
-    ctx.arc(
-      0,
-      0,
-      42 +
-      Math.sin(performance.now() * .01) * 3,
-      0,
-      Math.PI * 2
-    );
-
+    ctx.arc(0,0,pulse,0,Math.PI*2);
     ctx.stroke();
-
+  
+    ctx.globalAlpha = 0.15;
+    ctx.fillStyle = "#00ffff";
+  
+    ctx.beginPath();
+    ctx.arc(0,0,pulse-4,0,Math.PI*2);
+    ctx.fill();
+  
+    ctx.restore();
   }
 
   ctx.restore();
@@ -831,7 +894,7 @@ function createNitroParticles(){
 
   if(!nitro) return;
   for(let i = 0; i < 2; i++){
-    if(particles.length < 120){
+    if(particles.length < MAX_PARTICLES){
       particles.push({
       x:
       player.x +
@@ -909,7 +972,7 @@ function updateWeather(){
   if(weather === "CHUVA"){
     ctx.strokeStyle =
     "rgba(180,220,255,.4)";
-    for(let i = 0; i < 25; i++){
+    for(let i = 0; i < 10; i++){
       const x = Math.random() * W;
       const y = Math.random() * H;
       ctx.beginPath();
@@ -924,7 +987,7 @@ function updateWeather(){
   if(weather === "NEVE"){
     ctx.fillStyle =
     "rgba(255,255,255,.8)";
-    for(let i = 0; i < 18; i++){
+    for(let i = 0; i < 8; i++){
       const x = Math.random() * W;
       const y = Math.random() * H;
       ctx.beginPath();
@@ -944,43 +1007,50 @@ function updateWeather(){
 function gameOver(){
 
   if(shield){
+
     shield = false;
+
+    particles.push({
+      x:player.x,
+      y:player.y,
+      size:40,
+      speed:0,
+      color:"#00ffff",
+      life:1
+    });
+
     return;
   }
 
   gameRunning = false;
+
   finalScore.textContent =
   Math.floor(score);
-  gameOverScreen.style.display = "grid";
 
+  gameOverScreen.style.display =
+  "grid";
 }
 
 /* =========================================
    UPDATE
 ========================================= */
 
-function updateGame(){
+  function updateGame(delta){
   roadOffset += speed;
   score += .12;
-  if(speed < 14){
-    speed += .0015;
-  
+  if(speed < 12){
+    speed += 0.0005;
   }
 
   if(roadOffset > 100000){
     roadOffset = 0;
    }
 
-
-
   /* MOVIMENTO SUAVE */
 
   player.x +=
   (player.targetX - player.x) * .18;
   player.tilt *= .84;
-
-
-
 
   /* NITRO */
 
@@ -989,9 +1059,14 @@ function updateGame(){
     if(nitroTimer <= 0){
       nitro = false;
       speed = Math.max(6, speed - 4);
+      nitroCooldown = MAX_NITRO_COOLDOWN;
 
     }
 
+  }
+
+  if(nitroCooldown > 0){
+    nitroCooldown--;
   }
 
   /* ESCUDO */
@@ -1007,11 +1082,33 @@ function updateGame(){
 
     /* SPAWN */
 
-        spawnTimer++;
-    if(spawnTimer > 45){
-        spawnObstacle();
-        spawnTimer = 0;
+    spawnTimer++;
 
+    /* spawn dinâmico */
+    
+    let spawnLimit = 45;
+    
+    /* quanto mais rápido, mais carros */
+    
+    spawnLimit -= Math.floor(speed * 2);
+    
+    /* durante nitro */
+    
+    if(nitro){
+      spawnLimit -= 15;
+    }
+    
+    /* limite mínimo */
+    
+    spawnLimit = Math.max(8, spawnLimit);
+    
+    if(spawnTimer >= spawnLimit){
+      spawnObstacle();
+      spawnTimer = 0;
+    }
+
+    if(obstacles.length < 3){
+      spawnObstacle();
     }
 
     if(Math.random() < .01){
@@ -1027,7 +1124,7 @@ function updateGame(){
     ){
 
         const o = obstacles[i];
-        o.y += o.speed;
+        o.y += speed * 0.9;
 
 
     /* IA MELHORADA */
@@ -1231,15 +1328,28 @@ let animationId = null;
    LOOP
 ========================================= */
 
-function loop(){
+let lastTime = 0;
+
+function loop(timestamp){
+
   if(!gameRunning){
     cancelAnimationFrame(animationId);
     return;
   }
 
+  const delta =
+  Math.min(
+    (timestamp - lastTime) / 16.67,
+    2
+  );
+
+  lastTime = timestamp;
+
   if(!paused){
+
     ctx.setTransform(1,0,0,1,0,0);
-    updateGame();
+
+    updateGame(delta);
     renderGame();
 
   }
@@ -1253,9 +1363,26 @@ function loop(){
    START
 ========================================= */
 
+function enterFullscreen(){
+
+  const el = document.documentElement;
+
+  if(el.requestFullscreen){
+    el.requestFullscreen();
+  }
+
+}
+
 function startGame(){
   cancelAnimationFrame(animationId);
+  enterFullscreen();
   resetGame();
+
+  obstacles.length = 0;
+  setTimeout(() => {
+  spawnObstacle();
+  }, 1000);
+
   subwayStart.style.display = "none";
   gameOverScreen.style.display = "none";
   menuOpen = false;
@@ -1266,7 +1393,8 @@ function startGame(){
 gameRunning = true;
 paused = false;
 
-loop();
+lastTime = performance.now();
+animationId = requestAnimationFrame(loop);
 
 }
 
@@ -1306,12 +1434,16 @@ function moveRight(){
 
 function activateNitro(){
 
-  if(nitro || speed > 14){
+  if(nitro){
+    return;
+  }
+
+  if(nitroCooldown > 0){
     return;
   }
 
   nitro = true;
-  nitroTimer = 240;
+  nitroTimer = 240; // 4 segundos
   speed += 4;
 
 }
@@ -1751,47 +1883,25 @@ if(speed > 10){
 drawF1(player,false);
 
 /* =========================================
-   TOUCH POR TOQUE (SEM ARRASTAR)
+   TOQUE NA TELA ESTILO SUBWAY SURFERS
 ========================================= */
 
-canvas.addEventListener(
-  "touchstart",
-  e => {
+canvas.addEventListener("pointerdown", e => {
 
-    e.preventDefault();
+  if(!gameRunning || paused){
+    return;
+  }
 
-    const touch = e.touches[0];
+  const rect =
+  canvas.getBoundingClientRect();
 
-    const rect = canvas.getBoundingClientRect();
+  const x =
+  e.clientX - rect.left;
 
-    const x = touch.clientX - rect.left;
-    const y = touch.clientY - rect.top;
+  if(x < rect.width / 2){
+    moveLeft();
+  }else{
+    moveRight();
+  }
 
-    /* NITRO = PARTE DE BAIXO */
-
-    if(y > H * 0.75){
-
-      activateNitro();
-      return;
-
-    }
-
-    /* ESQUERDA */
-
-    if(x < W / 2){
-
-      moveLeft();
-
-    }
-
-    /* DIREITA */
-
-    else{
-
-      moveRight();
-
-    }
-
-  },
-  { passive:false }
-);
+});
