@@ -1051,8 +1051,8 @@ function gameOver(){
   function updateGame(delta){
   roadOffset += speed;
   score += .12;
-  if(speed < 12){
-    speed += 0.0005;
+  if(speed < 20){
+    speed += 0.0015;
   }
 
   if(roadOffset > 100000){
