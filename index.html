@@ -1,579 +1,2901 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="pt-BR">
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#02030a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Neon Racer Turbo • Evolution</title>
+  <link rel="icon" href="data:,">
+  <style>
+:root{color-scheme:dark;--bg:#080c15;--card:#121a28;--line:#243044;--muted:#8290a8;--text:#eef3fa;--lime:#d6ff58;--cyan:#5de6f5;--purple:#a392ff;--car:#5de6f5;font-family:Arial,Helvetica,sans-serif;font-synthesis:none}*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#04070d;color:var(--text)}body{overscroll-behavior:none}button,input,select{font:inherit}button{cursor:pointer;color:inherit;border:0;touch-action:manipulation}button:disabled{opacity:.45;cursor:default}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}button:active:not(:disabled){transform:scale(.97)}[hidden]{display:none!important}#app{position:relative;max-width:500px;height:100%;height:100dvh;margin:auto;overflow:hidden;background:var(--bg);box-shadow:0 0 100px #13243866}#game{position:absolute;width:100%;height:100%;touch-action:none} .screen{display:none;position:absolute;inset:0;padding:0 23px calc(20px + env(safe-area-inset-bottom));background:var(--bg);z-index:3;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;touch-action:pan-y}.screen.active{display:block}.topbar{display:flex;align-items:center;gap:14px;min-height:90px;padding-top:env(safe-area-inset-top);position:relative;z-index:2}.wordmark{font-size:22px;font-weight:900;letter-spacing:-1px;display:flex;align-items:center;gap:8px}.wordmark i{width:12px;height:22px;background:var(--lime);transform:skew(-18deg)}.wordmark span{font-size:10px;letter-spacing:1.5px;color:var(--muted);margin-left:4px}.wallet{margin-left:auto;font-size:13px;padding:10px 13px;border:1px solid #333f31;border-radius:30px;color:var(--lime);white-space:nowrap}.wallet b{margin-left:5px}.eyebrow{font-size:10px;letter-spacing:2.2px;font-weight:700;color:var(--muted)}h1{position:relative;z-index:1;margin:15px 0 0;font-size:clamp(55px,16vw,79px);font-weight:900;line-height:.89;letter-spacing:-5px;font-style:italic}h1 span{color:var(--lime)}.home-content{padding-top:9px}.hero-art{height:226px;position:relative;margin-top:-13px;overflow:hidden;background:radial-gradient(ellipse at 57% 50%,#354c3b44,transparent 65%)}#hero-car{position:absolute;left:29%;top:6px;width:48%;height:220px;transform:rotate(32deg);filter:drop-shadow(15px 20px 20px #0008)}#hero-car svg{width:100%;height:100%}.orbit{position:absolute;border:1px solid #52674350;border-radius:50%;width:300px;height:105px;left:calc(50% - 150px);top:62px;transform:rotate(-24deg)}.orbit-two{width:390px;height:165px;left:calc(50% - 195px);top:31px;border-color:#52674325}.art-label{position:absolute;bottom:11px;left:0;font-size:9px;letter-spacing:2px;color:var(--muted)}.art-label b{display:block;color:var(--text);font-size:11px;letter-spacing:4px;margin-top:6px}.home-meta{display:flex;justify-content:space-between;font-size:9px;letter-spacing:1px;color:var(--muted);padding:9px 0 16px}.dot{display:inline-block;width:5px;height:5px;background:var(--lime);border-radius:50%;margin-right:5px}.primary,.secondary{min-height:52px;padding:16px 20px;border-radius:13px;font-weight:800;font-size:12px;letter-spacing:.8px}.primary{background:var(--lime);color:#14200b}.secondary{background:#171f2e;border:1px solid #2e3b50;color:var(--text)}.wide{width:100%;display:flex;align-items:center;justify-content:space-between;text-align:left;margin-bottom:10px}.wide small{display:block;font-size:9px;letter-spacing:1.4px;margin-top:6px;opacity:.65;font-weight:500}.wide b{font-size:26px}.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:19px}.tiles button{background:#111926;border:1px solid #202c3d;border-radius:13px;min-height:77px;font-size:11px;color:#b6c1d4}.tiles span{display:block;font-size:25px;margin-bottom:8px;color:var(--cyan)}.footnote{text-align:center;font-size:10px;color:#65748b;margin-top:22px;letter-spacing:.3px}.icon{background:#182132;border:1px solid #2a374b;border-radius:13px;width:43px;height:43px;flex-shrink:0;font-size:20px}h2{font-size:22px;letter-spacing:-.8px;margin:0}h2 span{display:block;font-size:8px;letter-spacing:1.5px;color:var(--muted);margin-top:6px;font-weight:400}.garage-stage{height:245px;border:1px solid var(--line);border-radius:20px;background:radial-gradient(ellipse at 50% 40%,#29415177,transparent 65%),linear-gradient(135deg,#152134,#0b111c);position:relative;overflow:hidden;text-align:center}.garage-stage:before{content:'';position:absolute;bottom:58px;left:12%;width:76%;height:44px;border:1px solid #5de6f544;border-radius:50%}#garage-car{position:relative;height:175px;padding:10px}#garage-car svg{height:100%;width:100%;filter:drop-shadow(10px 10px 10px #0009)}h3{margin:8px 0 0;font-size:20px;letter-spacing:-.5px}.section-label{font-size:10px;letter-spacing:1.8px;font-weight:700;margin:27px 0 15px;display:flex;justify-content:space-between;color:#b4c1d2}.section-label span{color:var(--muted);font-size:9px}.colors{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}.colors .swatch{justify-self:center}.swatch{width:34px;height:34px;border-radius:50%;background:var(--swatch);border:5px solid var(--bg);outline:1px solid #29364a}.swatch.selected{outline:2px solid var(--lime)}.cars{display:grid;grid-template-columns:1fr 1fr;gap:12px}.car-card{border:1px solid var(--line);border-radius:15px;padding:13px;background:#101824;min-width:0}.car-card.selected{border-color:var(--lime);background:#19211d}.car-card svg{height:92px;width:100%;transform:rotate(25deg)}.car-card h3{font-size:12px;margin:9px 0}.car-card p{font-size:9px;color:var(--muted);line-height:1.7;margin:6px 0 12px}.car-card button{width:100%;border-radius:8px;background:#233147;min-height:40px;font-size:10px;font-weight:700}.car-card.selected button{color:var(--lime);background:#2d3821}.muted{color:var(--muted);font-size:12px;line-height:1.7;margin:20px 0}.settings-group{background:#101824;border:1px solid var(--line);padding:0 15px;border-radius:16px;margin:14px 0 22px}.settings-group .section-label{color:var(--cyan);margin-top:20px}.setting{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:70px;border-top:1px solid #202b3c;font-size:12px}.setting small{display:block;font-size:10px;color:var(--muted);line-height:1.6;margin-top:5px}.setting select{max-width:125px;font-size:11px;border:1px solid #304159;border-radius:8px;padding:10px 8px;background:#192335;color:var(--text)}input[type=checkbox]{appearance:none;width:42px;height:24px;border-radius:20px;background:#2d3746;position:relative;flex-shrink:0;cursor:pointer}input[type=checkbox]:before{content:'';position:absolute;left:3px;top:3px;width:18px;height:18px;background:#8593a8;border-radius:50%}input[type=checkbox]:checked{background:var(--lime)}input[type=checkbox]:checked:before{left:21px;background:#1b2810}.online-emblem{font-size:46px;color:var(--purple);margin:20px 0}.big{font-size:36px;line-height:1.15;letter-spacing:-1.6px}.field{display:block;font-size:10px;letter-spacing:1px;color:var(--muted);margin:26px 0 16px}.field input,.join input{background:#111a28;border:1px solid #304056;border-radius:10px;padding:15px;color:var(--text);width:100%;font-size:16px;user-select:text}.field input{margin-top:9px}.status{border-left:2px solid var(--cyan);background:#11232c;color:#a9d6df;padding:13px;font-size:12px;line-height:1.6;margin:16px 0}.status.error{border-color:#ff6984;background:#301822;color:#ffabbc}.divider{font-size:9px;color:var(--muted);text-align:center;letter-spacing:1.5px;margin:26px 0 16px}.join{display:flex;gap:10px}.join input{width:55%;text-transform:uppercase;letter-spacing:3px}.join button{flex:1}.room-card{background:#161f30;border:1px solid var(--line);border-radius:16px;padding:24px;text-align:center}.room-card span{font-size:10px;color:var(--muted);letter-spacing:2px}.room-card strong{display:block;font-size:36px;letter-spacing:6px;margin:16px 0;color:var(--lime)}.text-btn{display:block;background:transparent;color:var(--muted);padding:14px;margin:auto;font-size:12px}.lobby-player{padding:18px 0;display:flex;justify-content:space-between;border-bottom:1px solid var(--line);font-size:13px}.lobby-player span{color:var(--lime);font-size:11px}#ready{margin-top:20px}.record-card{background:linear-gradient(120deg,#263923,#14222b);border:1px solid #394936;border-radius:18px;padding:30px;margin:20px 0}.record-card span{font-size:10px;letter-spacing:2px;color:var(--lime)}.record-card strong{display:block;font-size:54px;margin-top:10px;letter-spacing:-3px}.history-item{padding:18px 2px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;font-size:13px}.history-item small{display:block;color:var(--muted);font-size:10px;margin-top:7px}.history-item b{color:var(--lime)}#race-ui{position:absolute;inset:0;pointer-events:none;z-index:2;padding-top:env(safe-area-inset-top)}.race-top{padding:17px 20px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(#080c15ee,transparent)}.race-top span{display:block;font-size:9px;letter-spacing:2px;color:var(--lime)}.race-top b{font-size:34px;letter-spacing:-1px}.race-top button{pointer-events:auto}#hud-panel{position:absolute;left:20px;right:20px;top:calc(101px + env(safe-area-inset-top));display:flex;justify-content:space-between}.race-stat{display:flex;flex-direction:column;gap:4px;text-shadow:0 2px 6px #000}.race-stat b{font-size:22px}.race-stat small{font-size:10px;color:var(--muted)}.right{text-align:right}.right b{color:var(--lime)}#race-health{color:#ff829c;font-size:16px}#rival{margin:5px 20px;background:#141d30df;border:1px solid #56629a77;border-radius:8px;padding:10px;font-size:11px;color:#c5c6ff;text-align:center}#race-message{position:absolute;left:0;right:0;top:38%;text-align:center;font-size:50px;font-weight:900;color:var(--lime);text-shadow:0 3px 18px #000}#controls{position:absolute;bottom:calc(20px + env(safe-area-inset-bottom));left:20px;right:20px;display:flex;justify-content:space-between;align-items:center;pointer-events:auto;touch-action:none;user-select:none;-webkit-user-select:none}#controls button{border:1px solid #677e9d77;width:76px;height:66px;border-radius:20px;background:#182436e8;box-shadow:0 8px 20px #0004;font-size:47px;touch-action:none;color:#dce7f8}#controls #nitro{width:90px;height:82px;border-color:#d6ff5866;color:var(--lime);font-size:42px;background:#233323e8}#nitro small{display:block;font-size:9px;letter-spacing:2px;margin-top:-5px}.large-buttons #controls button{height:80px;width:88px}.large-buttons #controls #nitro{height:92px;width:100px}.nitro-meter{position:absolute;left:25%;right:25%;bottom:calc(119px + env(safe-area-inset-bottom));height:4px;border-radius:4px;background:#344053;overflow:hidden}#nitro-fill{height:100%;background:var(--lime);width:100%}.large-buttons .nitro-meter{bottom:calc(132px + env(safe-area-inset-bottom))}.modal{position:absolute;inset:0;background:#030710bb;backdrop-filter:blur(9px);z-index:10;display:flex;align-items:center;justify-content:center;padding:23px}.modal-card{width:100%;max-height:95%;overflow:auto;background:#101927;border:1px solid #33425a;border-radius:23px;padding:28px;text-align:center}.modal-card h2{font-size:33px;margin:14px 0 20px}.modal-card p{font-size:13px;line-height:1.7;color:#a4b2c7}.modal-card button{width:100%;margin-top:10px}.result-score{font-size:57px;color:var(--lime);font-weight:900;letter-spacing:-3px}.result-grid{display:flex;justify-content:space-around;margin:22px 0}.result-grid b{display:block;font-size:20px}.result-grid small{font-size:10px;color:var(--muted)}#toast{position:absolute;z-index:20;left:20px;right:20px;bottom:calc(24px + env(safe-area-inset-bottom));background:#dce8f3;color:#162236;padding:15px;border-radius:12px;font-size:12px;text-align:center;opacity:0;pointer-events:none;transition:opacity .2s}#toast.visible{opacity:1}@media(max-height:740px){.topbar{min-height:72px}.home-content{padding-top:0}h1{font-size:60px}.hero-art{height:180px}#hero-car{height:175px;top:0}.orbit{top:46px}.orbit-two{top:12px}.tiles{margin-top:13px}.tiles button{min-height:65px}.footnote{margin:15px 0}.home-meta{padding-bottom:12px}}@media(orientation:landscape) and (max-height:500px){#app{max-width:450px}.screen{padding-left:30px;padding-right:30px}#controls{bottom:10px}#controls button{height:50px;width:68px}#controls #nitro{height:60px}.nitro-meter{bottom:83px}.race-top{padding:8px 18px}#hud-panel{top:80px}}
 
-  <meta charset="UTF-8"/>
-  <meta
-  name="viewport"
-  content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+/* VISUAL ORIGINAL: MENU NEON RACER ULTIMATE F1 */
+  .subway-start {
+    position: absolute;
+  
+    inset: 0;
+  
+    z-index: 50;
+  
+    display: none;
+  
+    flex-direction: column;
+  
+    align-items: center;
+  
+    justify-content: center;
+  
+    overflow: hidden;
+  
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            rgba(0, 208, 255, .13),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 20% 80%,
+            rgba(178, 108, 255, .12),
+            transparent 30%
+        ),
+        #02030a;
+  }
+  
+  /* =========================================================
+   FUNDO CIDADE
+  ========================================================= */
+  
+  .subway-bg {
+    position: absolute;
+  
+    inset: 0;
+  
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0, 0, 0, .1),
+            rgba(0, 0, 0, .8)
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent 0,
+            transparent 28px,
+            rgba(0, 208, 255, .035) 29px,
+            transparent 30px
+        );
+  
+    opacity: .9;
+  }
+  
+  .city-lights {
+    position: absolute;
+  
+    left: 0;
+    right: 0;
+    bottom: 0;
+  
+    height: 45%;
+  
+    background:
+        repeating-linear-gradient(
+            90deg,
+            transparent 0 18px,
+            rgba(0, 208, 255, .08) 19px 22px,
+            transparent 23px 45px
+        );
+  
+    mask-image:
+        linear-gradient(
+            to top,
+            black,
+            transparent
+        );
+  
+    animation:
+        cityMove 7s linear infinite;
+  }
+  
+  @keyframes cityMove {
+    from {
+        transform: translateX(0);
+    }
+  
+    to {
+        transform: translateX(-45px);
+    }
+  }
+  
+  /* =========================================================
+   LOGO PRINCIPAL
+  ========================================================= */
+  
+  .subway-logo {
+    position: relative;
+  
+    z-index: 2;
+  
+    text-align: center;
+  
+    margin-bottom: 55px;
+  }
+  
+  .subway-logo h1 {
+    font-size:
+        clamp(45px, 11vw, 90px);
+  
+    font-weight: 1000;
+  
+    letter-spacing: .08em;
+  
+    line-height: .9;
+  
+    color: #fff;
+  
+    text-shadow:
+        0 0 6px #fff,
+        0 0 18px var(--neon),
+        0 0 45px var(--neon),
+        0 0 90px var(--neon);
+  }
+  
+  .subway-logo span {
+    display: block;
+  
+    margin-top: 14px;
+  
+    color: var(--neon);
+  
+    font-size:
+        clamp(9px, 2vw, 13px);
+  
+    font-weight: 900;
+  
+    letter-spacing: .4em;
+  }
+  
+  /* =========================================================
+   ÁREA CENTRAL
+  ========================================================= */
+  
+  .subway-center {
+    position: relative;
+  
+    z-index: 5;
+  
+    display: flex;
+  
+    flex-direction: column;
+  
+    align-items: center;
+  
+    width: min(90vw, 420px);
+  }
+  
+  /* =========================================================
+   BOTÃO JOGAR
+  ========================================================= */
+  
+  .tap-play {
+    width: 100%;
+  
+    padding: 18px 22px;
+  
+    border-radius: 16px;
+  
+    border:
+        1px solid
+        rgba(0, 208, 255, .7);
+  
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0, 208, 255, .16),
+            rgba(0, 208, 255, .04)
+        );
+  
+    color: #fff;
+  
+    text-align: center;
+  
+    font-size: 16px;
+  
+    font-weight: 900;
+  
+    letter-spacing: .12em;
+  
+    cursor: pointer;
+  
+    box-shadow:
+        0 0 15px rgba(0, 208, 255, .25),
+        inset 0 0 20px rgba(0, 208, 255, .05);
+  
+    transition:
+        .25s ease;
+  
+    animation:
+        playPulse 1.7s ease-in-out infinite;
+  }
+  
+  @keyframes playPulse {
+    0%,
+    100% {
+        transform: scale(1);
+  
+        box-shadow:
+            0 0 15px rgba(0, 208, 255, .25);
+    }
+  
+    50% {
+        transform: scale(1.025);
+  
+        box-shadow:
+            0 0 30px rgba(0, 208, 255, .5);
+    }
+  }
+  
+  .tap-play:hover {
+    transform: scale(1.04);
+  
+    background:
+        rgba(0, 208, 255, .16);
+  
+    box-shadow:
+        0 0 35px rgba(0, 208, 255, .6);
+  }
+  
+  .tap-play:active {
+    transform: scale(.97);
+  }
+  
+  /* =========================================================
+   BOTÕES MENU
+  ========================================================= */
+  
+  .subway-buttons {
+    display: grid;
+  
+    grid-template-columns:
+        repeat(3, 1fr);
+  
+    gap: 10px;
+  
+    width: 100%;
+  
+    margin-top: 14px;
+  }
+  
+  .sub-btn {
+    min-height: 48px;
+  
+    padding: 11px 10px;
+  
+    border:
+        1px solid
+        rgba(0, 208, 255, .3);
+  
+    border-radius: 12px;
+  
+    background:
+        linear-gradient(
+            145deg,
+            rgba(9, 19, 36, .92),
+            rgba(2, 6, 14, .95)
+        );
+  
+    color: #fff;
+  
+    font-size: 11px;
+  
+    font-weight: 800;
+  
+    letter-spacing: .04em;
+  
+    cursor: pointer;
+  
+    box-shadow:
+        inset 0 0 15px
+        rgba(0, 208, 255, .025);
+  
+    transition:
+        transform .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+  }
+  
+  .sub-btn:hover {
+    transform:
+        translateY(-3px);
+  
+    border-color:
+        var(--neon);
+  
+    background:
+        rgba(0, 208, 255, .1);
+  
+    box-shadow:
+        0 0 20px
+        rgba(0, 208, 255, .25);
+  }
+  
+  .sub-btn:active {
+    transform:
+        scale(.96);
+  }
+  
+ 
+  
+  /* Tema clássico aplicado às telas corrigidas. */
+:root{--bg:#02030a;--card:#071222;--line:#00d0ff40;--muted:#8b9db5;--text:#fff;--lime:#00d0ff;--cyan:#00d0ff;--purple:#b26cff;--neon:#00d0ff;--garage-color:#00d0ff;font-family:'Segoe UI',Arial,sans-serif}
+html,body{background:#02030a}#app{max-width:500px;background:#02030a;box-shadow:0 0 50px #00d0ff15}.screen{background:radial-gradient(circle at 50% 8%,#00d0ff16,transparent 35%),radial-gradient(circle at 85% 80%,#b26cff14,transparent 30%),#02030a}
+#home.active{display:flex}#home{padding:80px 18px;overflow-y:auto}.subway-logo{width:100%;max-width:450px;margin-bottom:55px}.subway-logo h1{margin:0;font-style:normal;font-size:clamp(45px,11vw,70px);letter-spacing:.08em;line-height:1.08;font-weight:1000}.subway-logo span{font-size:10px;letter-spacing:.3em}.subway-center{width:100%;max-width:420px}.subway-buttons{grid-template-columns:repeat(2,1fr)}.subway-buttons button:last-child{grid-column:1/-1}.tap-play{min-height:62px}.classic-wallet{position:absolute;top:calc(20px + env(safe-area-inset-top));right:20px;border-color:#00d0ff66;background:#041222;color:#ffd54a}.classic-record{font-size:12px;font-weight:800;color:#ffd54a;margin:25px 0 0;letter-spacing:1px}.classic-tip{font-size:11px;text-align:center;color:#8aa6bf;line-height:1.8;margin-top:14px}.classic-footer{position:absolute;bottom:calc(22px + env(safe-area-inset-bottom));font-size:9px;letter-spacing:2px;color:#6f8da5}.subway-bg,.city-lights{pointer-events:none}
+.topbar h2{font-size:clamp(17px,4.8vw,24px);letter-spacing:.07em;text-shadow:0 0 15px #00d0ff33}.topbar h2 span{font-size:8px;letter-spacing:.22em}.icon{border:1px solid #00d0ff;background:#030b14;box-shadow:0 0 12px #00d0ff20}.wallet{border-color:#00d0ff55;color:#ffd54a;background:#06101b}
+.primary{color:white;background:linear-gradient(135deg,#00d0ff33,#00d0ff0a);border:1px solid #00d0ffbb;box-shadow:0 0 15px #00d0ff33}.secondary{border-color:#00d0ff55;background:linear-gradient(145deg,#091324,#02060e)}
+.garage-stage{height:260px;background:linear-gradient(#080d18,#020204);border-color:#ffffff14;border-radius:24px}.garage-stage:before{bottom:85px;left:18%;width:64%;height:2px;border:0;background:var(--garage-color);box-shadow:0 0 15px var(--garage-color);border-radius:0}#garage-car{height:184px;filter:drop-shadow(0 0 17px var(--garage-color));animation:garageIdle 3s ease-in-out infinite}#garage-car svg{transform:scale(.9);filter:none}.garage-stage .eyebrow{font-size:9px;letter-spacing:2px}.garage-stage h3{text-shadow:0 0 12px var(--garage-color)}
+.colors{justify-content:center;background:#03060c;border:1px solid #00d0ff22;padding:12px 8px;border-radius:16px;gap:10px}.swatch{width:32px;height:32px;background:#03060c;border:3px solid var(--swatch);outline:0;box-shadow:0 0 8px var(--swatch)}.swatch.selected{background:var(--swatch);outline:2px solid white;outline-offset:3px}.section-label{color:#e4f6ff;font-size:11px}.car-card{background:linear-gradient(145deg,#081421,#02060d);border:1px solid #00d0ff33;border-radius:18px}.car-card.selected{background:linear-gradient(145deg,#042636,#02070d);border-color:#00d0ff;box-shadow:0 0 15px #00d0ff22}.car-card button{background:#061625;border:1px solid #00d0ff55;color:#fff}.car-card.selected button{background:#002738;color:#00d0ff}.car-card p{line-height:1.9}.car-card svg{filter:drop-shadow(0 0 7px #00d0ff22)}
+.settings-group{background:#040d19;border-color:#00d0ff33}.setting{border-color:#00d0ff1f}.setting select{background:#061325;border-color:#00d0ff55}.setting input[type=checkbox]:checked{background:#00d0ff;box-shadow:0 0 10px #00d0ff44}.setting input[type=checkbox]:checked:before{background:white}.record-card{background:linear-gradient(120deg,#05253a,#100920);border-color:#00d0ff66}.record-card strong{color:#fff;text-shadow:0 0 17px #00d0ff55}.history-item b{color:#ffd54a}
+.race-top{padding:12px 14px;align-items:flex-start}.race-top>div{background:#000b;border:1px solid #00d0ff99;border-radius:10px;padding:9px 13px;min-width:120px;box-shadow:0 0 12px #00d0ff1a}.race-top span{color:#00d0ff;font-size:9px;letter-spacing:1px}.race-top b{font-size:27px}.race-top b:after{content:' PONTOS';font-size:8px;font-weight:400;color:#b4c4d6;letter-spacing:1px}#hud-panel{top:calc(105px + env(safe-area-inset-top));left:14px;right:14px}.race-stat{background:#000a;border:1px solid #00d0ff44;border-radius:9px;padding:9px 12px;min-width:88px}.race-stat b{font-size:24px}.race-stat small{color:#b7d6e9}.right b{color:#ffd54a}#race-health{font-size:14px}#race-level{position:absolute;top:calc(187px + env(safe-area-inset-top));left:14px;background:#000b;border:1px solid #00d0ff44;padding:8px 10px;border-radius:8px;font-size:10px;letter-spacing:1px;color:#00d0ff}#race-message{color:#fff;text-shadow:0 0 12px #00d0ff,0 0 30px #00d0ff}
+#controls button{color:white;background:linear-gradient(145deg,#00283aee,#030c1bee);border:1px solid #00d0ff99;border-radius:18px;box-shadow:0 0 15px #00d0ff22}#controls #nitro{background:linear-gradient(145deg,#321145ee,#060f23ee);border-color:#b26cff;color:#fff;box-shadow:0 0 20px #b26cff33}.nitro-meter{background:#091728;border:1px solid #00d0ff44;height:6px}#nitro-fill{background:linear-gradient(90deg,#00d0ff,#b26cff);box-shadow:0 0 10px #00d0ff}
+.modal-card{background:radial-gradient(circle at top,#00d0ff12,transparent 55%),#030914;border-color:#00d0ff66;box-shadow:0 0 40px #00d0ff22}.modal-card h2{font-size:27px}.result-score{color:#fff;text-shadow:0 0 22px #00d0ff77}#toast{background:#061b2c;border:1px solid #00d0ff88;color:#e5f7ff}
+@keyframes garageIdle{50%{transform:translateY(-6px)}}
+@media(max-width:350px){.screen{padding-left:14px;padding-right:14px}.subway-logo h1{font-size:43px}.tap-play{font-size:13px}.subway-logo span{font-size:8px}.topbar{gap:9px}.topbar .wallet{padding:8px}.topbar h2{font-size:16px}}
+@media(max-height:600px){#home{padding-top:76px;padding-bottom:65px;justify-content:flex-start}.subway-logo{margin-bottom:27px}.subway-logo h1{font-size:40px}.classic-record{margin-top:15px}.classic-footer{position:relative;bottom:auto;margin-top:15px}.tap-play{min-height:55px}}
+@media(prefers-reduced-motion:reduce){.tap-play,.city-lights,#garage-car{animation:none}}
 
-  <title>Neon Racer Turbo</title>
 
-  <link rel="stylesheet" href="style.css"/>
+/* UPGRADE 2.0 — animações, modelos, nitro e transições */
+button,.car-card,.setting,.garage-stage,.record-card,.race-stat{transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease,background .22s ease}
+.sub-btn:hover,.car-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px #0007,0 0 18px #00d0ff22}
+.car-card svg{animation:modelFloat 2.8s ease-in-out infinite}.car-card:nth-child(2n) svg{animation-delay:-1.2s}
+.garage-stage:after{content:'';position:absolute;inset:-60% -20%;background:linear-gradient(110deg,transparent 42%,#ffffff12 50%,transparent 58%);animation:garageSweep 4.2s linear infinite;pointer-events:none}
+#controls button{transition:transform .12s ease,box-shadow .12s ease,filter .12s ease}#controls button:active{transform:scale(.9)}
+#controls #nitro{position:relative;overflow:hidden;background:radial-gradient(circle at 50% 35%,#702b9e,#1b082d 52%,#050813);border:2px solid #b26cff;box-shadow:0 0 15px #b26cff66,inset 0 0 18px #00d0ff22}
+#controls #nitro:before{content:'';position:absolute;inset:7px;border-radius:15px;border:1px solid #ffffff24;animation:nitroRing 1.6s ease-in-out infinite}
+#controls #nitro.boosting{animation:nitroButton .24s ease-in-out infinite alternate;filter:brightness(1.35);box-shadow:0 0 24px #00d0ff,0 0 52px #b26cffaa,inset 0 0 25px #fff2}
+.nitro-meter{height:9px;border-radius:99px;overflow:visible}.nitro-meter:before{content:'NITRO';position:absolute;left:0;top:-16px;font-size:8px;letter-spacing:2px;color:#c7b8ff}#nitro-fill{border-radius:99px;transition:width .08s linear;animation:nitroGlow .9s ease-in-out infinite alternate}
+.screen.active{animation:screenIn .36s cubic-bezier(.2,.8,.2,1)}.modal:not([hidden]) .modal-card{animation:modalIn .28s cubic-bezier(.2,.9,.2,1)}
+@keyframes modelFloat{50%{transform:rotate(25deg) translateY(-6px) scale(1.03)}}
+@keyframes garageSweep{to{transform:translateX(55%)}}
+@keyframes nitroRing{50%{transform:scale(.9);opacity:.35}}
+@keyframes nitroButton{to{transform:scale(1.055)}}
+@keyframes nitroGlow{to{filter:brightness(1.45);box-shadow:0 0 18px #b26cff}}
+@keyframes screenIn{from{opacity:0;transform:translateY(12px) scale(.99)}to{opacity:1;transform:none}}
+@keyframes modalIn{from{opacity:0;transform:translateY(16px) scale(.94)}to{opacity:1;transform:none}}
+
+
+/* =========================================================
+   CARREGAMENTO DE CORRIDA + AVISO NEON DE MAPA
+========================================================= */
+#race-loading{
+  position:absolute;
+  inset:0;
+  z-index:60;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 42%,rgba(0,208,255,.16),transparent 30%),
+    radial-gradient(circle at 52% 58%,rgba(178,108,255,.12),transparent 38%),
+    linear-gradient(180deg,#030611 0%,#07101d 58%,#02050b 100%);
+}
+#race-loading.active{display:flex}
+#race-loading:before{
+  content:'';
+  position:absolute;
+  width:160%;
+  height:130%;
+  left:-30%;
+  top:18%;
+  opacity:.32;
+  background:repeating-linear-gradient(
+    90deg,
+    transparent 0 9%,
+    rgba(93,230,245,.17) 9.4% 9.8%,
+    transparent 10.2% 18%
+  );
+  transform:perspective(300px) rotateX(68deg);
+  animation:loadingRoad .55s linear infinite;
+}
+.loading-box{
+  position:relative;
+  z-index:2;
+  width:min(330px,82%);
+  text-align:center;
+}
+.loading-logo{
+  font-size:34px;
+  line-height:.9;
+  font-weight:1000;
+  font-style:italic;
+  letter-spacing:-2px;
+  color:#fff;
+  text-shadow:0 0 12px #00d0ff,0 0 34px #00d0ff88;
+  animation:loadingLogo .75s ease-in-out infinite alternate;
+}
+.loading-logo span{
+  display:block;
+  margin-top:10px;
+  color:#d6ff58;
+  font-size:10px;
+  letter-spacing:4px;
+  font-style:normal;
+  text-shadow:0 0 14px #d6ff58aa;
+}
+.loading-car{
+  width:78px;
+  height:118px;
+  margin:30px auto 26px;
+  position:relative;
+  border-radius:40% 40% 26% 26%;
+  background:linear-gradient(90deg,#0785a8,#84f3ff 48%,#0785a8);
+  clip-path:polygon(36% 0,64% 0,72% 18%,86% 31%,82% 78%,68% 100%,32% 100%,18% 78%,14% 31%,28% 18%);
+  filter:drop-shadow(0 0 15px #00d0ff) drop-shadow(0 22px 22px #000);
+  animation:loadingCar .48s ease-in-out infinite alternate;
+}
+.loading-car:after{
+  content:'';
+  position:absolute;
+  left:25%;
+  right:25%;
+  bottom:-38px;
+  height:50px;
+  background:linear-gradient(#fff,#00d0ff 25%,#8b4cff 62%,transparent);
+  clip-path:polygon(25% 0,75% 0,100% 100%,50% 72%,0 100%);
+  filter:blur(.4px);
+  animation:loadingFlame .18s ease-in-out infinite alternate;
+}
+.loading-track{
+  height:5px;
+  overflow:hidden;
+  border-radius:20px;
+  background:#172238;
+  border:1px solid #2c4560;
+  box-shadow:0 0 20px #00d0ff22;
+}
+.loading-progress{
+  width:100%;
+  height:100%;
+  transform-origin:left;
+  background:linear-gradient(90deg,#00d0ff,#b26cff,#d6ff58);
+  box-shadow:0 0 15px #00d0ff;
+  animation:loadingProgress 1.35s cubic-bezier(.15,.75,.2,1) both;
+}
+.loading-text{
+  margin-top:12px;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:2px;
+  color:#9aabc2;
+}
+
+#map-banner{
+  position:absolute;
+  z-index:8;
+  top:calc(86px + env(safe-area-inset-top));
+  left:50%;
+  width:max-content;
+  max-width:88%;
+  padding:9px 18px 10px;
+  pointer-events:none;
+  text-align:center;
+  border:1px solid rgba(93,230,245,.55);
+  border-radius:10px;
+  background:linear-gradient(90deg,rgba(3,10,19,.20),rgba(8,27,39,.94),rgba(3,10,19,.20));
+  color:#eefcff;
+  opacity:0;
+  transform:translate(-50%,-22px) scale(.96);
+  box-shadow:0 0 20px rgba(0,208,255,.12),inset 0 0 18px rgba(0,208,255,.06);
+  text-shadow:0 0 11px #00d0ff;
+}
+#map-banner.active{animation:mapBannerIn 2.15s ease both}
+#map-banner small{
+  display:block;
+  color:#5de6f5;
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:3px;
+  margin-bottom:4px;
+}
+#map-banner strong{
+  font-size:14px;
+  letter-spacing:1.5px;
+}
+
+@keyframes loadingRoad{
+  from{transform:perspective(300px) rotateX(68deg) translateY(-30px)}
+  to{transform:perspective(300px) rotateX(68deg) translateY(30px)}
+}
+@keyframes loadingLogo{
+  to{filter:brightness(1.25);transform:scale(1.025)}
+}
+@keyframes loadingCar{
+  from{transform:translateY(2px) rotate(-1deg)}
+  to{transform:translateY(-4px) rotate(1deg)}
+}
+@keyframes loadingFlame{
+  to{height:66px;bottom:-53px;filter:brightness(1.45)}
+}
+@keyframes loadingProgress{
+  from{transform:scaleX(.03)}
+  to{transform:scaleX(1)}
+}
+@keyframes mapBannerIn{
+  0%{opacity:0;transform:translate(-50%,-24px) scale(.94)}
+  14%{opacity:1;transform:translate(-50%,0) scale(1)}
+  72%{opacity:1;transform:translate(-50%,0) scale(1)}
+  100%{opacity:0;transform:translate(-50%,-8px) scale(.98)}
+}
+
+
+#controls.arrows-hidden{
+  justify-content:center;
+}
+#controls.arrows-hidden #nitro{
+  margin-left:auto;
+  margin-right:auto;
+}
+
+
+/* =========================================================
+   GARAGEM / LOJA — ECONOMIA
+========================================================= */
+.paint-shop{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+}
+.paint-item{
+  min-width:0;
+  padding:10px 7px;
+  border:1px solid var(--line);
+  border-radius:13px;
+  background:#0f1723;
+  text-align:center;
+}
+.paint-item.selected{
+  border-color:var(--lime);
+  box-shadow:0 0 18px rgba(214,255,88,.10);
+}
+.paint-item.special{
+  background:linear-gradient(145deg,#111a28,#171329);
+  border-color:#54416c;
+}
+.paint-item .swatch{
+  display:block;
+  margin:0 auto 7px;
+}
+.paint-item.special .swatch{
+  box-shadow:0 0 14px var(--swatch);
+}
+.paint-item strong{
+  display:block;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:9px;
+  color:#dce6f5;
+}
+.paint-item small{
+  display:block;
+  min-height:22px;
+  margin-top:5px;
+  font-size:8px;
+  color:var(--muted);
+}
+.paint-item button{
+  width:100%;
+  min-height:32px;
+  margin-top:7px;
+  border-radius:8px;
+  background:#213047;
+  font-size:8px;
+  font-weight:900;
+}
+.paint-item.selected button{
+  background:#2d3821;
+  color:var(--lime);
+}
+.paint-item .buy{
+  color:#ffe57a;
+}
+
+.shop-grid,.upgrade-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.shop-card,.upgrade-card{
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#101824;
+  padding:13px;
+}
+.shop-card.selected{
+  border-color:var(--cyan);
+  box-shadow:0 0 18px rgba(93,230,245,.09);
+}
+.shop-card h4,.upgrade-card h4{
+  margin:0 0 6px;
+  font-size:12px;
+}
+.shop-card p,.upgrade-card p{
+  min-height:34px;
+  margin:0;
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.5;
+}
+.shop-card button,.upgrade-card button{
+  width:100%;
+  min-height:38px;
+  margin-top:11px;
+  border-radius:9px;
+  background:#233147;
+  font-size:9px;
+  font-weight:900;
+}
+.shop-card.selected button{
+  background:#123039;
+  color:var(--cyan);
+}
+.nitro-preview{
+  position:relative;
+  width:20px;
+  height:54px;
+  margin:6px auto 12px;
+  border-radius:50% 50% 70% 70%;
+  background:linear-gradient(180deg,var(--fx1),var(--fx2) 45%,var(--fx3) 75%,transparent);
+  filter:drop-shadow(0 0 9px var(--fx2));
+}
+.nitro-preview:after{
+  content:'';
+  position:absolute;
+  inset:5px 6px 17px;
+  border-radius:50%;
+  background:#fff;
+  opacity:.55;
+}
+.upgrade-card{
+  grid-column:span 1;
+}
+.upgrade-level{
+  display:flex;
+  gap:5px;
+  margin:10px 0 3px;
+}
+.upgrade-level i{
+  width:20px;
+  height:6px;
+  border-radius:8px;
+  background:#263246;
+}
+.upgrade-level i.on{
+  background:var(--lime);
+  box-shadow:0 0 8px rgba(214,255,88,.35);
+}
+.upgrade-card.max{
+  border-color:#425231;
+}
+.shop-note{
+  padding-bottom:18px;
+}
+@media(max-width:380px){
+  .paint-shop{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .shop-grid,.upgrade-grid{grid-template-columns:1fr}
+}
+
+
+/* =========================================================
+   GARAGEM — BARRAS ABRIR / FECHAR
+========================================================= */
+.garage-panels{
+  display:grid;
+  gap:12px;
+}
+.garage-panel{
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#0d141e;
+  overflow:hidden;
+}
+.garage-bar{
+  width:100%;
+  display:grid;
+  grid-template-columns:1fr auto auto;
+  align-items:center;
+  gap:10px;
+  padding:14px 14px;
+  text-align:left;
+  border:0;
+  border-radius:0;
+  background:linear-gradient(180deg,#121d2a,#0f1823);
+}
+.garage-bar span{
+  font-size:12px;
+  font-weight:1000;
+  letter-spacing:.4px;
+  color:#eef6ff;
+}
+.garage-bar small{
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:1.4px;
+  color:var(--cyan);
+  white-space:nowrap;
+}
+.garage-bar i{
+  font-style:normal;
+  font-size:16px;
+  color:#a7b9cf;
+  transition:transform .22s ease;
+}
+.garage-panel.open .garage-bar i{
+  transform:rotate(180deg);
+}
+.garage-panel-body{
+  padding:12px;
+}
+.garage-panel:not(.open) .garage-panel-body{
+  display:none;
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE MULTI-DISPOSITIVO
+   Celular / Tablet / Desktop / Retrato / Paisagem
+========================================================= */
+
+:root{
+  --app-max: 520px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+}
+
+html,body{
+  width:100%;
+  min-width:100%;
+  min-height:100%;
+  overflow:hidden;
+  overscroll-behavior:none;
+  touch-action:manipulation;
+}
+
+body{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100dvh;
+  min-height:100svh;
+  background:#02050b;
+}
+
+#app{
+  position:relative;
+  width:min(100vw,var(--app-max));
+  height:100dvh;
+  max-height:100dvh;
+  margin:0 auto;
+  overflow:hidden;
+  padding-left:var(--safe-left);
+  padding-right:var(--safe-right);
+  box-sizing:border-box;
+}
+
+/* Telas e rolagem */
+.screen{
+  width:100%;
+  height:100%;
+  min-height:0;
+  box-sizing:border-box;
+}
+
+.screen.scroll{
+  overflow-y:auto;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-y:contain;
+  padding-bottom:calc(28px + var(--safe-bottom));
+}
+
+/* Topbar segura em qualquer aparelho */
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:20;
+  min-height:58px;
+  padding-top:calc(8px + var(--safe-top));
+  padding-left:max(10px,var(--safe-left));
+  padding-right:max(10px,var(--safe-right));
+  box-sizing:border-box;
+  backdrop-filter:blur(12px);
+}
+
+/* Canvas */
+#game{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  display:block;
+  touch-action:none;
+}
+
+/* HUD */
+#hud-panel{
+  position:absolute;
+  z-index:6;
+  top:calc(10px + var(--safe-top));
+  left:max(8px,var(--safe-left));
+  right:max(8px,var(--safe-right));
+  width:auto;
+  max-width:none;
+  pointer-events:none;
+}
+
+#hud-panel .hud-top,
+.hud-top{
+  width:100%;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:6px;
+}
+
+.pill{
+  min-width:0;
+  flex:0 1 auto;
+  padding:7px 9px;
+}
+
+#race-level{
+  top:calc(66px + var(--safe-top));
+  max-width:calc(100% - 24px);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+#map-banner{
+  top:calc(94px + var(--safe-top));
+  max-width:calc(100% - 26px);
+}
+
+/* Controles */
+#controls{
+  position:absolute;
+  z-index:10;
+  left:max(10px,var(--safe-left));
+  right:max(10px,var(--safe-right));
+  bottom:calc(12px + var(--safe-bottom));
+  width:auto;
+  gap:clamp(10px,3vw,18px);
+  justify-content:center;
+  align-items:end;
+  pointer-events:none;
+}
+
+#controls button{
+  pointer-events:auto;
+  flex:0 0 auto;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}
+
+#left,#right{
+  width:clamp(58px,18vw,82px);
+  height:clamp(58px,18vw,82px);
+}
+
+#nitro{
+  width:clamp(72px,22vw,96px);
+  height:clamp(72px,22vw,96px);
+}
+
+/* Loading */
+#race-loading{
+  padding:
+    calc(20px + var(--safe-top))
+    calc(18px + var(--safe-right))
+    calc(20px + var(--safe-bottom))
+    calc(18px + var(--safe-left));
+  box-sizing:border-box;
+}
+.loading-box{
+  width:min(360px,88vw);
+}
+
+/* Garagem e loja */
+.garage-stage{
+  width:min(100%,760px);
+  margin-left:auto;
+  margin-right:auto;
+  padding-left:12px;
+  padding-right:12px;
+  box-sizing:border-box;
+}
+
+.garage-panels,
+.shop-note{
+  width:min(100%,760px);
+  margin-left:auto;
+  margin-right:auto;
+  box-sizing:border-box;
+}
+
+.paint-shop{
+  grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
+}
+
+.shop-grid,
+.upgrade-grid{
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+}
+
+.garage-bar{
+  min-height:52px;
+}
+
+/* Botões maiores para touch */
+button,
+select,
+input{
+  min-height:42px;
+}
+
+.icon{
+  min-width:42px;
+  min-height:42px;
+}
+
+/* =========================================================
+   CELULAR PEQUENO
+========================================================= */
+@media (max-width: 380px){
+  :root{ --app-max: 100vw; }
+
+  .topbar h2{
+    font-size:14px;
+  }
+
+  .topbar h2 span{
+    font-size:7px;
+  }
+
+  .wallet{
+    font-size:10px;
+    padding:6px 8px;
+  }
+
+  .pill{
+    padding:5px 7px;
+    font-size:9px;
+  }
+
+  .hud-icon{
+    width:22px;
+    height:22px;
+    flex-basis:22px;
+    font-size:12px;
+  }
+
+  .muted{
+    font-size:6px;
+  }
+
+  #race-level{
+    top:calc(59px + var(--safe-top));
+    font-size:8px;
+  }
+
+  #map-banner{
+    top:calc(83px + var(--safe-top));
+  }
+
+  #left,#right{
+    width:58px;
+    height:58px;
+  }
+
+  #nitro{
+    width:70px;
+    height:70px;
+  }
+
+  .garage-stage{
+    min-height:auto;
+    padding-top:8px;
+  }
+
+  .paint-shop{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .shop-grid,
+  .upgrade-grid{
+    grid-template-columns:1fr;
+  }
+
+  .garage-bar{
+    grid-template-columns:1fr auto;
+    gap:6px;
+  }
+
+  .garage-bar small{
+    display:none;
+  }
+}
+
+/* =========================================================
+   CELULAR PADRÃO
+========================================================= */
+@media (min-width:381px) and (max-width:600px){
+  :root{ --app-max: 100vw; }
+
+  .paint-shop{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+
+  .shop-grid,
+  .upgrade-grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+@media (min-width:601px) and (max-width:1024px){
+  :root{ --app-max: 760px; }
+
+  body{
+    background:
+      radial-gradient(circle at center,#0a1420 0%,#02050b 72%);
+  }
+
+  #app{
+    box-shadow:0 0 80px rgba(0,208,255,.08);
+  }
+
+  .paint-shop{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+  }
+
+  .shop-grid,
+  .upgrade-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+
+  #left,#right{
+    width:76px;
+    height:76px;
+  }
+
+  #nitro{
+    width:92px;
+    height:92px;
+  }
+}
+
+/* =========================================================
+   DESKTOP / NOTEBOOK
+========================================================= */
+@media (min-width:1025px){
+  :root{ --app-max: 520px; }
+
+  body{
+    background:
+      radial-gradient(circle at 50% 40%,#0a1724 0%,#050913 36%,#010309 78%);
+  }
+
+  #app{
+    height:min(100dvh,920px);
+    border-left:1px solid rgba(0,208,255,.08);
+    border-right:1px solid rgba(0,208,255,.08);
+    box-shadow:
+      0 0 55px rgba(0,0,0,.65),
+      0 0 100px rgba(0,208,255,.05);
+  }
+
+  .screen.scroll{
+    scrollbar-width:thin;
+  }
+
+  .paint-shop{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+
+  .shop-grid,
+  .upgrade-grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+/* =========================================================
+   PAISAGEM EM CELULAR / TABLET
+========================================================= */
+@media (orientation:landscape) and (max-height:600px){
+  :root{ --app-max: 100vw; }
+
+  #app{
+    width:100vw;
+    height:100dvh;
+    max-width:none;
+  }
+
+  #hud-panel{
+    top:calc(5px + var(--safe-top));
+    left:calc(8px + var(--safe-left));
+    right:auto;
+    width:min(52vw,420px);
+  }
+
+  .hud-top{
+    justify-content:flex-start;
+  }
+
+  #race-level{
+    top:calc(7px + var(--safe-top));
+    left:auto;
+    right:calc(8px + var(--safe-right));
+    transform:none;
+    max-width:40vw;
+  }
+
+  #map-banner{
+    top:calc(45px + var(--safe-top));
+  }
+
+  #controls{
+    bottom:calc(6px + var(--safe-bottom));
+  }
+
+  #left,#right{
+    width:54px;
+    height:54px;
+  }
+
+  #nitro{
+    width:66px;
+    height:66px;
+  }
+
+  .loading-box{
+    transform:scale(.82);
+  }
+
+  .screen.scroll{
+    padding-bottom:calc(16px + var(--safe-bottom));
+  }
+
+  .garage-stage{
+    display:grid;
+    grid-template-columns:minmax(180px,.9fr) 1.1fr;
+    align-items:center;
+    gap:14px;
+  }
+
+  .garage-panels{
+    width:min(96%,900px);
+  }
+
+  .paint-shop{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+  }
+
+  .shop-grid,
+  .upgrade-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+}
+
+/* =========================================================
+   TELAS MUITO BAIXAS
+========================================================= */
+@media (max-height:520px){
+  .loading-logo{font-size:26px}
+  .loading-car{
+    width:56px;
+    height:84px;
+    margin:16px auto 18px;
+  }
+
+  #controls{
+    transform:scale(.92);
+    transform-origin:bottom center;
+  }
+}
+
+/* Reduz animação se o dispositivo pedir */
+@media (prefers-reduced-motion:reduce){
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+}
+
+
+/* =========================================================
+   HUD RESPONSIVO V2
+   Cada informação tem sua própria área.
+========================================================= */
+
+#race-ui{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  padding:0;
+}
+
+/* remove completamente a lógica antiga do cabeçalho */
+.race-top{
+  display:none !important;
+}
+
+#hud-panel.race-hud-grid{
+  position:absolute;
+  z-index:7;
+  top:calc(8px + var(--safe-top));
+  left:max(8px,var(--safe-left));
+  right:calc(54px + var(--safe-right));
+  width:auto;
+  display:grid;
+  grid-template-columns:minmax(0,.9fr) minmax(0,1.05fr) minmax(0,1fr);
+  gap:6px;
+  align-items:stretch;
+  pointer-events:none;
+}
+
+#hud-panel .race-stat{
+  min-width:0;
+  height:52px;
+  padding:6px 8px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:1px;
+  overflow:hidden;
+  border:1px solid rgba(0,208,255,.28);
+  border-radius:10px;
+  background:rgba(2,8,16,.78);
+  box-shadow:0 0 12px rgba(0,208,255,.06);
+  backdrop-filter:blur(7px);
+  text-shadow:none;
+}
+
+#hud-panel .race-stat b{
+  display:block;
+  min-width:0;
+  margin:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:clamp(17px,4.7vw,25px);
+  line-height:1;
+  letter-spacing:-.7px;
+}
+
+#hud-panel .race-stat small,
+#hud-panel .race-stat span{
+  display:block;
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:clamp(6px,1.8vw,9px);
+  line-height:1.2;
+  letter-spacing:.8px;
+}
+
+#hud-panel .hud-speed-card{
+  text-align:left;
+}
+
+#hud-panel .hud-speed-card small{
+  color:#9fb3c9;
+}
+
+#hud-panel .hud-score-card{
+  text-align:center;
+  border-color:rgba(0,208,255,.42);
+}
+
+#hud-panel .hud-score-card span{
+  color:#5de6f5;
+  font-weight:800;
+}
+
+#hud-panel .hud-score-card b{
+  color:#fff;
+}
+
+#hud-panel .hud-score-card small{
+  color:#8ca0b7;
+}
+
+#hud-panel .hud-money-card{
+  text-align:right;
+}
+
+#hud-panel .hud-money-card b{
+  color:#ffd54a;
+}
+
+#hud-panel #race-health{
+  color:#ff829c;
+  font-size:clamp(9px,2.4vw,13px);
+  letter-spacing:1px;
+}
+
+/* pausa totalmente separada dos dados */
+#pause-btn.race-pause-btn{
+  position:absolute;
+  z-index:9;
+  top:calc(8px + var(--safe-top));
+  right:max(7px,var(--safe-right));
+  width:40px;
+  min-width:40px;
+  height:40px;
+  min-height:40px;
+  padding:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:11px;
+  font-size:16px;
+  pointer-events:auto;
+  background:rgba(10,19,31,.88);
+  border:1px solid rgba(0,208,255,.32);
+}
+
+/* nível / mapa / tempo sempre em sua própria linha */
+#race-level{
+  position:absolute;
+  z-index:7;
+  top:calc(67px + var(--safe-top));
+  left:50%;
+  right:auto;
+  width:max-content;
+  max-width:calc(100% - 18px - var(--safe-left) - var(--safe-right));
+  transform:translateX(-50%);
+  margin:0;
+  padding:6px 11px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  text-align:center;
+  border:1px solid rgba(0,208,255,.28);
+  border-radius:8px;
+  background:rgba(2,8,16,.78);
+  color:#5de6f5;
+  box-shadow:0 0 10px rgba(0,208,255,.05);
+  font-size:clamp(7px,2vw,10px);
+  letter-spacing:.7px;
+}
+
+#map-banner{
+  top:calc(101px + var(--safe-top));
+}
+
+/* =========================================================
+   MOBILE RETRATO
+========================================================= */
+@media (max-width:600px) and (orientation:portrait){
+  #hud-panel.race-hud-grid{
+    top:calc(7px + var(--safe-top));
+    left:max(6px,var(--safe-left));
+    right:calc(49px + var(--safe-right));
+    gap:5px;
+  }
+
+  #hud-panel .race-stat{
+    height:50px;
+    padding:5px 6px;
+    border-radius:9px;
+  }
+
+  #hud-panel .race-stat b{
+    font-size:clamp(16px,5vw,22px);
+  }
+
+  #pause-btn.race-pause-btn{
+    top:calc(7px + var(--safe-top));
+    width:38px;
+    min-width:38px;
+    height:38px;
+    min-height:38px;
+  }
+
+  #race-level{
+    top:calc(64px + var(--safe-top));
+    max-width:calc(100% - 12px);
+    padding:5px 8px;
+  }
+
+  #map-banner{
+    top:calc(94px + var(--safe-top));
+  }
+}
+
+/* =========================================================
+   CELULAR MUITO ESTREITO
+========================================================= */
+@media (max-width:350px) and (orientation:portrait){
+  #hud-panel.race-hud-grid{
+    right:calc(43px + var(--safe-right));
+    gap:3px;
+  }
+
+  #hud-panel .race-stat{
+    height:47px;
+    padding:4px 5px;
+  }
+
+  #hud-panel .race-stat b{
+    font-size:15px;
+  }
+
+  #hud-panel .race-stat small,
+  #hud-panel .race-stat span{
+    font-size:6px;
+    letter-spacing:.35px;
+  }
+
+  #hud-panel #race-health{
+    font-size:8px;
+    letter-spacing:0;
+  }
+
+  #pause-btn.race-pause-btn{
+    width:34px;
+    min-width:34px;
+    height:34px;
+    min-height:34px;
+    font-size:14px;
+  }
+
+  #race-level{
+    top:calc(60px + var(--safe-top));
+    font-size:7px;
+  }
+}
+
+/* =========================================================
+   CELULAR DEITADO — CASO DA IMAGEM DO USUÁRIO
+========================================================= */
+@media (orientation:landscape) and (max-height:600px){
+  #hud-panel.race-hud-grid{
+    top:calc(5px + var(--safe-top));
+    left:calc(7px + var(--safe-left));
+    right:calc(48px + var(--safe-right));
+    width:auto;
+    grid-template-columns:minmax(72px,.85fr) minmax(82px,1fr) minmax(82px,.95fr);
+    gap:5px;
+  }
+
+  #hud-panel .race-stat{
+    height:43px;
+    padding:4px 7px;
+    border-radius:8px;
+  }
+
+  #hud-panel .race-stat b{
+    font-size:18px;
+  }
+
+  #hud-panel .race-stat small,
+  #hud-panel .race-stat span{
+    font-size:6.5px;
+    letter-spacing:.45px;
+  }
+
+  #hud-panel #race-health{
+    font-size:9px;
+  }
+
+  #pause-btn.race-pause-btn{
+    top:calc(5px + var(--safe-top));
+    right:calc(6px + var(--safe-right));
+    width:36px;
+    min-width:36px;
+    height:36px;
+    min-height:36px;
+    font-size:14px;
+  }
+
+  #race-level{
+    top:calc(53px + var(--safe-top));
+    left:50%;
+    right:auto;
+    transform:translateX(-50%);
+    max-width:80%;
+    padding:4px 9px;
+    font-size:7px;
+  }
+
+  #map-banner{
+    top:calc(78px + var(--safe-top));
+  }
+
+  /* evita os controles ocuparem demais a pista em telas baixas */
+  #controls{
+    bottom:calc(5px + var(--safe-bottom));
+  }
+
+  #left,#right{
+    width:50px;
+    height:50px;
+    font-size:34px;
+  }
+
+  #nitro{
+    width:61px;
+    height:61px;
+    font-size:31px;
+  }
+
+  .nitro-meter{
+    bottom:calc(72px + var(--safe-bottom));
+  }
+}
+
+/* =========================================================
+   TABLET / DESKTOP
+========================================================= */
+@media (min-width:601px){
+  #hud-panel.race-hud-grid{
+    top:calc(12px + var(--safe-top));
+    left:max(14px,var(--safe-left));
+    right:calc(61px + var(--safe-right));
+    gap:9px;
+  }
+
+  #hud-panel .race-stat{
+    height:58px;
+    padding:7px 11px;
+  }
+
+  #pause-btn.race-pause-btn{
+    top:calc(12px + var(--safe-top));
+    width:44px;
+    min-width:44px;
+    height:44px;
+    min-height:44px;
+  }
+
+  #race-level{
+    top:calc(80px + var(--safe-top));
+  }
+
+  #map-banner{
+    top:calc(114px + var(--safe-top));
+  }
+}
+
+
+/* =========================================================
+   CORREÇÃO FINAL — HUD COMPACTO EM PAISAGEM
+   Vem por último para ter prioridade sobre tablet/desktop.
+========================================================= */
+@media (orientation:landscape) and (max-height:600px){
+  #hud-panel.race-hud-grid{
+    top:calc(5px + var(--safe-top)) !important;
+    left:calc(7px + var(--safe-left)) !important;
+    right:calc(48px + var(--safe-right)) !important;
+    width:auto !important;
+    grid-template-columns:minmax(68px,.85fr) minmax(78px,1fr) minmax(78px,.95fr) !important;
+    gap:5px !important;
+  }
+
+  #hud-panel .race-stat{
+    height:43px !important;
+    padding:4px 7px !important;
+    border-radius:8px !important;
+  }
+
+  #hud-panel .race-stat b{
+    font-size:18px !important;
+  }
+
+  #hud-panel .race-stat small,
+  #hud-panel .race-stat span{
+    font-size:6.5px !important;
+    letter-spacing:.4px !important;
+  }
+
+  #hud-panel #race-health{
+    font-size:9px !important;
+  }
+
+  #pause-btn.race-pause-btn{
+    top:calc(5px + var(--safe-top)) !important;
+    right:calc(6px + var(--safe-right)) !important;
+    width:36px !important;
+    min-width:36px !important;
+    height:36px !important;
+    min-height:36px !important;
+    font-size:14px !important;
+  }
+
+  #race-level{
+    top:calc(53px + var(--safe-top)) !important;
+    left:50% !important;
+    right:auto !important;
+    width:max-content !important;
+    max-width:80% !important;
+    transform:translateX(-50%) !important;
+    padding:4px 9px !important;
+    font-size:7px !important;
+  }
+
+  #map-banner{
+    top:calc(78px + var(--safe-top)) !important;
+  }
+
+  #controls{
+    bottom:calc(5px + var(--safe-bottom)) !important;
+  }
+
+  #left,#right{
+    width:50px !important;
+    height:50px !important;
+    min-height:50px !important;
+    font-size:32px !important;
+  }
+
+  #nitro{
+    width:62px !important;
+    height:62px !important;
+    min-height:62px !important;
+    font-size:30px !important;
+  }
+
+  .nitro-meter{
+    bottom:calc(72px + var(--safe-bottom)) !important;
+  }
+}
+
+/* Telas extremamente baixas: preserva área visível de pista. */
+@media (orientation:landscape) and (max-height:220px){
+  #hud-panel.race-hud-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    right:calc(42px + var(--safe-right)) !important;
+    gap:3px !important;
+  }
+
+  #hud-panel .race-stat{
+    height:35px !important;
+    padding:3px 5px !important;
+  }
+
+  #hud-panel .race-stat b{
+    font-size:14px !important;
+  }
+
+  #hud-panel .race-stat small,
+  #hud-panel .race-stat span{
+    font-size:5.5px !important;
+  }
+
+  #pause-btn.race-pause-btn{
+    width:31px !important;
+    min-width:31px !important;
+    height:31px !important;
+    min-height:31px !important;
+  }
+
+  #race-level{
+    top:44px !important;
+    padding:3px 7px !important;
+    font-size:6px !important;
+  }
+
+  #controls{
+    transform:scale(.72) !important;
+    transform-origin:bottom center !important;
+    bottom:1px !important;
+  }
+
+  .nitro-meter{
+    bottom:46px !important;
+  }
+}
+
+</style>
 
 </head>
-
 <body>
+<main id="app">
+  <canvas id="game" aria-label="Pista de corrida"></canvas>
 
-  <div id="loadingScreen">
-
-    <div class="loading-bg"></div>
-  
-    <div class="loading-content">
-  
-      <h1 class="logo">
-        NEON RACER
-      </h1>
-  
-      <span class="loading-sub">
-        ULTIMATE F1 EDITION
-      </span>
-  
-      <p id="loadingStatus">
-        Iniciando sistema...
-      </p>
-  
-      <div class="bar">
-        <div class="bar-fill" id="barFill"></div>
-      </div>
-  
-      <span id="loadingPercent">
-        0%
-      </span>
-  
-      <p class="loading-tip">
-        DICA: Use o Nitro nas retas para atingir velocidades máximas.
-      </p>
-  
-      <div class="device-info" id="deviceInfo">
-        Detectando dispositivo...
-      </div>
-  
+  <div id="race-loading" aria-hidden="true">
+    <div class="loading-box">
+      <div class="loading-logo">NEON RACER<span>PREPARANDO A PISTA</span></div>
+      <div class="loading-car"></div>
+      <div class="loading-track"><div class="loading-progress"></div></div>
+      <div class="loading-text">SINCRONIZANDO MOTOR · PISTA · NITRO</div>
     </div>
-  
   </div>
+  <div id="map-banner" aria-live="polite"><small>NOVA ZONA</small><strong id="map-banner-name">NEON CITY</strong></div>
 
-<div class="game-wrap">
-
-  <!-- =========================================
-       TELA INICIAL
-  ========================================== -->
-
-  <div class="subway-start" id="subway-start">
-
-    <div class="subway-bg"></div>
-
-    <div class="city-lights"></div>
-
-    <div class="subway-logo">
-
-      <h1>NEON RACER</h1>
-
-      <span>ULTIMATE F1 EDITION</span>
-
-    </div>
-
+  <section id="home" class="screen subway-start active">
+    <div class="subway-bg"></div><div class="city-lights"></div>
+    <div class="classic-wallet wallet">🪙 <b data-wallet>0</b></div>
+    <div class="subway-logo"><h1>NEON RACER</h1><span>EVOLUTION EDITION</span></div>
     <div class="subway-center">
+      <button id="play-solo" class="tap-play">▶ TOQUE PARA JOGAR</button>
+      <nav class="subway-buttons"><button class="sub-btn" data-screen="garage">🚗 GARAGEM / LOJA</button><button class="sub-btn" data-screen="settings">⚙ CONFIG</button><button class="sub-btn" data-screen="history">🏆 RECORDES</button></nav>
+      <p id="home-record" class="classic-record">RECORDE 0</p>
+      <p class="classic-tip">Trânsito mais pesado, velocidade crescente e formações perigosas.<br>Sobreviva, desvie e use o nitro na hora certa!</p>
+    </div>
+    <span class="classic-footer">📱 1 JOGADOR · SEM INTERNET</span>
+  </section>
+  <section id="garage" class="screen scroll">
+    <header class="topbar">
+      <button class="icon" data-home aria-label="Voltar">←</button>
+      <h2>GARAGEM + LOJA<span>GASTE SUAS MOEDAS</span></h2>
+      <div class="wallet">🪙 <b data-wallet>0</b></div>
+    </header>
 
-      <div class="tap-play" id="tap-play">
-        ▶ TOQUE PARA JOGAR
-      </div>
+    <div class="garage-stage">
+      <div id="garage-car"></div>
+      <div><span class="eyebrow">SEU CARRO</span><h3 id="selected-name">NEON X</h3></div>
+    </div>
 
-      <div class="subway-buttons">
-
-        <button class="sub-btn" id="btn-missions">
-          🏆 MISSÕES
+    <div class="garage-panels">
+      <section class="garage-panel open" data-panel>
+        <button class="garage-bar" type="button" data-accordion="paints" aria-expanded="true">
+          <span>PINTURAS</span>
+          <small>COMPRE E EQUIPE</small>
+          <i>▾</i>
         </button>
+        <div class="garage-panel-body" data-panel-body="paints">
+          <div id="colors" class="paint-shop"></div>
+        </div>
+      </section>
 
-        <button class="sub-btn" id="open-garage">
-          🚗 GARAGEM
+      <section class="garage-panel open" data-panel>
+        <button class="garage-bar" type="button" data-accordion="nitro" aria-expanded="true">
+          <span>COR / EFEITO DO NITRO</span>
+          <small>800 🪙 CADA</small>
+          <i>▾</i>
         </button>
+        <div class="garage-panel-body" data-panel-body="nitro">
+          <div id="nitro-shop" class="shop-grid"></div>
+        </div>
+      </section>
 
-        <button class="sub-btn" id="open-settings">
-            ⚙️ CONFIG
-          </button>
-
-      </div>
-
+      <section class="garage-panel open" data-panel>
+        <button class="garage-bar" type="button" data-accordion="upgrades" aria-expanded="true">
+          <span>MELHORIAS</span>
+          <small>3 NÍVEIS</small>
+          <i>▾</i>
+        </button>
+        <div class="garage-panel-body" data-panel-body="upgrades">
+          <div id="upgrade-shop" class="upgrade-grid"></div>
+        </div>
+      </section>
     </div>
 
-  </div>
-
-  <!-- =========================================
-     GARAGEM
-========================================== -->
-
-<div class="garage-screen" id="garage-screen">
-
-  <div class="garage-top">
-
-    <button class="garage-back" id="garage-back">
-      ←
-    </button>
-
-    <h2>GARAGEM F1</h2>
-
-  </div>
-
-  <div class="garage-preview">
-
-    <div class="garage-car-glow"></div>
-
-    <!-- CARRO -->
-    <div class="garage-car">
-
-      <div class="f1-wing front-wing"></div>
-
-      <div class="f1-nose"></div>
-
-      <div class="f1-body"></div>
-
-      <div class="f1-detail d1"></div>
-
-      <div class="f1-detail d2"></div>
-
-      <div class="cockpit"></div>
-
-      <div class="f1-wing rear-wing"></div>
-
-      <div class="wheel wheel-1">
-        <div class="wheel-line"></div>
-      </div>
-
-      <div class="wheel wheel-2">
-        <div class="wheel-line"></div>
-      </div>
-
-      <div class="wheel wheel-3">
-        <div class="wheel-line"></div>
-      </div>
-
-      <div class="wheel wheel-4">
-        <div class="wheel-line"></div>
-      </div>
-
-      <div class="garage-nitro"></div>
-
+    <p class="muted shop-note">Os upgrades são leves para manter o jogo justo. O reviver custa 150 🪙 e pode ser usado uma vez por corrida.</p>
+  </section>
+  <section id="settings" class="screen scroll">
+    <header class="topbar"><button class="icon" data-home aria-label="Voltar">←</button><h2>CONFIGURAÇÕES<span>AJUSTE SUA CORRIDA</span></h2></header>
+    <div class="settings-group"><div class="section-label">CONTROLE</div>
+      <label class="setting"><span>Direção<small>Escolha botões, toque nos lados da tela ou deslize.</small></span><select id="control"><option value="buttons">Botões</option><option value="touch">Toque na tela</option><option value="swipe">Deslizar</option></select></label>
+      <label class="setting"><span>Mostrar setas<small>Desative para esconder os botões esquerdo e direito.</small></span><input id="showArrows" type="checkbox" role="switch"></label>
+      <label class="setting"><span>Tamanho dos botões</span><select id="buttonSize"><option value="normal">Normal</option><option value="large">Grande</option></select></label>
+      <label class="setting"><span>Dificuldade<small>Muda velocidade, trânsito e obstáculos.</small></span><select id="difficulty"><option value="easy">Fácil</option><option value="hard">Difícil</option><option value="rare">Raro</option><option value="impossible">Impossível</option></select></label>
+      <label class="setting"><span>Vibração<small>Quando o aparelho permitir.</small></span><input id="vibration" type="checkbox" role="switch"></label>
+    </div>
+    <div class="settings-group"><div class="section-label">IMAGEM E SOM</div>
+      <label class="setting"><span>Qualidade gráfica</span><select id="quality"><option value="low">Econômica</option><option value="high">Alta</option></select></label>
+      <label class="setting"><span>Painel de informações</span><input id="hud" type="checkbox" role="switch"></label>
+      <label class="setting"><span>Chuva na pista</span><input id="weather" type="checkbox" role="switch"></label>
+      <label class="setting"><span>Partículas e nitro</span><input id="particles" type="checkbox" role="switch"></label>
+      <label class="setting"><span>Sombras dos carros</span><input id="shadows" type="checkbox" role="switch"></label>
+      <label class="setting"><span>Efeitos sonoros</span><input id="sound" type="checkbox" role="switch"></label>
+    </div>
+    <button id="restore-settings" class="secondary">Restaurar ajustes padrão</button><p class="muted">As alterações são aplicadas e salvas automaticamente neste navegador.</p>
+  </section>
+  <section id="history" class="screen scroll"><header class="topbar"><button class="icon" data-home aria-label="Voltar">←</button><h2>Suas corridas<span>HISTÓRICO NESTE APARELHO</span></h2></header><div class="record-card"><span>MELHOR PONTUAÇÃO</span><strong id="best-score">0</strong></div><div id="history-list"></div></section>
+  <div id="race-ui" hidden>
+  <div id="hud-panel" class="race-hud-grid">
+    <div class="race-stat hud-speed-card">
+      <b id="race-speed">0</b>
+      <small>KM/H</small>
     </div>
 
-  </div>
-
-  <!-- PALETAS -->
-
-  <div class="palette-wrapper">
-
-    <button class="palette-toggle" id="palette-toggle">
-      🎨 CORES
-    </button>
-
-    <div class="garage-palettes" id="garage-palettes">
-
-      <!-- suas cores aqui -->
-
-      <button
-  class="garage-color active"
-  data-color="#00d0ff"
-  style="--c:#00d0ff">
-</button>
-
-<button
-  class="garage-color"
-  data-color="#ff3355"
-  style="--c:#ff3355">
-</button>
-
-<button
-  class="garage-color"
-  data-color="#ffd54a"
-  style="--c:#ffd54a">
-</button>
-
-<button
-  class="garage-color"
-  data-color="#2ee6a6"
-  style="--c:#2ee6a6">
-</button>
-
-<button
-  class="garage-color"
-  data-color="#b26cff"
-  style="--c:#b26cff">
-</button>
-
-<button
-  class="garage-color"
-  data-color="#ffffff"
-  style="--c:#ffffff">
-</button>
-
-<button class="garage-color"
-data-color="#ff6600"
-style="--c:#ff6600"></button>
-
-<button class="garage-color"
-data-color="#00ff00"
-style="--c:#00ff00"></button>
-
-<button class="garage-color"
-data-color="#ff00ff"
-style="--c:#ff00ff"></button>
-
-<button class="garage-color"
-data-color="#00ffff"
-style="--c:#00ffff"></button>
-
-<button class="garage-color"
-data-color="#ff0000"
-style="--c:#ff0000"></button>
-
-<button class="garage-color"
-data-color="#0066ff"
-style="--c:#0066ff"></button>
-
-<button class="garage-color"
-data-color="#ff8800"
-style="--c:#ff8800"></button>
-
-<button class="garage-color"
-data-color="#00ff88"
-style="--c:#00ff88"></button>
-
+    <div class="race-stat hud-score-card">
+      <span id="race-mode">SOLO</span>
+      <b id="race-score">0</b>
+      <small>PONTOS</small>
     </div>
 
+    <div class="race-stat hud-money-card right">
+      <b id="race-coins">◈ 0</b>
+      <small id="race-health">♥ ♥ ♥</small>
+    </div>
   </div>
 
-</div>
+  <button id="pause-btn" class="icon race-pause-btn" aria-label="Pausar corrida">Ⅱ</button>
 
-<!-- =========================================
-     SETTINGS
-========================================== -->
+  <div id="race-level">NÍVEL 1 · MAPA 1 · 0:00</div>
+  <div id="race-message" aria-live="polite"></div>
 
-<div class="settings-screen" id="settings-screen">
+  <div class="nitro-meter"><div id="nitro-fill"></div></div>
 
-  <div class="garage-top">
-
-    <button class="garage-back" id="settings-back">
-      ←
-    </button>
-
-    <h2>CONFIGURAÇÕES</h2>
-
-  </div>
-
-  <div class="settings-list">
-
-    <label class="setting-item">
-      <span>HUD</span>
-      <input type="checkbox" id="toggle-hud" checked>
-    </label>
-
-    <label class="setting-item">
-      <span>Clima</span>
-      <input type="checkbox" id="toggle-weather" checked>
-    </label>
-
-    <label class="setting-item">
-      <span>Partículas</span>
-      <input type="checkbox" id="toggle-particles" checked>
-    </label>
-
-    <label class="setting-item">
-      <span>Power Ups</span>
-      <input type="checkbox" id="toggle-powerups" checked>
-    </label>
-
-    <label class="setting-item">
-      <span>Nitro FX</span>
-      <input type="checkbox" id="toggle-nitrofx" checked>
-    </label>
-
-    <label class="setting-item">
-      <span>Sombras</span>
-      <input type="checkbox" id="toggle-shadows" checked>
-    </label>
-
-    <!-- NOVO BOTÃO -->
-
-  <button id="remove-arrows-btn" class="sub-btn">
-    🎮 Remover Setas
-  </button>
-
+  <div id="controls">
+    <button id="left" aria-label="Faixa à esquerda">‹</button>
+    <button id="nitro">ϟ<small>1 TOQUE</small></button>
+    <button id="right" aria-label="Faixa à direita">›</button>
   </div>
 </div>
-
-
-  <!-- =========================================
-       CANVAS GAME
-  ========================================== -->
-
-  <canvas id="game"></canvas>
-
-  <!-- =========================================
-       HUD
-  ========================================== -->
-
-  <div class="hud">
-
-    <div class="hud-top">
-
-      <!-- PONTOS -->
-      <div class="pill">
-
-        <div class="hud-icon">
-          🏁
-        </div>
-
-        <div class="hud-info">
-
-          <span class="muted">
-            PONTOS
-          </span>
-
-          <span id="score" class="hud-value">
-            0
-          </span>
-
-        </div>
-
-      </div>
-
-      <!-- VELOCIDADE -->
-      <div class="pill">
-
-        <div class="hud-icon">
-          ⚡
-        </div>
-
-        <div class="hud-info">
-
-          <span class="muted">
-            VELOCIDADE
-          </span>
-
-          <span id="speed" class="hud-value">
-            0
-          </span>
-
-        </div>
-
-      </div>
-
-      <!-- COINS -->
-      <div class="pill">
-
-        <div class="hud-icon">
-          🪙
-        </div>
-
-        <div class="hud-info">
-
-          <span class="muted">
-            COINS
-          </span>
-
-          <span id="money" class="hud-value">
-            0
-          </span>
-
-        </div>
-
-      </div>
-
-      <!-- CLIMA -->
-      <div class="pill">
-
-        <div class="hud-icon">
-          🌦️
-        </div>
-
-        <div class="hud-info">
-
-          <span class="muted">
-            CLIMA
-          </span>
-
-          <span id="weather" class="hud-value">
-            LIMPO
-          </span>
-
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- =========================================
-         POWER UPS
-    ========================================== -->
-
-    <div class="power-row">
-
-      <!-- ESCUDO -->
-      <div class="power-card">
-
-        <div class="badge">
-
-          <div class="dot shield"></div>
-
-          <span>
-            🛡️
-          </span>
-
-        </div>
-
-        <div id="shield-time">
-          0
-        </div>
-
-      </div>
-
-      <!-- NITRO -->
-      <div class="power-card">
-
-        <div class="badge">
-
-          <div class="dot nitro"></div>
-
-          <span>
-            ⚡
-          </span>
-
-        </div>
-
-        <div id="nitro-time">
-          0
-        </div>
-
-        <div class="power-card">
-
-          <div class="badge">
-        
-            <div class="dot nitro"></div>
-        
-            <span>
-              ⏳
-            </span>
-        
-          </div>
-        
-          <div id="nitro-cooldown">
-            0
-          </div>
-        
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- =========================================
-       CONTROLES
-  ========================================== -->
-
-  <div class="controls">
-
-    <div class="control-btn" id="btn-left">
-      ◀
-    </div>
-
-    <div class="control-btn nitro-btn" id="btn-nitro">
-      ⚡
-    </div>
-
-    <div class="control-btn" id="btn-right">
-      ▶
-    </div>
-
-  </div>
-
-  <!-- =========================================
-       MENU
-  ========================================== -->
-
-  <div class="game-menu">
-
-    <button class="menu-btn" id="menu-btn">
-      ☰
-    </button>
-
-    <div class="menu-options" id="menu-options">
-
-      <button class="menu-item" id="btn-home">
-        🏠 Início
-      </button>
-
-      <button class="menu-item danger" id="btn-restart">
-        ↻ Reiniciar
-      </button>
-
-    </div>
-
-  </div>
-
-  <!-- =========================================
-       GAME OVER
-  ========================================== -->
-
-  <div
-    class="overlay"
-    id="gameover-overlay"
-    style="display:none">
-
-    <div class="card">
-
-      <h1>
-        💥 FIM DE JOGO
-      </h1>
-
-      <p>
-
-        Pontuação:
-        <strong id="final-score">
-          0
-        </strong>
-
-      </p>
-
-      <div class="row">
-
-        <button
-          class="btn primary"
-          id="again">
-
-          ▶ Jogar Novamente
-
-        </button>
-
-        <button
-          class="btn"
-          id="back-menu">
-
-          🏠 Menu Inicial
-
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-<script defer src="script.js"></script>
-
+  <div id="modal" class="modal" hidden><div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title"><span class="eyebrow" id="modal-kicker"></span><h2 id="modal-title"></h2><div id="modal-body"></div><div id="modal-actions"></div></div></div>
+  <div id="toast" role="status"></div>
+  <noscript>Ative o JavaScript para jogar Neon Racer.</noscript>
+</main>
 <script>
-window.onerror = function(msg, url, line){
-  console.log(
-    "ERRO:",
-    msg,
-    "LINHA:",
-    line
-  );
-};
-</script>
+/* Neon Racer Clássico — mobile, um jogador, totalmente local.
+   Uma única simulação e um único loop visual; sem bibliotecas externas. */
+'use strict';
+const NeonEngine = (() => {
+  const cars = [
+    {name:'NEON X',color:'#00d0ff',price:0,speed:1,handling:1.06,model:'formula',nitro:1.00,desc:'Máquina principal do Neon Racer'}
+  ];
+  const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+  function random(s){s.seed=(Math.imul(s.seed,1664525)+1013904223)>>>0;return s.seed/4294967296;}
+  const difficulties={
+    easy:{label:'FÁCIL',speed:1.04,spawn:.82,aggression:.05,reward:1.00},
+    hard:{label:'DIFÍCIL',speed:1.17,spawn:.64,aggression:.22,reward:1.18},
+    rare:{label:'RARO',speed:1.30,spawn:.50,aggression:.36,reward:1.38},
+    impossible:{label:'IMPOSSÍVEL',speed:1.44,spawn:.40,aggression:.52,reward:1.62}
+  };
+  function create(seed=Date.now(),car=0){return {seed:seed>>>0,car:clamp(car|0,0,cars.length-1),time:0,distance:0,score:0,coins:0,health:3,nitro:100,boost:false,boostPulse:0,x:1,lane:1,speed:0,invulnerable:0,shield:0,alive:true,revived:false,objects:[],spawn:.8,pickup:1.8,nextId:1,combo:0,bestCombo:0,near:0,hit:0,mapStage:0,mapChanged:false};}
+  function step(s,dt,input={}){
+    if(!s.alive)return;dt=clamp(dt,0,.05);s.time+=dt;
+    if(Number.isInteger(input.lane))s.lane=clamp(input.lane,0,2);
+    const car=cars[s.car],diff=difficulties[input.difficulty]||difficulties.easy;
+    const upgrades=input.upgrades||{};
+    const motorLvl=clamp(Number(upgrades.motor)||0,0,3);
+    const nitroLvl=clamp(Number(upgrades.nitro)||0,0,3);
+    const armorLvl=clamp(Number(upgrades.armor)||0,0,3);
 
+    s.x+=(s.lane-s.x)*(1-Math.exp(-12*car.handling*dt));
+    s.invulnerable=Math.max(0,s.invulnerable-dt);s.shield=Math.max(0,s.shield-dt);
+    s.boost=!!input.nitro&&s.nitro>1;
+    if(input.nitro&&s.nitro<=1){
+      input.nitro=false;
+      s.boost=false;
+    }
+    s.boostPulse=Math.max(0,s.boostPulse-dt);
+    if(s.boost&&s.boostPulse<=0)s.boostPulse=.12;
+    // Upgrades leves: Motor +2.5%/nível; Nitro gasta menos e recarrega melhor.
+    const nitroDrain=22*(1-nitroLvl*.06);
+    const nitroRegen=8.5*(1+nitroLvl*.10);
+    s.nitro=clamp(s.nitro+(s.boost?-nitroDrain:nitroRegen)*dt,0,100);
+
+    const level=Math.min(18,Math.floor(s.time/10));
+    const motorBonus=1+motorLvl*.025;
+    const base=Math.min(445,165+s.time*1.90)*diff.speed*car.speed*motorBonus;
+    const boostPower=(88+Math.min(72,s.time*.30))*car.nitro*(1+nitroLvl*.04);
+    const target=base+(s.boost?boostPower:0);
+    s.speed+=(target-s.speed)*(1-Math.exp(-(s.boost?2.9:1.68)*dt));
+
+    const advance=s.speed*1.58*dt;
+    s.distance+=s.speed/3.6*dt;
+
+    // Pontuação desacelerada: sobreviver vale mais do que ver números explodindo.
+    const scoreDifficulty=0.88+diff.reward*.12;
+    s.score+=s.speed/80*dt*(s.boost?1.12:1)*scoreDifficulty;
+
+    // Mapa muda a cada 24 s e a dificuldade continua aumentando dentro de cada modo.
+    const nextMap=Math.floor(s.time/24)%5;
+    if(nextMap!==s.mapStage){s.mapStage=nextMap;s.mapChanged=true;}
+
+    s.spawn-=dt;s.pickup-=dt;
+    if(s.spawn<=0){
+      const obstacleColors=['#b49bff','#f4b775','#86b3ce','#ff466b','#58efba','#f6e36b','#ff8a4b'];
+
+      const makeObstacle=(lane,y=-100)=>{
+        const r=random(s);
+        let subtype='racer';
+
+        if(s.time>16&&r<.14+diff.aggression*.18)subtype='barrier';
+        else if(s.time>28&&r<.29+diff.aggression*.24)subtype='truck';
+        else if(s.time>40&&r<.41+diff.aggression*.30)subtype='coneWall';
+
+        s.objects.push({
+          id:s.nextId++,
+          kind:'obstacle',
+          subtype,
+          lane,
+          y,
+          color:obstacleColors[Math.floor(random(s)*obstacleColors.length)],
+          passed:false,
+          wobble:random(s)*6.28,
+          roadFixed:subtype==='barrier'||subtype==='coneWall'
+        });
+      };
+
+      // Quanto mais tempo e maior a dificuldade, mais aparecem paredes
+      // de duas faixas. Sempre sobra uma faixa possível para escapar.
+      const pairChance=Math.min(.58,.10+level*.018+diff.aggression*.55);
+
+      if(s.time>18&&random(s)<pairChance){
+        const safeLane=Math.floor(random(s)*3);
+        for(let lane=0;lane<3;lane++){
+          if(lane!==safeLane)makeObstacle(lane,-100-(lane%2)*16);
+        }
+      }else{
+        makeObstacle(Math.floor(random(s)*3));
+      }
+
+      // Trânsito fica progressivamente mais apertado.
+      const density=Math.max(.25,1.12-level*.045)*diff.spawn;
+      s.spawn=density+random(s)*(.22*diff.spawn+.05);
+    }
+    if(s.pickup<=0){
+      const lane=Math.floor(random(s)*3),kind=random(s)<.12?'shield':'coin';
+      if(!s.objects.some(o=>o.kind==='obstacle'&&o.lane===lane&&o.y<55))s.objects.push({id:s.nextId++,kind,lane,y:-35});
+      s.pickup=.9+random(s)*.9;
+    }
+    for(const o of s.objects){
+      const previousY=o.y;
+      // Barreiras e paredes de cones ficam fixas na pista.
+      const extra=o.roadFixed?1:(o.subtype==='truck'?.84:1);
+      o.y+=advance*extra;
+      // Carros de trânsito permanecem sempre na faixa em que nasceram.
+      // Sem movimento lateral para esquerda/direita.
+      if(o.subtype==='racer')o.lane=Math.round(o.lane);
+      if(!o.used&&Math.abs(o.lane-s.x)<(o.kind==='obstacle'?.48:.46)&&previousY<580&&o.y>495){
+        if(o.kind==='obstacle'){
+          if(s.invulnerable<=0){o.used=true;s.hit++;s.combo=0;s.invulnerable=1.25;
+            if(s.shield>0)s.shield=0;
+            else{
+              s.health--;
+              const basePenalty=o.subtype==='barrier'?.48:.58;
+              s.speed*=Math.min(.78,basePenalty+armorLvl*.055);
+              s.invulnerable+=armorLvl*.10;
+            }
+            if(s.health<=0){s.alive=false;s.boost=false;}
+          }
+        }else{o.used=true;if(o.kind==='coin'){s.coins+=5;s.score+=3*diff.reward;}else s.shield=8;}
+      }
+      if(o.kind==='obstacle'&&!o.passed&&o.y>585){o.passed=true;if(!o.used&&Math.abs(o.lane-s.x)<1.05){s.combo++;s.near++;s.bestCombo=Math.max(s.bestCombo,s.combo);s.score+=3*Math.min(3,1+s.combo*.12)*diff.reward;}}
+    }
+    s.objects=s.objects.filter(o=>o.y<850&&(!o.used||o.kind==='obstacle'));
+  }
+  return {cars,clamp,create,step};
+})();
+if(typeof module!=='undefined'&&module.exports)module.exports=NeonEngine;
+if(typeof document!=='undefined')(()=>{
+  const $=id=>document.getElementById(id),E=NeonEngine,fmt=n=>Math.floor(n).toLocaleString('pt-BR');
+  const defaults={control:'buttons',showArrows:true,buttonSize:'normal',difficulty:'easy',vibration:true,quality:'high',hud:true,weather:false,particles:true,shadows:true,sound:true};
+
+  const paintDefs=[
+    {id:'cyan',name:'Azul Neon',color:'#00d0ff',price:0},
+    {id:'blue_electric',name:'Azul Elétrico',color:'#008cff',price:200},
+    {id:'blue_racing',name:'Azul Racing',color:'#1746ff',price:200},
+    {id:'red_neon',name:'Vermelho Neon',color:'#ff3355',price:200},
+    {id:'red_racing',name:'Vermelho Racing',color:'#d90429',price:200},
+    {id:'orange_fire',name:'Laranja Fogo',color:'#ff6600',price:200},
+    {id:'yellow_neon',name:'Amarelo Neon',color:'#f7ff00',price:200},
+    {id:'lime',name:'Verde Limão',color:'#9cff2e',price:200},
+    {id:'green_racing',name:'Verde Racing',color:'#2ee66b',price:200},
+    {id:'turquoise',name:'Turquesa',color:'#00c7a5',price:200},
+    {id:'violet',name:'Violeta Neon',color:'#9b5cff',price:200},
+    {id:'pink',name:'Rosa Neon',color:'#ff3bd4',price:200},
+    {id:'white',name:'Branco',color:'#ffffff',price:200},
+    {id:'graphite',name:'Grafite',color:'#596273',price:200},
+
+    {id:'silver',name:'Prata Cromada',color:'#cbd5e1',price:500,special:true},
+    {id:'copper',name:'Cobre Turbo',color:'#d69b52',price:500,special:true},
+    {id:'gold',name:'Ouro Solar',color:'#ffd54a',price:700,special:true},
+    {id:'ice',name:'Gelo Ártico',color:'#9ef7ff',price:800,special:true},
+    {id:'toxic',name:'Tóxico',color:'#6dff45',price:900,special:true},
+    {id:'plasma',name:'Plasma',color:'#a855f7',price:1000,special:true},
+    {id:'magenta',name:'Magenta X',color:'#ff2bd6',price:1000,special:true},
+    {id:'inferno',name:'Inferno',color:'#ff4b19',price:1200,special:true},
+    {id:'eclipse',name:'Eclipse',color:'#3d355e',price:1200,special:true},
+    {id:'aurora',name:'Aurora',color:'#66ffd9',price:1500,special:true}
+  ];
+
+  const nitroFxDefs=[
+    {id:'classic',name:'Original',price:0,desc:'Azul com chama laranja.',colors:['#ffffff','#00d0ff','#ff8800']},
+    {id:'plasma',name:'Plasma',price:800,desc:'Ciano e roxo elétrico.',colors:['#ffffff','#43e8ff','#9b5cff']},
+    {id:'inferno',name:'Inferno',price:800,desc:'Amarelo, laranja e vermelho.',colors:['#fff6a8','#ff9f1c','#ff2d2d']},
+    {id:'void',name:'Void',price:800,desc:'Roxo profundo e magenta.',colors:['#ffffff','#7c4dff','#ff2bd6']},
+    {id:'toxic',name:'Tóxico',price:800,desc:'Branco, lima e verde.',colors:['#ffffff','#caff4a','#18e875']}
+  ];
+
+  const upgradeDefs=[
+    {id:'motor',name:'Motor',desc:'+2,5% de velocidade por nível.'},
+    {id:'nitro',name:'Nitro',desc:'Dura mais e recarrega mais rápido.'},
+    {id:'armor',name:'Blindagem',desc:'Perde menos velocidade nas batidas.'}
+  ];
+  const upgradeCosts=[300,600,1000];
+  let storageFailed=false;
+  function read(key,fallback){try{const value=JSON.parse(localStorage.getItem(key));return value===null?fallback:value;}catch{return fallback;}}
+  let profile=read('neonRacerMobileV2',null);
+  if(!profile||typeof profile!=='object'||Array.isArray(profile)){
+    const old=read('neonRacerGarageV1',{}),oldSettings=read('neonRacerSettingsV1',{});
+    profile={coins:read('neonRacerCoinsV1',0),selected:0,owned:[true],paint:null,paintId:'cyan',paintOwned:['cyan'],nitroFx:'classic',nitroOwned:['classic'],upgrades:{motor:0,nitro:0,armor:0},best:read('neonRacerRecordV1',0),history:[],settings:{...defaults,...oldSettings},nickname:'Piloto'};
+  }
+  profile.coins=E.clamp(Number(profile.coins)||0,0,1e9);profile.best=E.clamp(Number(profile.best)||0,0,1e9);
+  profile.owned=[true];
+  profile.selected=0;
+
+  // Migração da pintura antiga para a nova loja.
+  const legacyPaint=/^#[0-9a-f]{6}$/i.test(profile.paint||'')?profile.paint.toLowerCase():null;
+  const legacyPaintDef=paintDefs.find(p=>p.color.toLowerCase()===legacyPaint);
+  profile.paintId=paintDefs.some(p=>p.id===profile.paintId)?profile.paintId:(legacyPaintDef?.id||'cyan');
+  profile.paintOwned=Array.isArray(profile.paintOwned)?profile.paintOwned.filter(id=>paintDefs.some(p=>p.id===id)):['cyan'];
+  if(!profile.paintOwned.includes('cyan'))profile.paintOwned.push('cyan');
+  if(legacyPaintDef&&!profile.paintOwned.includes(legacyPaintDef.id))profile.paintOwned.push(legacyPaintDef.id);
+  if(!profile.paintOwned.includes(profile.paintId))profile.paintId='cyan';
+
+  profile.nitroOwned=Array.isArray(profile.nitroOwned)?profile.nitroOwned.filter(id=>nitroFxDefs.some(n=>n.id===id)):['classic'];
+  if(!profile.nitroOwned.includes('classic'))profile.nitroOwned.push('classic');
+  profile.nitroFx=nitroFxDefs.some(n=>n.id===profile.nitroFx)&&profile.nitroOwned.includes(profile.nitroFx)?profile.nitroFx:'classic';
+
+  profile.upgrades=profile.upgrades&&typeof profile.upgrades==='object'?profile.upgrades:{};
+  for(const key of ['motor','nitro','armor']){
+    profile.upgrades[key]=E.clamp(Math.floor(Number(profile.upgrades[key])||0),0,3);
+  }
+
+  profile.history=Array.isArray(profile.history)?profile.history.filter(h=>h&&Number.isFinite(h.score)&&typeof h.date==='string').slice(0,30):[];
+  profile.settings={...defaults,...profile.settings};
+  for(const k of Object.keys(defaults)){if(typeof profile.settings[k]!==typeof defaults[k])profile.settings[k]=defaults[k];}
+  if(!['buttons','touch','swipe'].includes(profile.settings.control))profile.settings.control='buttons';
+  if(!['normal','large'].includes(profile.settings.buttonSize))profile.settings.buttonSize='normal';
+  if(!['easy','hard','rare','impossible'].includes(profile.settings.difficulty))profile.settings.difficulty='easy';
+  if(!['low','high'].includes(profile.settings.quality))profile.settings.quality='high';
+  const settings=profile.settings;
+  let scene='home',race=null,mode='solo',paused=false,countdown=0,resultSaved=false,raceBanked=false,input={lane:1,nitro:false},last=0,accumulator=0,toastTimer,audio=null;
+  let seenHit=0,seenCoins=0,visualX=1;
+  const canvas=$('game'),ctx=canvas.getContext('2d');let width=360,height=720,dpr=1;
+  function save(){try{localStorage.setItem('neonRacerMobileV2',JSON.stringify(profile));}catch{if(!storageFailed){storageFailed=true;toast('O navegador bloqueou o salvamento. Seu progresso dura só nesta sessão.');}}}
+  function toast(msg){$('toast').textContent=msg;$('toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('visible'),3400);}
+  function currentPaint(){return paintDefs.find(p=>p.id===profile.paintId)||paintDefs[0];}
+  function currentNitroFx(){return nitroFxDefs.find(n=>n.id===profile.nitroFx)||nitroFxDefs[0];}
+  function color(){return currentPaint().color;}
+  function carSvg(c,model='formula'){
+    const shapes={
+      formula:`<path d="M-20 31h40v7h-40zM0-42L11-26 15 22 10 35H-10L-15 22-11-26Z"/><path d="M-11-8L-22 7-18 27-10 22ZM11-8L22 7 18 27 10 22Z"/><path d="M-22-37h44v6h-44z"/>`,
+      gt:`<path d="M-19 34h38l5-17-4-45-11-12H-9L-20-28l-4 45z"/><path d="M-25-31h50v7h-50z"/><path d="M-22 26h44v8h-44z"/>`,
+      prototype:`<path d="M0-46L15-32l10 49-9 18H-16l-9-18 10-49z"/><path d="M-28-35h56v5h-56zM-23 29h46v8h-46z"/><path d="M-15-7h30l8 18-7 13H-16l-7-13z"/>`,
+      hyper:`<path d="M0-45L17-26l12 40-13 23H-16L-29 14l12-40z"/><path d="M-31-31h62v6h-62zM-24 31h48v6h-48z"/><path d="M-24 2l10-12h28L24 2l-8 21H-16z"/>`,
+      cyber:`<path d="M-16-43H16l12 18-5 60H-23l-5-60z"/><path d="M-30-36h60v7h-60zM-29 27h58v9h-58z"/><path d="M-20-7h40v24H-20z"/>`,
+      phantom:`<path d="M0-48L19-27l11 45-14 21H-16L-30 18l11-45z"/><path d="M-33-36h66v6h-66zM-28 32h56v7h-56z"/><path d="M-25 5L-12-12H12L25 5 15 29H-15z"/>`
+    };
+    return `<svg viewBox="0 0 110 200" aria-hidden="true"><g transform="translate(55 100) scale(1.8)"><ellipse cx="0" cy="22" rx="27" ry="48" fill="#000" opacity=".46"/><g fill="#07090d"><path d="M-27-24h10v24h-10zM17-24h10v24H17zM-27 18h10v26h-10zM17 18h10v26H17z"/></g><g fill="${c}">${shapes[model]||shapes.formula}</g><ellipse cx="0" cy="-4" rx="9" ry="15" fill="#05070d" stroke="#ffffff80"/><path d="M-2-36h4v8h-4z" fill="white"/></g></svg>`;
+  }
+  function refresh(){document.querySelectorAll('[data-wallet]').forEach(el=>el.textContent=fmt(profile.coins));$('home-record').textContent='RECORDE '+fmt(profile.best);document.documentElement.style.setProperty('--garage-color',color());}
+  function show(name){scene=name;document.querySelectorAll('.screen').forEach(el=>el.classList.toggle('active',el.id===name));$('race-ui').hidden=name!=='race';$('modal').hidden=true;input.nitro=false;if(name==='garage')renderGarage();if(name==='history')renderHistory();if(name==='settings')syncSettings();refresh();}
+  function bindGarageAccordion(){
+    document.querySelectorAll('[data-accordion]').forEach(btn=>{
+      if(btn.dataset.bound==='1')return;
+      btn.dataset.bound='1';
+
+      btn.addEventListener('click',()=>{
+        const panel=btn.closest('[data-panel]');
+        if(!panel)return;
+
+        const open=!panel.classList.contains('open');
+        panel.classList.toggle('open',open);
+        btn.setAttribute('aria-expanded',String(open));
+      });
+    });
+  }
+
+  function spendCoins(amount){
+    if(profile.coins<amount){
+      toast('FALTAM '+fmt(amount-profile.coins)+' 🪙');
+      beep(150,.08);
+      return false;
+    }
+    profile.coins-=amount;
+    return true;
+  }
+
+  function buyOrEquipPaint(id){
+    const paint=paintDefs.find(p=>p.id===id);
+    if(!paint)return;
+
+    if(profile.paintOwned.includes(id)){
+      profile.paintId=id;
+      profile.paint=paint.color;
+      save();refresh();renderGarage();beep(540,.05);
+      return;
+    }
+
+    if(!spendCoins(paint.price))return;
+    profile.paintOwned.push(id);
+    profile.paintId=id;
+    profile.paint=paint.color;
+    save();refresh();renderGarage();
+    toast('PINTURA DESBLOQUEADA: '+paint.name);
+    beep(900,.09);
+  }
+
+  function buyOrEquipNitro(id){
+    const fx=nitroFxDefs.find(n=>n.id===id);
+    if(!fx)return;
+
+    if(profile.nitroOwned.includes(id)){
+      profile.nitroFx=id;
+      save();refresh();renderGarage();beep(650,.05);
+      return;
+    }
+
+    if(!spendCoins(fx.price))return;
+    profile.nitroOwned.push(id);
+    profile.nitroFx=id;
+    save();refresh();renderGarage();
+    toast('NITRO DESBLOQUEADO: '+fx.name);
+    beep(980,.09);
+  }
+
+  function buyUpgrade(id){
+    const level=E.clamp(Number(profile.upgrades[id])||0,0,3);
+    if(level>=3){toast('UPGRADE NO NÍVEL MÁXIMO');return;}
+
+    const price=upgradeCosts[level];
+    if(!spendCoins(price))return;
+
+    profile.upgrades[id]=level+1;
+    save();refresh();renderGarage();
+    toast('UPGRADE NÍVEL '+(level+1)+'!');
+    beep(880,.10);
+  }
+
+  function renderGarage(){
+    const paint=currentPaint();
+    $('garage-car').innerHTML=carSvg(color(),'formula');
+    $('garage-car').style.filter=paint.special?'drop-shadow(0 0 12px '+paint.color+'88)':'';
+    $('selected-name').textContent='NEON X · '+paint.name;
+
+    // Pinturas
+    $('colors').replaceChildren();
+    for(const p of paintDefs){
+      const owned=profile.paintOwned.includes(p.id);
+      const selected=profile.paintId===p.id;
+
+      const card=document.createElement('div');
+      card.className='paint-item'+(selected?' selected':'')+(p.special?' special':'');
+      card.style.setProperty('--swatch',p.color);
+
+      const swatch=document.createElement('span');
+      swatch.className='swatch';
+      swatch.style.setProperty('--swatch',p.color);
+
+      const name=document.createElement('strong');
+      name.textContent=p.name;
+
+      const info=document.createElement('small');
+      info.textContent=p.price===0?'GRÁTIS':(p.special?'ESPECIAL · ':'')+fmt(p.price)+' 🪙';
+
+      const btn=document.createElement('button');
+      btn.className=owned?'':'buy';
+      btn.textContent=selected?'EQUIPADA':owned?'USAR':'COMPRAR';
+      btn.onclick=()=>buyOrEquipPaint(p.id);
+
+      card.append(swatch,name,info,btn);
+      $('colors').append(card);
+    }
+
+    // Efeitos de nitro
+    $('nitro-shop').replaceChildren();
+    for(const fx of nitroFxDefs){
+      const owned=profile.nitroOwned.includes(fx.id);
+      const selected=profile.nitroFx===fx.id;
+      const card=document.createElement('div');
+      card.className='shop-card'+(selected?' selected':'');
+      card.style.setProperty('--fx1',fx.colors[0]);
+      card.style.setProperty('--fx2',fx.colors[1]);
+      card.style.setProperty('--fx3',fx.colors[2]);
+
+      const preview=document.createElement('div');
+      preview.className='nitro-preview';
+
+      const title=document.createElement('h4');
+      title.textContent=fx.name;
+
+      const desc=document.createElement('p');
+      desc.textContent=fx.desc;
+
+      const btn=document.createElement('button');
+      btn.textContent=selected?'EQUIPADO':owned?'USAR':('COMPRAR · '+fmt(fx.price)+' 🪙');
+      btn.onclick=()=>buyOrEquipNitro(fx.id);
+
+      card.append(preview,title,desc,btn);
+      $('nitro-shop').append(card);
+    }
+
+    // Upgrades
+    $('upgrade-shop').replaceChildren();
+    for(const up of upgradeDefs){
+      const level=E.clamp(Number(profile.upgrades[up.id])||0,0,3);
+      const card=document.createElement('div');
+      card.className='upgrade-card'+(level>=3?' max':'');
+
+      const title=document.createElement('h4');
+      title.textContent=up.name+' · NV '+level;
+
+      const desc=document.createElement('p');
+      desc.textContent=up.desc;
+
+      const bars=document.createElement('div');
+      bars.className='upgrade-level';
+      for(let i=0;i<3;i++){
+        const dot=document.createElement('i');
+        if(i<level)dot.classList.add('on');
+        bars.append(dot);
+      }
+
+      const btn=document.createElement('button');
+      if(level>=3){
+        btn.textContent='NÍVEL MÁXIMO';
+        btn.disabled=true;
+      }else{
+        btn.textContent='MELHORAR · '+fmt(upgradeCosts[level])+' 🪙';
+        btn.onclick=()=>buyUpgrade(up.id);
+      }
+
+      card.append(title,desc,bars,btn);
+      $('upgrade-shop').append(card);
+    }
+
+    bindGarageAccordion();
+  }
+  function syncSettings(){for(const k of Object.keys(defaults)){const el=$(k);if(typeof defaults[k]==='boolean')el.checked=settings[k];else el.value=settings[k];}applySettings();}
+  function updateResponsiveLayout(){
+    const app=$('app');
+    const vv=window.visualViewport;
+
+    if(vv){
+      document.documentElement.style.setProperty('--viewport-h',vv.height+'px');
+    }
+
+    // Classe útil para pequenos ajustes visuais.
+    const w=window.innerWidth;
+    const h=window.innerHeight;
+    app.classList.toggle('device-mobile',w<600);
+    app.classList.toggle('device-tablet',w>=600&&w<1025);
+    app.classList.toggle('device-desktop',w>=1025);
+    app.classList.toggle('is-landscape',w>h);
+
+    resize();
+  }
+
+  function applySettings(){
+    document.body.classList.toggle('large-buttons',settings.buttonSize==='large');
+    $('hud-panel').hidden=!settings.hud;
+    $('race-level').hidden=!settings.hud;
+
+    // A opção agora realmente remove as setas da interface.
+    $('left').hidden=!settings.showArrows;
+    $('right').hidden=!settings.showArrows;
+    $('controls').classList.toggle('arrows-hidden',!settings.showArrows);
+
+    resize();
+  }
+  function renderHistory(){
+    $('best-score').textContent=fmt(profile.best);$('history-list').replaceChildren();
+    if(!profile.history.length){$('history-list').innerHTML='<p class="muted">Sua primeira corrida começa agora. Entre na pista para registrar um resultado.</p>';return;}
+    for(const h of profile.history){const row=document.createElement('div');row.className='history-item';const a=document.createElement('div'),b=document.createElement('b'),small=document.createElement('small');a.textContent=h.mode==='online'?'Duelo online':'Corrida solo';small.textContent=new Date(h.date).toLocaleString('pt-BR')+' · '+Math.floor(h.distance||0)+' m';a.append(small);b.textContent=fmt(h.score)+' pts';row.append(a,b);$('history-list').append(row);}
+  }
+  function beep(f=700,d=.08){if(!settings.sound)return;try{if(!audio)audio=new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume().catch(()=>{});const o=audio.createOscillator(),g=audio.createGain();o.connect(g);g.connect(audio.destination);o.frequency.value=f;g.gain.setValueAtTime(.035,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+d);o.start();o.stop(audio.currentTime+d);}catch{}}
+  function release(){input.nitro=false;}
+  let raceLoadTimer=null;
+  let seenMapStage=0;
+  let mapBannerTimer=null;
+
+  const mapNames=['NEON CITY','TÚNEL VIOLETA','DESERTO SOLAR','GELO AZUL','ZONA VULCÂNICA'];
+
+  function showMapBanner(name){
+    const banner=$('map-banner');
+    $('map-banner-name').textContent=name;
+    banner.classList.remove('active');
+    void banner.offsetWidth;
+    banner.classList.add('active');
+    clearTimeout(mapBannerTimer);
+    mapBannerTimer=setTimeout(()=>banner.classList.remove('active'),2200);
+  }
+
+  function beginSoloRace(){
+    mode='solo';
+    race=E.create(Date.now(),profile.selected);
+    input={lane:1,nitro:false,difficulty:settings.difficulty,upgrades:{...profile.upgrades}};
+    visualX=1;
+    seenHit=seenCoins=0;
+    seenMapStage=0;
+    paused=false;
+    countdown=3;
+    resultSaved=false;
+    raceBanked=false;
+    accumulator=0;
+    show('race');
+    $('race-mode').textContent='SOLO · '+({easy:'FÁCIL',hard:'DIFÍCIL',rare:'RARO',impossible:'IMPOSSÍVEL'}[settings.difficulty]||'FÁCIL');
+    $('pause-btn').textContent='Ⅱ';
+    $('pause-btn').setAttribute('aria-label','Pausar corrida');
+    beep();
+  }
+
+  function startSolo(){
+    clearTimeout(raceLoadTimer);
+    const loading=$('race-loading');
+    loading.classList.remove('active');
+    void loading.offsetWidth;
+    loading.classList.add('active');
+    loading.setAttribute('aria-hidden','false');
+
+    // Reinicia a barra CSS em toda entrada na corrida.
+    const bar=loading.querySelector('.loading-progress');
+    if(bar){
+      bar.style.animation='none';
+      void bar.offsetWidth;
+      bar.style.animation='';
+    }
+
+    raceLoadTimer=setTimeout(()=>{
+      loading.classList.remove('active');
+      loading.setAttribute('aria-hidden','true');
+      beginSoloRace();
+    },1380);
+  }
+  function modal(kicker,title,body,buttons){release();$('modal-kicker').textContent=kicker;$('modal-title').textContent=title;$('modal-body').innerHTML=body;$('modal-actions').replaceChildren();for(const [label,fn,primary]of buttons){const b=document.createElement('button');b.className=primary?'primary':'secondary';b.textContent=label;b.onclick=fn;$('modal-actions').append(b);}$('modal').hidden=false;}
+  function pause(){if(scene!=='race')return;if(!race?.alive||paused)return;paused=true;modal('RESPIRE. VOLTE MAIS FORTE.','Corrida pausada','<p>Seu carro está esperando por você.</p>',[['CONTINUAR',()=>{paused=false;countdown=1;accumulator=0;$('modal').hidden=true;},true],['REINICIAR',startSolo],['VOLTAR AO INÍCIO',()=>show('home')]]);}
+  function bankRaceResult(){
+    if(raceBanked||!race)return;
+    raceBanked=true;
+
+    const score=Math.floor(race.score);
+    const reward=race.coins+Math.floor(score/100);
+
+    profile.coins+=reward;
+    profile.best=Math.max(profile.best,score);
+    profile.history.unshift({
+      mode,
+      score,
+      distance:Math.floor(race.distance),
+      date:new Date().toISOString()
+    });
+    profile.history=profile.history.slice(0,30);
+
+    save();
+    refresh();
+  }
+
+  function reviveRace(){
+    if(!race||race.revived)return;
+    if(profile.coins<150){
+      toast('VOCÊ PRECISA DE 150 🪙 PARA REVIVER');
+      return;
+    }
+
+    profile.coins-=150;
+    save();
+    refresh();
+
+    race.revived=true;
+    race.alive=true;
+    race.health=1;
+    race.invulnerable=3;
+    race.speed=Math.max(150,race.speed*.72);
+    race.boost=false;
+    input.nitro=false;
+
+    // Limpa o perigo imediatamente à frente para não morrer de novo no mesmo instante.
+    race.objects=race.objects.filter(o=>o.kind!=='obstacle'||o.y<330||o.y>690);
+
+    resultSaved=false;
+    paused=false;
+    countdown=2;
+    accumulator=0;
+    $('modal').hidden=true;
+
+    toast('REVIVE! 3 SEGUNDOS DE PROTEÇÃO');
+    beep(980,.14);
+  }
+
+  function finish(){
+    if(resultSaved||!race)return;
+
+    resultSaved=true;
+    input.nitro=false;
+    paused=true;
+
+    const score=Math.floor(race.score);
+    const reward=race.coins+Math.floor(score/100);
+    const newRecord=score>profile.best;
+
+    const title=newRecord?'🏆 NOVO RECORDE!':'💥 FIM DE JOGO';
+    const canRevive=!race.revived;
+
+    const buttons=[];
+    if(canRevive){
+      buttons.push([
+        profile.coins>=150?'⚡ REVIVER · 150 🪙':'⚡ REVIVER · FALTAM '+fmt(150-profile.coins)+' 🪙',
+        reviveRace,
+        profile.coins>=150
+      ]);
+    }
+
+    buttons.push(
+      ['▶ NOVA CORRIDA',()=>{bankRaceResult();startSolo();},!canRevive],
+      ['🏠 MENU INICIAL',()=>{bankRaceResult();show('home');}]
+    );
+
+    modal(
+      'NEON RACER TURBO',
+      title,
+      `<div class="result-score">${fmt(score)}</div>
+       <p>PONTOS</p>
+       <div class="result-grid">
+         <div><b>${Math.floor(race.distance)} m</b><small>DISTÂNCIA</small></div>
+         <div><b>+${reward} 🪙</b><small>AO ENCERRAR</small></div>
+       </div>
+       <p>Melhor combo: ${race.bestCombo} · Recorde: ${fmt(Math.max(profile.best,score))}</p>
+       ${canRevive?'<p style="color:#d6ff58">Você ainda pode reviver uma vez nesta corrida.</p>':'<p>Reviver já utilizado nesta corrida.</p>'}`,
+      buttons
+    );
+
+    beep(newRecord?1000:440,.2);
+  }
+  function move(dir){if(scene!=='race'||paused||countdown>0||!race?.alive)return;input.lane=E.clamp(input.lane+dir,0,2);}
+  for(const [id,dir]of [['left',-1],['right',1]])$(id).addEventListener('pointerdown',e=>{e.preventDefault();move(dir);});
+  $('nitro').addEventListener('pointerdown',e=>{
+    e.preventDefault();
+    if(scene!=='race'||paused||countdown>0||!race?.alive)return;
+    if(input.nitro||race.boost)return;
+    if(race.nitro<=1){toast('NITRO RECARREGANDO');return;}
+    input.nitro=true;
+    beep(300,.05);
+  });
+  window.addEventListener('blur',()=>{release();if(mode==='solo')pause();});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){release();if(mode==='solo')pause();}});
+  let touchX=null,touchY=null,touchPointer=null;
+
+  canvas.addEventListener('pointerdown',e=>{
+    if(settings.control!=='touch'&&settings.control!=='swipe')return;
+    touchX=e.clientX;
+    touchY=e.clientY;
+    touchPointer=e.pointerId;
+    try{canvas.setPointerCapture(e.pointerId);}catch{}
+  });
+
+  canvas.addEventListener('pointerup',e=>{
+    if(touchX===null||touchPointer!==e.pointerId)return;
+
+    const dx=e.clientX-touchX;
+    const dy=e.clientY-touchY;
+
+    if(settings.control==='swipe'){
+      // Deslize horizontal.
+      if(Math.abs(dx)>24&&Math.abs(dx)>Math.abs(dy)){
+        move(dx>0?1:-1);
+      }
+    }else if(settings.control==='touch'){
+      // Toque simples: lado esquerdo / lado direito da tela.
+      if(Math.abs(dx)<18&&Math.abs(dy)<18){
+        const rect=canvas.getBoundingClientRect();
+        const x=e.clientX-rect.left;
+        const center=rect.width/2;
+
+        if(x<center-12)move(-1);
+        else if(x>center+12)move(1);
+      }
+    }
+
+    touchX=null;
+    touchY=null;
+    touchPointer=null;
+  });
+
+  canvas.addEventListener('pointercancel',e=>{
+    if(touchPointer===e.pointerId){
+      touchX=null;
+      touchY=null;
+      touchPointer=null;
+    }
+  });
+  document.addEventListener('keydown',e=>{if(scene!=='race'||/INPUT|SELECT/.test(e.target.tagName))return;if(['ArrowLeft','ArrowRight',' ','Escape'].includes(e.key))e.preventDefault();if(e.repeat)return;if(e.key==='ArrowLeft')move(-1);if(e.key==='ArrowRight')move(1);if(e.key==='Escape')pause();if(e.key===' '&&!paused&&countdown<=0&&!input.nitro&&race?.nitro>1){input.nitro=true;beep(300,.05);}});
+  document.querySelectorAll('[data-screen]').forEach(b=>b.onclick=()=>show(b.dataset.screen));
+  document.querySelectorAll('[data-home]').forEach(b=>b.onclick=()=>{show('home');});
+  $('play-solo').onclick=startSolo;$('pause-btn').onclick=pause;
+  for(const k of Object.keys(defaults))$(k).addEventListener('change',()=>{settings[k]=typeof defaults[k]==='boolean'?$(k).checked:$(k).value;save();applySettings();if(k==='sound')beep();});
+  $('restore-settings').onclick=()=>{Object.assign(settings,defaults);save();syncSettings();toast('Ajustes restaurados.');};
+  // Desenho: resolução limitada para evitar desperdício de bateria no celular.
+  function resize(){const rect=$('app').getBoundingClientRect();width=rect.width;height=rect.height;dpr=Math.min(devicePixelRatio||1,settings.quality==='high'?2:1);canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);}
+  window.addEventListener('resize',resize);
+  function round(x,y,w,h,r,fill){ctx.fillStyle=fill;ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fill();}
+  function drawCar(x,y,c,scale=1,tilt=0,boost=false,model='formula',nitroFx='classic',specialPaint=false){
+    ctx.save();
+    ctx.translate(x,y);
+    ctx.scale(scale,scale);
+
+    if(specialPaint){
+      ctx.shadowColor=c;
+      ctx.shadowBlur=14;
+    }
+
+    drawF1({x:0,y:0,color:c,tilt,nitro:boost,model,nitroFx},scale<.9);
+    ctx.restore();
+  }
+function drawF1(
+car,
+isEnemy = false
+){
+if(!car){
+return;
+}
+ctx.save();
+ctx.translate(
+car.x,
+car.y
+);
+ctx.rotate(
+car.tilt || 0
+);
+const scale =
+isEnemy
+? .9
+: 1;
+ctx.scale(
+scale,
+scale
+);
+const model=car.model||'formula';
+const modelScaleX={formula:1,gt:1.13,prototype:1.08,hyper:1.18,cyber:1.15,phantom:1.22}[model]||1;
+ctx.scale(modelScaleX,1);
+
+/* =========================================
+SOMBRA
+========================================= */
+if(
+settings.shadows
+){
+ctx.fillStyle =
+"rgba(0,0,0,.45)";
+ctx.beginPath();
+ctx.ellipse(
+0,
+22,
+25,
+47,
+0,
+0,
+Math.PI * 2
+);
+ctx.fill();
+}
+/* =========================================
+NITRO
+========================================= */
+if(
+car.nitro &&
+(
+settings.particles
+)
+){
+const gradient =
+ctx.createLinearGradient(
+0,
+26,
+0,
+70
+);
+const nitroPalettes={
+classic:["#ffffff","#00d0ff","#ff8800"],
+plasma:["#ffffff","#43e8ff","#9b5cff"],
+inferno:["#fff6a8","#ff9f1c","#ff2d2d"],
+void:["#ffffff","#7c4dff","#ff2bd6"],
+toxic:["#ffffff","#caff4a","#18e875"]
+};
+const nitroPalette=nitroPalettes[car.nitroFx]||nitroPalettes.classic;
+
+gradient.addColorStop(
+0,
+nitroPalette[0]
+);
+gradient.addColorStop(
+.3,
+nitroPalette[1]
+);
+gradient.addColorStop(
+.65,
+nitroPalette[2]
+);
+gradient.addColorStop(
+1,
+"rgba(255,0,50,0)"
+);
+ctx.fillStyle =
+gradient;
+ctx.shadowColor =
+nitroPalette[2];
+ctx.shadowBlur =
+20;
+for(const fx of [-7,7]){
+ctx.beginPath();
+ctx.moveTo(fx-4,28);
+ctx.lineTo(fx+4,28);
+ctx.lineTo(fx,78+Math.random()*22);
+ctx.closePath();
+ctx.fill();
+}
+ctx.fillStyle="rgba(255,255,255,.7)";
+ctx.fillRect(-10,28,20,5);
+ctx.shadowBlur =
+0;
+}
+/* =========================================
+RODAS
+========================================= */
+const wheelColor =
+"#080808";
+ctx.fillStyle =
+wheelColor;
+ctx.fillRect(
+-23,
+-24,
+9,
+23
+);
+ctx.fillRect(
+14,
+-24,
+9,
+23
+);
+ctx.fillRect(
+-23,
+18,
+9,
+25
+);
+ctx.fillRect(
+14,
+18,
+9,
+25
+);
+/* =========================================
+ASA TRASEIRA
+========================================= */
+ctx.fillStyle =
+car.color;
+ctx.shadowColor =
+car.color;
+ctx.shadowBlur =
+settings.quality === "low" ? 0 : (isEnemy ? 5 : 13);
+ctx.fillRect(
+-20,
+31,
+40,
+7
+);
+/* =========================================
+CORPO CENTRAL
+========================================= */
+const bodyGradient =
+ctx.createLinearGradient(
+0,
+-40,
+0,
+40
+);
+bodyGradient.addColorStop(
+0,
+"#ffffff"
+);
+bodyGradient.addColorStop(
+.08,
+car.color
+);
+bodyGradient.addColorStop(
+1,
+car.color
+);
+ctx.fillStyle =
+bodyGradient;
+ctx.beginPath();
+ctx.moveTo(
+0,
+-42
+);
+ctx.lineTo(
+11,
+-26
+);
+ctx.lineTo(
+15,
+22
+);
+ctx.lineTo(
+10,
+35
+);
+ctx.lineTo(
+-10,
+35
+);
+ctx.lineTo(
+-15,
+22
+);
+ctx.lineTo(
+-11,
+-26
+);
+ctx.closePath();
+ctx.fill();
+/* =========================================
+LATERAIS
+========================================= */
+ctx.fillStyle =
+car.color;
+ctx.beginPath();
+ctx.moveTo(
+-11,
+-8
+);
+ctx.lineTo(
+-22,
+7
+);
+ctx.lineTo(
+-18,
+27
+);
+ctx.lineTo(
+-10,
+22
+);
+ctx.closePath();
+ctx.fill();
+ctx.beginPath();
+ctx.moveTo(
+11,
+-8
+);
+ctx.lineTo(
+22,
+7
+);
+ctx.lineTo(
+18,
+27
+);
+ctx.lineTo(
+10,
+22
+);
+ctx.closePath();
+ctx.fill();
+/* =========================================
+COCKPIT
+========================================= */
+ctx.fillStyle =
+"#05070d";
+ctx.beginPath();
+ctx.ellipse(
+0,
+-3,
+8,
+15,
+0,
+0,
+Math.PI * 2
+);
+ctx.fill();
+ctx.strokeStyle =
+"rgba(255,255,255,.5)";
+ctx.lineWidth =
+1;
+ctx.stroke();
+/* =========================================
+ASA DIANTEIRA
+========================================= */
+ctx.fillStyle =
+car.color;
+ctx.fillRect(
+-22,
+-37,
+44,
+6
+);
+/* =========================================
+LUZ CENTRAL
+========================================= */
+if(!isEnemy){
+ctx.fillStyle =
+"#ffffff";
+ctx.shadowColor =
+"#ffffff";
+ctx.shadowBlur =
+12;
+ctx.fillRect(
+-2,
+-34,
+4,
+7
+);
+}
+ctx.shadowBlur =
+0;
+ctx.restore();
+}
+  function draw(t){
+    if(scene!=='race')return;
+    ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,width,height);ctx.save();
+    // Mundo normalizado: mesma visibilidade e colisões em qualquer tela.
+    ctx.scale(width/360,height/760);
+    const s=race||E.create(1),offset=s.distance*3.1;
+    const maps=[
+      {name:'NEON CITY',sky:'#07111d',side1:'#172236',side2:'#1b2a3a',road:'#151b25',edge:'#00d0ff',accent:'#b26cff'},
+      {name:'TÚNEL VIOLETA',sky:'#10091c',side1:'#241735',side2:'#161024',road:'#18151f',edge:'#b26cff',accent:'#ff4fd8'},
+      {name:'DESERTO SOLAR',sky:'#2a160d',side1:'#6a3420',side2:'#3c2118',road:'#28201d',edge:'#ff9c38',accent:'#ffd54a'},
+      {name:'GELO AZUL',sky:'#071923',side1:'#153b4a',side2:'#0d2936',road:'#12222a',edge:'#6cecff',accent:'#e8ffff'},
+      {name:'ZONA VULCÂNICA',sky:'#200707',side1:'#4c1111',side2:'#2a0909',road:'#241515',edge:'#ff3b22',accent:'#ffb11b'}
+    ];
+    const theme=maps[s.mapStage%maps.length];
+    ctx.fillStyle=theme.sky;ctx.fillRect(0,0,360,760);
+    for(let side=0;side<2;side++)for(let i=0;i<9;i++){const y=(i*112+offset*.6)%1008-140,x=side?326:0;round(x,y,34,76,3,i%2?theme.side1:theme.side2);ctx.fillStyle=theme.accent+'88';for(let j=0;j<3;j++)ctx.fillRect(x+8,y+12+j*17,15,3);}
+    ctx.fillStyle='#192231';ctx.fillRect(43,0,274,760);ctx.fillStyle=theme.road;ctx.fillRect(47,0,266,760);for(let yy=-120;yy<840;yy+=120){ctx.fillStyle=theme.edge+'0d';ctx.fillRect(47,yy+offset%120,266,24);}
+    const g=ctx.createLinearGradient(47,0,313,0);g.addColorStop(0,theme.edge+'1d');g.addColorStop(.4,'#0000');g.addColorStop(1,theme.accent+'18');ctx.fillStyle=g;ctx.fillRect(47,0,266,760);
+    for(let i=-1;i<15;i++){let yy=(i*65+offset)%975-90;ctx.fillStyle=i%2?'#cad8da':'#334758';ctx.fillRect(39,yy,4,33);ctx.fillRect(317,yy,4,33);ctx.fillStyle='#ffffff88';ctx.fillRect(134,yy,2,32);ctx.fillRect(224,yy,2,32);}
+    ctx.save();ctx.fillStyle=theme.edge;ctx.shadowColor=theme.edge;ctx.shadowBlur=settings.quality==='high'?10:0;ctx.fillRect(45,0,2,760);ctx.fillRect(313,0,2,760);for(let yy=-80;yy<800;yy+=80){const y=yy+(offset*1.3)%80;ctx.fillRect(36,y,3,14);ctx.fillRect(321,y,3,14);}ctx.restore();
+    for(const o of s.objects){const x=90+o.lane*90;if(o.kind==='obstacle'){
+      if(o.subtype==='racer')drawCar(x,o.y,o.color,.86,Math.sin(t*.002+o.wobble)*.025,false,['gt','prototype','hyper'][o.id%3]);
+      else if(o.subtype==='truck'){ctx.save();ctx.translate(x,o.y);round(-27,-48,54,96,9,'#293443');round(-22,-40,44,30,6,o.color);ctx.fillStyle='#07090d';ctx.fillRect(-30,-32,7,22);ctx.fillRect(23,-32,7,22);ctx.fillRect(-30,20,7,22);ctx.fillRect(23,20,7,22);ctx.restore();}
+      else if(o.subtype==='barrier'){ctx.save();ctx.translate(x,o.y);round(-34,-17,68,34,5,'#e7e7e7');ctx.fillStyle='#ff5b35';for(let q=-28;q<28;q+=18){ctx.save();ctx.translate(q,0);ctx.rotate(-.6);ctx.fillRect(-4,-17,8,34);ctx.restore();}ctx.restore();}
+      else {ctx.save();ctx.translate(x,o.y);for(let q=-1;q<=1;q++){ctx.fillStyle='#ff7b20';ctx.beginPath();ctx.moveTo(q*20,-20);ctx.lineTo(q*20-11,20);ctx.lineTo(q*20+11,20);ctx.fill();ctx.fillStyle='#fff';ctx.fillRect(q*20-7,2,14,5);}ctx.restore();}
+    }else if(!o.used){ctx.save();ctx.translate(x,o.y);ctx.rotate(Math.sin(t*.003)*.15);if(o.kind==='coin'){ctx.fillStyle=theme.edge+'22';ctx.beginPath();ctx.arc(0,0,19,0,Math.PI*2);ctx.fill();ctx.fillStyle='#ffd54a';ctx.beginPath();ctx.moveTo(0,-12);ctx.lineTo(10,0);ctx.lineTo(0,12);ctx.lineTo(-10,0);ctx.fill();}else{round(-14,-15,28,30,8,'#77def5');ctx.fillStyle='#132d40';ctx.font='bold 19px Arial';ctx.textAlign='center';ctx.fillText('S',0,7);}ctx.restore();}}
+    visualX+=(s.x-visualX)*.45;
+    if(s.alive||Math.sin(t*.02)>0){ctx.save();if(s.invulnerable>0&&Math.sin(t*.03)>0)ctx.globalAlpha=.45;drawCar(90+visualX*90,537,color(),.9,(input.lane-visualX)*.09,s.boost,E.cars[profile.selected].model,profile.nitroFx,currentPaint().special);ctx.restore();}
+    if(s.shield>0){ctx.strokeStyle='#00d0ff99';ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(90+visualX*90,537,36,55,0,0,Math.PI*2);ctx.stroke();}
+    if(settings.weather){ctx.strokeStyle='#b8d2e43b';ctx.lineWidth=1;ctx.beginPath();for(let i=0;i<(settings.quality==='high'?60:24);i++){const x=(i*97)%360,y=(i*73+t*.5)%800;ctx.moveTo(x,y);ctx.lineTo(x-5,y+24);}ctx.stroke();}
+    if(s.boost&&settings.particles){ctx.strokeStyle='#b0daff66';ctx.beginPath();for(let i=0;i<12;i++){const x=i<6?15+i*4:325+(i-6)*4,y=(i*91+t*.9)%850;ctx.moveTo(x,y);ctx.lineTo(x,y+70);}ctx.stroke();}
+    if(s.boost){ctx.save();ctx.globalAlpha=.18+.08*Math.sin(t*.02);ctx.strokeStyle=theme.edge;ctx.lineWidth=2;for(let i=0;i<18;i++){const x=(i*47+t*.23)%360,y=(i*93+t*1.7)%760;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,y+45+(i%5)*8);ctx.stroke();}ctx.restore();}
+    const bottom=ctx.createLinearGradient(0,610,0,760);bottom.addColorStop(0,'#080c1500');bottom.addColorStop(1,'#080c15ee');ctx.fillStyle=bottom;ctx.fillRect(0,610,360,150);ctx.restore();
+  }
+  let lastHud=0;
+  function frame(t){const dt=Math.min((t-last)/1000||0,.1);last=t;
+    if(scene==='race'&&race){
+      if(mode==='solo'&&!paused){if(countdown>0){countdown=Math.max(0,countdown-dt);}else{accumulator+=dt;while(accumulator>=1/60){E.step(race,1/60,input);accumulator-=1/60;}if(!race.alive)finish();}}
+      if(race.hit>seenHit){seenHit=race.hit;beep(110,.18);if(settings.vibration&&navigator.vibrate)navigator.vibrate(55);}
+      if(race.coins>seenCoins){seenCoins=race.coins;beep(850,.05);}
+      if(race.mapStage!==seenMapStage){
+        seenMapStage=race.mapStage;
+        showMapBanner(mapNames[race.mapStage]||('MAPA '+(race.mapStage+1)));
+        race.mapChanged=false;
+      }
+      if(t-lastHud>70){lastHud=t;$('race-score').textContent=fmt(race.score);$('race-level').textContent='NÍVEL '+(1+Math.floor(race.time/10))+' · MAPA '+(race.mapStage+1)+' · '+Math.floor(race.time/60)+':'+String(Math.floor(race.time%60)).padStart(2,'0');$('nitro').classList.toggle('boosting',race.boost);$('race-speed').textContent=Math.floor(race.speed);$('race-coins').textContent='◈ '+race.coins;$('race-health').textContent='♥ '.repeat(Math.max(0,race.health));$('nitro-fill').style.width=race.nitro+'%';{$('race-message').textContent=countdown>0?Math.ceil(countdown):'';$('race-message').style.fontSize=countdown>0?'70px':'21px';}}
+      draw(t);
+    }
+    requestAnimationFrame(frame);
+  }
+  syncSettings();
+  refresh();
+  save();
+  window.addEventListener('resize',updateResponsiveLayout,{passive:true});
+  window.addEventListener('orientationchange',()=>setTimeout(updateResponsiveLayout,120),{passive:true});
+  if(window.visualViewport){
+    window.visualViewport.addEventListener('resize',updateResponsiveLayout,{passive:true});
+  }
+  updateResponsiveLayout();
+  requestAnimationFrame(frame);
+})();
+</script>
 </body>
 </html>
